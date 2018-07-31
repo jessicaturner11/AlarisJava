@@ -1,0 +1,4689 @@
+<PIMS>
+ <PresentationModel> 
+ <PModel>AlarisInfusionPump</PModel>
+
+ <cpmodel> 
+ <cpname>Off</cpname> 
+<widget>
+ <name>Button1</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Button2</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Button3</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>DoubleUp</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Up</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Down</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>DoubleDown</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Run</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Hold</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Prime</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Mute</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Options</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Level</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>OnOff</name> 
+ <cat>ActionControl</cat> 
+<beh>S_SwitchOn</beh> 
+<beh>I_ClearSetup</beh> 
+</widget> 
+<widget>
+ <name>AlarmLight</name> 
+ <cat>Responder</cat> 
+<beh>S_SwitchOn</beh> 
+</widget> 
+<widget>
+ <name>Alarm</name> 
+ <cat>Responder</cat> 
+<beh>S_SwitchOn</beh> 
+</widget> 
+<widget>
+ <name>Timer</name> 
+ <cat>Responder</cat> 
+</widget> 
+<widget>
+ <name>Door</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>RunLight</name> 
+ <cat>Responder</cat> 
+</widget> 
+<widget>
+ <name>OnHoldLight</name> 
+ <cat>Responder</cat> 
+</widget> 
+<widget>
+ <name>PlugLight</name> 
+ <cat>Responder</cat> 
+</widget> 
+<widget>
+ <name>BatteryLight</name> 
+ <cat>Responder</cat> 
+</widget> 
+<widget>
+ <name>Display</name> 
+ <cat>Responder</cat> 
+<beh>S_SwitchOn</beh> 
+</widget> 
+</cpmodel> 
+
+ <cpmodel> 
+ <cpname>ClearSetup</cpname> 
+<widget>
+ <name>Button1</name> 
+ <cat>ActionControl</cat> 
+<beh>I_ConfirmProfile</beh> 
+<beh>S_ClearSetup</beh> 
+</widget> 
+<widget>
+ <name>Button2</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Button3</name> 
+ <cat>ActionControl</cat> 
+<beh>I_RateOnHold</beh> 
+<beh>S_ChangeReset</beh> 
+</widget> 
+<widget>
+ <name>DoubleUp</name> 
+ <cat>ActionControl</cat> 
+<beh>I_SelectListItem</beh> 
+</widget> 
+<widget>
+ <name>Up</name> 
+ <cat>ActionControl</cat> 
+<beh>I_SelectListItem</beh> 
+</widget> 
+<widget>
+ <name>Down</name> 
+ <cat>ActionControl</cat> 
+<beh>I_SelectListItem</beh> 
+</widget> 
+<widget>
+ <name>DoubleDown</name> 
+ <cat>ActionControl</cat> 
+<beh>I_SelectListItem</beh> 
+</widget> 
+<widget>
+ <name>Run</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Hold</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Prime</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Mute</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Options</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Level</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>OnOff</name> 
+ <cat>ActionControl</cat> 
+<beh>I_PowerDown</beh> 
+</widget> 
+<widget>
+ <name>AlarmLight</name> 
+ <cat>Responder</cat> 
+</widget> 
+<widget>
+ <name>Alarm</name> 
+ <cat>Responder</cat> 
+</widget> 
+<widget>
+ <name>Timer</name> 
+ <cat>Responder</cat> 
+<beh>I_Attention</beh> 
+</widget> 
+<widget>
+ <name>Door</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>RunLight</name> 
+ <cat>Responder</cat> 
+</widget> 
+<widget>
+ <name>OnHoldLight</name> 
+ <cat>Responder</cat> 
+<beh>S_OnHold</beh> 
+</widget> 
+<widget>
+ <name>PlugLight</name> 
+ <cat>Responder</cat> 
+<beh>S_Charging</beh> 
+</widget> 
+<widget>
+ <name>BatteryLight</name> 
+ <cat>Responder</cat> 
+<beh>S_BatteryStatus</beh> 
+</widget> 
+<widget>
+ <name>Display</name> 
+ <cat>Responder</cat> 
+<beh>I_SelectListItem</beh> 
+</widget> 
+</cpmodel> 
+
+ <cpmodel> 
+ <cpname>PowerDown</cpname> 
+<widget>
+ <name>Button1</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Button2</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Button3</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>DoubleUp</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Up</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Down</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>DoubleDown</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Run</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Hold</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Prime</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Mute</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Options</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Level</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>OnOff</name> 
+ <cat>ActionControl</cat> 
+<beh>Quit</beh> 
+</widget> 
+<widget>
+ <name>AlarmLight</name> 
+ <cat>Responder</cat> 
+</widget> 
+<widget>
+ <name>Alarm</name> 
+ <cat>Responder</cat> 
+</widget> 
+<widget>
+ <name>Timer</name> 
+ <cat>Responder</cat> 
+<beh>S_CountDownToOff</beh> 
+</widget> 
+<widget>
+ <name>Door</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>RunLight</name> 
+ <cat>Responder</cat> 
+<beh>S_Infusing</beh> 
+<beh>S_OnHold</beh> 
+</widget> 
+<widget>
+ <name>OnHoldLight</name> 
+ <cat>Responder</cat> 
+<beh>S_OnHold</beh> 
+</widget> 
+<widget>
+ <name>PlugLight</name> 
+ <cat>Responder</cat> 
+<beh>S_Charging</beh> 
+</widget> 
+<widget>
+ <name>BatteryLight</name> 
+ <cat>Responder</cat> 
+</widget> 
+<widget>
+ <name>Display</name> 
+ <cat>Responder</cat> 
+<beh>S_CountDownToOff</beh> 
+</widget> 
+</cpmodel> 
+
+ <cpmodel> 
+ <cpname>ConfirmProfile</cpname> 
+<widget>
+ <name>Button1</name> 
+ <cat>ActionControl</cat> 
+<beh>I_SelectCategory</beh> 
+<beh>S_SetProfile</beh> 
+</widget> 
+<widget>
+ <name>Button2</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Button3</name> 
+ <cat>ActionControl</cat> 
+<beh>I_Profile</beh> 
+</widget> 
+<widget>
+ <name>DoubleUp</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Up</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Down</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>DoubleDown</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Run</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Hold</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Prime</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Mute</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Options</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Level</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>OnOff</name> 
+ <cat>ActionControl</cat> 
+<beh>I_PowerDown</beh> 
+</widget> 
+<widget>
+ <name>AlarmLight</name> 
+ <cat>Responder</cat> 
+</widget> 
+<widget>
+ <name>Alarm</name> 
+ <cat>Responder</cat> 
+</widget> 
+<widget>
+ <name>Timer</name> 
+ <cat>Responder</cat> 
+<beh>I_Attention</beh> 
+</widget> 
+<widget>
+ <name>Door</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>RunLight</name> 
+ <cat>Responder</cat> 
+</widget> 
+<widget>
+ <name>OnHoldLight</name> 
+ <cat>Responder</cat> 
+<beh>S_OnHold</beh> 
+</widget> 
+<widget>
+ <name>PlugLight</name> 
+ <cat>Responder</cat> 
+<beh>S_Charging</beh> 
+</widget> 
+<widget>
+ <name>BatteryLight</name> 
+ <cat>Responder</cat> 
+<beh>S_BatteryStatus</beh> 
+</widget> 
+<widget>
+ <name>Display</name> 
+ <cat>Responder</cat> 
+</widget> 
+</cpmodel> 
+
+ <cpmodel> 
+ <cpname>Profile</cpname> 
+<widget>
+ <name>Button1</name> 
+ <cat>ActionControl</cat> 
+<beh>I_ConfirmProfile</beh> 
+</widget> 
+<widget>
+ <name>Button2</name> 
+ <cat>ActionControl</cat> 
+<beh>I_ViewAllOptions</beh> 
+</widget> 
+<widget>
+ <name>Button3</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>DoubleUp</name> 
+ <cat>ActionControl</cat> 
+<beh>S_TopOfProfile</beh> 
+</widget> 
+<widget>
+ <name>Up</name> 
+ <cat>ActionControl</cat> 
+<beh>S_UpProfileOne</beh> 
+</widget> 
+<widget>
+ <name>Down</name> 
+ <cat>ActionControl</cat> 
+<beh>S_DownProfileOne</beh> 
+</widget> 
+<widget>
+ <name>DoubleDown</name> 
+ <cat>ActionControl</cat> 
+<beh>S_BottomOfProfile</beh> 
+</widget> 
+<widget>
+ <name>Run</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Hold</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Prime</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Mute</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Options</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Level</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>OnOff</name> 
+ <cat>ActionControl</cat> 
+<beh>I_PowerDown</beh> 
+</widget> 
+<widget>
+ <name>AlarmLight</name> 
+ <cat>Responder</cat> 
+</widget> 
+<widget>
+ <name>Alarm</name> 
+ <cat>Responder</cat> 
+</widget> 
+<widget>
+ <name>Timer</name> 
+ <cat>Responder</cat> 
+<beh>I_Attention</beh> 
+</widget> 
+<widget>
+ <name>Door</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>RunLight</name> 
+ <cat>Responder</cat> 
+</widget> 
+<widget>
+ <name>OnHoldLight</name> 
+ <cat>Responder</cat> 
+<beh>S_OnHold</beh> 
+</widget> 
+<widget>
+ <name>PlugLight</name> 
+ <cat>Responder</cat> 
+<beh>S_Charging</beh> 
+</widget> 
+<widget>
+ <name>BatteryLight</name> 
+ <cat>Responder</cat> 
+<beh>S_BatteryStatus</beh> 
+</widget> 
+<widget>
+ <name>Display</name> 
+ <cat>Responder</cat> 
+<beh>S_TopOfProfile</beh> 
+<beh>S_UpProfileOne</beh> 
+<beh>S_DownProfileOne</beh> 
+<beh>S_BottomOfProfile</beh> 
+</widget> 
+</cpmodel> 
+
+ <cpmodel> 
+ <cpname>SelectDrugCategory</cpname> 
+<widget>
+ <name>Button1</name> 
+ <cat>ActionControl</cat> 
+<beh>I_SelectDrug</beh> 
+<beh>S_SetDrugCategory</beh> 
+</widget> 
+<widget>
+ <name>Button2</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Button3</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>DoubleUp</name> 
+ <cat>ActionControl</cat> 
+<beh>S_TopCategory</beh> 
+</widget> 
+<widget>
+ <name>Up</name> 
+ <cat>ActionControl</cat> 
+<beh>S_UpCategoryOne</beh> 
+</widget> 
+<widget>
+ <name>Down</name> 
+ <cat>ActionControl</cat> 
+<beh>S_DownCategoryOne</beh> 
+</widget> 
+<widget>
+ <name>DoubleDown</name> 
+ <cat>ActionControl</cat> 
+<beh>S_BottomCategory</beh> 
+</widget> 
+<widget>
+ <name>Run</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Hold</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Prime</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Mute</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Options</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Level</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>OnOff</name> 
+ <cat>ActionControl</cat> 
+<beh>I_PowerDown</beh> 
+</widget> 
+<widget>
+ <name>AlarmLight</name> 
+ <cat>Responder</cat> 
+</widget> 
+<widget>
+ <name>Alarm</name> 
+ <cat>Responder</cat> 
+</widget> 
+<widget>
+ <name>Timer</name> 
+ <cat>Responder</cat> 
+<beh>I_Attention</beh> 
+</widget> 
+<widget>
+ <name>Door</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>RunLight</name> 
+ <cat>Responder</cat> 
+</widget> 
+<widget>
+ <name>OnHoldLight</name> 
+ <cat>Responder</cat> 
+<beh>S_OnHold</beh> 
+</widget> 
+<widget>
+ <name>PlugLight</name> 
+ <cat>Responder</cat> 
+<beh>S_Charging</beh> 
+</widget> 
+<widget>
+ <name>BatteryLight</name> 
+ <cat>Responder</cat> 
+<beh>S_BatteryStatus</beh> 
+</widget> 
+<widget>
+ <name>Display</name> 
+ <cat>Responder</cat> 
+<beh>S_TopCategory</beh> 
+<beh>S_UpCategoryOne</beh> 
+<beh>S_DownCategoryOne</beh> 
+<beh>S_BottomCategory</beh> 
+</widget> 
+</cpmodel> 
+
+ <cpmodel> 
+ <cpname>SelectDrug</cpname> 
+<widget>
+ <name>Button1</name> 
+ <cat>ActionControl</cat> 
+<beh>I_ConfirmRate</beh> 
+<beh>S_SetDrug</beh> 
+</widget> 
+<widget>
+ <name>Button2</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Button3</name> 
+ <cat>ActionControl</cat> 
+<beh>I_SelectDrugCategory</beh> 
+</widget> 
+<widget>
+ <name>DoubleUp</name> 
+ <cat>ActionControl</cat> 
+<beh>S_TopOfDrugs</beh> 
+</widget> 
+<widget>
+ <name>Up</name> 
+ <cat>ActionControl</cat> 
+<beh>S_UpDrugsOne</beh> 
+</widget> 
+<widget>
+ <name>Down</name> 
+ <cat>ActionControl</cat> 
+<beh>S_DownDrugsOne</beh> 
+</widget> 
+<widget>
+ <name>DoubleDown</name> 
+ <cat>ActionControl</cat> 
+<beh>S_BottomOfDrugs</beh> 
+</widget> 
+<widget>
+ <name>Run</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Hold</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Prime</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Mute</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Options</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Level</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>OnOff</name> 
+ <cat>ActionControl</cat> 
+<beh>I_PowerDown</beh> 
+</widget> 
+<widget>
+ <name>AlarmLight</name> 
+ <cat>Responder</cat> 
+</widget> 
+<widget>
+ <name>Alarm</name> 
+ <cat>Responder</cat> 
+</widget> 
+<widget>
+ <name>Timer</name> 
+ <cat>Responder</cat> 
+<beh>I_Attention</beh> 
+</widget> 
+<widget>
+ <name>Door</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>RunLight</name> 
+ <cat>Responder</cat> 
+</widget> 
+<widget>
+ <name>OnHoldLight</name> 
+ <cat>Responder</cat> 
+<beh>S_OnHold</beh> 
+</widget> 
+<widget>
+ <name>PlugLight</name> 
+ <cat>Responder</cat> 
+<beh>S_Charging</beh> 
+</widget> 
+<widget>
+ <name>BatteryLight</name> 
+ <cat>Responder</cat> 
+<beh>S_BatteryStatus</beh> 
+</widget> 
+<widget>
+ <name>Display</name> 
+ <cat>Responder</cat> 
+<beh>S_TopOfDrugs</beh> 
+<beh>S_UpDrugsOne</beh> 
+<beh>S_DownDrugsOne</beh> 
+<beh>S_BottomOfDrugs</beh> 
+</widget> 
+</cpmodel> 
+
+ <cpmodel> 
+ <cpname>ConfirmRate</cpname> 
+<widget>
+ <name>Button1</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Button2</name> 
+ <cat>ActionControl</cat> 
+<beh>I_RateOnHold</beh> 
+<beh>S_SetRate</beh> 
+<beh>S_ChangeReset</beh> 
+</widget> 
+<widget>
+ <name>Button3</name> 
+ <cat>ActionControl</cat> 
+<beh>I_SelectDrug</beh> 
+</widget> 
+<widget>
+ <name>DoubleUp</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Up</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Down</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>DoubleDown</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Run</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Hold</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Prime</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Mute</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Options</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Level</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>OnOff</name> 
+ <cat>ActionControl</cat> 
+<beh>I_PowerDown</beh> 
+</widget> 
+<widget>
+ <name>AlarmLight</name> 
+ <cat>Responder</cat> 
+</widget> 
+<widget>
+ <name>Alarm</name> 
+ <cat>Responder</cat> 
+</widget> 
+<widget>
+ <name>Timer</name> 
+ <cat>Responder</cat> 
+<beh>I_Attention</beh> 
+</widget> 
+<widget>
+ <name>Door</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>RunLight</name> 
+ <cat>Responder</cat> 
+</widget> 
+<widget>
+ <name>OnHoldLight</name> 
+ <cat>Responder</cat> 
+<beh>S_OnHold</beh> 
+</widget> 
+<widget>
+ <name>PlugLight</name> 
+ <cat>Responder</cat> 
+<beh>S_Charging</beh> 
+</widget> 
+<widget>
+ <name>BatteryLight</name> 
+ <cat>Responder</cat> 
+<beh>S_BatteryStatus</beh> 
+</widget> 
+<widget>
+ <name>Display</name> 
+ <cat>Responder</cat> 
+</widget> 
+</cpmodel> 
+
+ <cpmodel> 
+ <cpname>Volume</cpname> 
+<widget>
+ <name>Button1</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Button2RateOnHold</name> 
+ <cat>ActionControl</cat> 
+<beh>I_RateOnHold</beh> 
+<beh>S_ClearVolume</beh> 
+<beh>S_ChangeReset</beh> 
+</widget> 
+<widget>
+ <name>Button3RateOnHold</name> 
+ <cat>ActionControl</cat> 
+<beh>I_RateOnHold</beh> 
+<beh>S_ChangeReset</beh> 
+</widget> 
+<widget>
+ <name>DoubleUp</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Up</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Down</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>DoubleDown</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Run</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Hold</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Prime</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Mute</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Options</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Level</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>OnOff</name> 
+ <cat>ActionControl</cat> 
+<beh>I_PowerDown</beh> 
+</widget> 
+<widget>
+ <name>AlarmLight</name> 
+ <cat>Responder</cat> 
+</widget> 
+<widget>
+ <name>Alarm</name> 
+ <cat>Responder</cat> 
+</widget> 
+<widget>
+ <name>TimerRateOnHold</name> 
+ <cat>Responder</cat> 
+<beh>I_RateOnHold</beh> 
+<beh>S_ChangeReset</beh> 
+</widget> 
+<widget>
+ <name>Door</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>RunLight</name> 
+ <cat>Responder</cat> 
+<beh>S_Infusing</beh> 
+</widget> 
+<widget>
+ <name>OnHoldLight</name> 
+ <cat>Responder</cat> 
+<beh>S_OnHold</beh> 
+</widget> 
+<widget>
+ <name>PlugLight</name> 
+ <cat>Responder</cat> 
+<beh>S_Charging</beh> 
+</widget> 
+<widget>
+ <name>BatteryLight</name> 
+ <cat>Responder</cat> 
+<beh>S_BatteryStatus</beh> 
+</widget> 
+<widget>
+ <name>Display</name> 
+ <cat>Responder</cat> 
+<beh>S_ClearVolume</beh> 
+</widget> 
+<widget>
+ <name>Button2RateInfusing</name> 
+ <cat>ActionControl</cat> 
+<beh>I_RateInfusing</beh> 
+<beh>S_ClearVolume</beh> 
+<beh>S_ChangeReset</beh> 
+</widget> 
+<widget>
+ <name>Button3RateInfusing</name> 
+ <cat>ActionControl</cat> 
+<beh>I_RateInfusing</beh> 
+<beh>S_ChangeReset</beh> 
+</widget> 
+<widget>
+ <name>TimerRateInfusing</name> 
+ <cat>Responder</cat> 
+<beh>I_RateInfusing</beh> 
+<beh>S_ChangeReset</beh> 
+</widget> 
+</cpmodel> 
+
+ <cpmodel> 
+ <cpname>SetNotFitted</cpname> 
+<widget>
+ <name>Button1</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Button2</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Button3</name> 
+ <cat>ActionControl</cat> 
+<beh>I_RateOnHold</beh> 
+<beh>S_ChangeReset</beh> 
+</widget> 
+<widget>
+ <name>DoubleUp</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Up</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Down</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>DoubleDown</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Run</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Hold</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Prime</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Mute</name> 
+ <cat>ActionControl</cat> 
+<beh>S_StopAlarm</beh> 
+</widget> 
+<widget>
+ <name>Options</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Level</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>OnOff</name> 
+ <cat>ActionControl</cat> 
+<beh>I_PowerDown</beh> 
+</widget> 
+<widget>
+ <name>AlarmLight</name> 
+ <cat>Responder</cat> 
+<beh>S_StartAlarm</beh> 
+<beh>S_StopAlarm</beh> 
+</widget> 
+<widget>
+ <name>Alarm</name> 
+ <cat>Responder</cat> 
+<beh>S_StartAlarm</beh> 
+<beh>S_StopAlarm</beh> 
+</widget> 
+<widget>
+ <name>Timer</name> 
+ <cat>Responder</cat> 
+<beh>S_StartAlarm</beh> 
+</widget> 
+<widget>
+ <name>Door</name> 
+ <cat>ActionControl</cat> 
+<beh>I_DoorOpen</beh> 
+</widget> 
+<widget>
+ <name>RunLight</name> 
+ <cat>Responder</cat> 
+</widget> 
+<widget>
+ <name>OnHoldLight</name> 
+ <cat>Responder</cat> 
+<beh>S_OnHold</beh> 
+</widget> 
+<widget>
+ <name>PlugLight</name> 
+ <cat>Responder</cat> 
+<beh>S_Charging</beh> 
+</widget> 
+<widget>
+ <name>BatteryLight</name> 
+ <cat>Responder</cat> 
+<beh>S_BatteryStatus</beh> 
+</widget> 
+<widget>
+ <name>Display</name> 
+ <cat>Responder</cat> 
+</widget> 
+</cpmodel> 
+
+ <cpmodel> 
+ <cpname>Prime</cpname> 
+<widget>
+ <name>Button1</name> 
+ <cat>ActionControl</cat> 
+<beh>I_SetNotFitted</beh> 
+</widget> 
+<widget>
+ <name>Button2</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Button3</name> 
+ <cat>ActionControl</cat> 
+<beh>I_RateOnHold</beh> 
+<beh>S_ChangeReset</beh> 
+</widget> 
+<widget>
+ <name>DoubleUp</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Up</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Down</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>DoubleDown</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Run</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Hold</name> 
+ <cat>ActionControl</cat> 
+<beh>I_RateOnHold</beh> 
+<beh>S_ChangeReset</beh> 
+</widget> 
+<widget>
+ <name>Prime</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Mute</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Options</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Level</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>OnOff</name> 
+ <cat>ActionControl</cat> 
+<beh>I_PowerDown</beh> 
+</widget> 
+<widget>
+ <name>AlarmLight</name> 
+ <cat>Responder</cat> 
+</widget> 
+<widget>
+ <name>Alarm</name> 
+ <cat>Responder</cat> 
+</widget> 
+<widget>
+ <name>Timer</name> 
+ <cat>Responder</cat> 
+<beh>I_RateOnHold</beh> 
+<beh>S_ChangeReset</beh> 
+</widget> 
+<widget>
+ <name>Door</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>RunLight</name> 
+ <cat>Responder</cat> 
+</widget> 
+<widget>
+ <name>OnHoldLight</name> 
+ <cat>Responder</cat> 
+<beh>S_OnHold</beh> 
+</widget> 
+<widget>
+ <name>PlugLight</name> 
+ <cat>Responder</cat> 
+<beh>S_Charging</beh> 
+</widget> 
+<widget>
+ <name>BatteryLight</name> 
+ <cat>Responder</cat> 
+<beh>S_BatteryStatus</beh> 
+</widget> 
+<widget>
+ <name>Display</name> 
+ <cat>Responder</cat> 
+</widget> 
+</cpmodel> 
+
+ <cpmodel> 
+ <cpname>Options</cpname> 
+<widget>
+ <name>Button1RateOnHold</name> 
+ <cat>ActionControl</cat> 
+<beh>I_RateOnHold</beh> 
+<beh>S_ChangeReset</beh> 
+</widget> 
+<widget>
+ <name>Button2</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Button3RateOnHold</name> 
+ <cat>ActionControl</cat> 
+<beh>I_RateOnHold</beh> 
+<beh>S_ChangeReset</beh> 
+</widget> 
+<widget>
+ <name>DoubleUp</name> 
+ <cat>ActionControl</cat> 
+<beh>S_TopOfOptions</beh> 
+</widget> 
+<widget>
+ <name>Up</name> 
+ <cat>ActionControl</cat> 
+<beh>S_UpOptionsOne</beh> 
+</widget> 
+<widget>
+ <name>Down</name> 
+ <cat>ActionControl</cat> 
+<beh>S_DownOptionsOne</beh> 
+</widget> 
+<widget>
+ <name>DoubleDown</name> 
+ <cat>ActionControl</cat> 
+<beh>S_BottomOfOptions</beh> 
+</widget> 
+<widget>
+ <name>Run</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Hold</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Prime</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Mute</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>OptionsRateOnHold</name> 
+ <cat>ActionControl</cat> 
+<beh>I_RateOnHold</beh> 
+</widget> 
+<widget>
+ <name>Level</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>OnOff</name> 
+ <cat>ActionControl</cat> 
+<beh>I_PowerDown</beh> 
+</widget> 
+<widget>
+ <name>AlarmLight</name> 
+ <cat>Responder</cat> 
+</widget> 
+<widget>
+ <name>Alarm</name> 
+ <cat>Responder</cat> 
+</widget> 
+<widget>
+ <name>Timer</name> 
+ <cat>Responder</cat> 
+<beh>I_RateOnHold</beh> 
+<beh>S_ChangeReset</beh> 
+</widget> 
+<widget>
+ <name>Door</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>RunLight</name> 
+ <cat>Responder</cat> 
+<beh>S_Infusing</beh> 
+</widget> 
+<widget>
+ <name>OnHoldLight</name> 
+ <cat>Responder</cat> 
+<beh>S_OnHold</beh> 
+</widget> 
+<widget>
+ <name>PlugLight</name> 
+ <cat>Responder</cat> 
+<beh>S_Charging</beh> 
+</widget> 
+<widget>
+ <name>BatteryLight</name> 
+ <cat>Responder</cat> 
+<beh>S_BatteryStatus</beh> 
+</widget> 
+<widget>
+ <name>Display</name> 
+ <cat>Responder</cat> 
+<beh>S_TopOfOptions</beh> 
+<beh>S_UpOptionsOne</beh> 
+<beh>S_DownOptionsOne</beh> 
+<beh>S_BottomOfOptions</beh> 
+</widget> 
+<widget>
+ <name>Button3RateInfusing</name> 
+ <cat>ActionControl</cat> 
+<beh>I_RateInfusing</beh> 
+<beh>S_ChangeReset</beh> 
+</widget> 
+<widget>
+ <name>Button1RateInfusing</name> 
+ <cat>ActionControl</cat> 
+<beh>I_RateInfusing</beh> 
+<beh>S_ChangeReset</beh> 
+</widget> 
+<widget>
+ <name>Button1Dosing</name> 
+ <cat>ActionControl</cat> 
+<beh>I_Dosing</beh> 
+</widget> 
+<widget>
+ <name>Button1SelectDrugCategory</name> 
+ <cat>ActionControl</cat> 
+<beh>I_SelectDrugCategory</beh> 
+</widget> 
+<widget>
+ <name>Button1VTBITime</name> 
+ <cat>ActionControl</cat> 
+<beh>I_VTBITime</beh> 
+<beh>S_ChangeReset</beh> 
+</widget> 
+<widget>
+ <name>Button1AdjustAlarmVolume</name> 
+ <cat>ActionControl</cat> 
+<beh>I_AdjustAlarmVolume</beh> 
+</widget> 
+<widget>
+ <name>Button1EventLog</name> 
+ <cat>ActionControl</cat> 
+<beh>I_EventLog</beh> 
+</widget> 
+<widget>
+ <name>Button1PumpDetails</name> 
+ <cat>ActionControl</cat> 
+<beh>I_PumpDetails</beh> 
+</widget> 
+<widget>
+ <name>Button1ProfileFilter</name> 
+ <cat>ActionControl</cat> 
+<beh>I_ProfileFilter</beh> 
+</widget> 
+<widget>
+ <name>Button1Standby</name> 
+ <cat>ActionControl</cat> 
+<beh>I_Standby</beh> 
+</widget> 
+<widget>
+ <name>OptionsRateInfusing</name> 
+ <cat>ActionControl</cat> 
+<beh>I_RateInfusing</beh> 
+<beh>S_ChangeReset</beh> 
+</widget> 
+</cpmodel> 
+
+ <cpmodel> 
+ <cpname>PressureLevel</cpname> 
+<widget>
+ <name>Button1RateOnHold</name> 
+ <cat>ActionControl</cat> 
+<beh>I_RateOnHold</beh> 
+<beh>S_ChangeReset</beh> 
+</widget> 
+<widget>
+ <name>Button2</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Button3</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>DoubleUp</name> 
+ <cat>ActionControl</cat> 
+<beh>S_IncreaseSelection</beh> 
+</widget> 
+<widget>
+ <name>Up</name> 
+ <cat>ActionControl</cat> 
+<beh>S_IncreaseSelection</beh> 
+</widget> 
+<widget>
+ <name>Down</name> 
+ <cat>ActionControl</cat> 
+<beh>S_DecreaseSelection</beh> 
+</widget> 
+<widget>
+ <name>DoubleDown</name> 
+ <cat>ActionControl</cat> 
+<beh>S_DecreaseSelection</beh> 
+</widget> 
+<widget>
+ <name>Run</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Hold</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Prime</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Mute</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Options</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>LevelRateOnHold</name> 
+ <cat>ActionControl</cat> 
+<beh>I_RateOnHold</beh> 
+<beh>S_ChangeReset</beh> 
+</widget> 
+<widget>
+ <name>OnOff</name> 
+ <cat>ActionControl</cat> 
+<beh>I_PowerDown</beh> 
+</widget> 
+<widget>
+ <name>AlarmLight</name> 
+ <cat>Responder</cat> 
+</widget> 
+<widget>
+ <name>Alarm</name> 
+ <cat>Responder</cat> 
+</widget> 
+<widget>
+ <name>TimerRateOnHold</name> 
+ <cat>Responder</cat> 
+<beh>I_RateOnHold</beh> 
+</widget> 
+<widget>
+ <name>Door</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>RunLight</name> 
+ <cat>Responder</cat> 
+<beh>S_Infusing</beh> 
+</widget> 
+<widget>
+ <name>OnHoldLight</name> 
+ <cat>Responder</cat> 
+<beh>S_OnHold</beh> 
+</widget> 
+<widget>
+ <name>PlugLight</name> 
+ <cat>Responder</cat> 
+<beh>S_Charging</beh> 
+</widget> 
+<widget>
+ <name>BatteryLight</name> 
+ <cat>Responder</cat> 
+<beh>S_BatteryStatus</beh> 
+</widget> 
+<widget>
+ <name>Display</name> 
+ <cat>Responder</cat> 
+<beh>S_IncreaseSelection</beh> 
+<beh>S_DecreaseSelection</beh> 
+</widget> 
+<widget>
+ <name>Button1RateInfusing</name> 
+ <cat>ActionControl</cat> 
+<beh>I_RateInfusing</beh> 
+<beh>S_ChangeReset</beh> 
+</widget> 
+<widget>
+ <name>LevelRateInfusing</name> 
+ <cat>ActionControl</cat> 
+<beh>I_RateInfusing</beh> 
+<beh>S_ChangeReset</beh> 
+</widget> 
+<widget>
+ <name>TimeRateInfusing</name> 
+ <cat>Responder</cat> 
+<beh>I_RateInfusing</beh> 
+<beh>S_ChangeReset</beh> 
+</widget> 
+</cpmodel> 
+
+ <cpmodel> 
+ <cpname>Attention</cpname> 
+<widget>
+ <name>Button1</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Button2</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Button3ClearSetup</name> 
+ <cat>ActionControl</cat> 
+<beh>I_ClearSetup</beh> 
+</widget> 
+<widget>
+ <name>DoubleUp</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Up</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Down</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>DoubleDown</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Run</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Hold</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Prime</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Mute</name> 
+ <cat>ActionControl</cat> 
+<beh>S_StopAlarm</beh> 
+</widget> 
+<widget>
+ <name>Options</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Level</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>OnOff</name> 
+ <cat>ActionControl</cat> 
+<beh>I_PowerDown</beh> 
+</widget> 
+<widget>
+ <name>AlarmLight</name> 
+ <cat>Responder</cat> 
+<beh>S_StartAlarm</beh> 
+<beh>S_StopAlarm</beh> 
+</widget> 
+<widget>
+ <name>Alarm</name> 
+ <cat>Responder</cat> 
+<beh>S_StartAlarm</beh> 
+<beh>S_StopAlarm</beh> 
+</widget> 
+<widget>
+ <name>Timer</name> 
+ <cat>Responder</cat> 
+<beh>S_StartAlarm</beh> 
+</widget> 
+<widget>
+ <name>Door</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>RunLight</name> 
+ <cat>Responder</cat> 
+</widget> 
+<widget>
+ <name>OnHoldLight</name> 
+ <cat>Responder</cat> 
+<beh>S_OnHold</beh> 
+</widget> 
+<widget>
+ <name>PlugLight</name> 
+ <cat>Responder</cat> 
+<beh>S_Charging</beh> 
+</widget> 
+<widget>
+ <name>BatteryLight</name> 
+ <cat>Responder</cat> 
+<beh>S_BatteryStatus</beh> 
+</widget> 
+<widget>
+ <name>Display</name> 
+ <cat>Responder</cat> 
+</widget> 
+<widget>
+ <name>Button3ConfirmProfile</name> 
+ <cat>ActionControl</cat> 
+<beh>I_ConfirmProfile</beh> 
+</widget> 
+<widget>
+ <name>Button3RateOnHold</name> 
+ <cat>ActionControl</cat> 
+<beh>I_RateOnHold</beh> 
+<beh>S_ChangeReset</beh> 
+</widget> 
+<widget>
+ <name>Button3Profile</name> 
+ <cat>ActionControl</cat> 
+<beh>I_Profile</beh> 
+</widget> 
+<widget>
+ <name>Button3SelectDrugCategory</name> 
+ <cat>ActionControl</cat> 
+<beh>I_SelectDrugCategory</beh> 
+</widget> 
+<widget>
+ <name>Button3SelectDrug</name> 
+ <cat>ActionControl</cat> 
+<beh>I_SelectDrug</beh> 
+</widget> 
+<widget>
+ <name>Button3ConfirmRate</name> 
+ <cat>ActionControl</cat> 
+<beh>I_ConfirmRate</beh> 
+</widget> 
+<widget>
+ <name>Button3VTBITime</name> 
+ <cat>ActionControl</cat> 
+<beh>I_VTBITime</beh> 
+</widget> 
+</cpmodel> 
+
+ <cpmodel> 
+ <cpname>Dosing</cpname> 
+<widget>
+ <name>Button1</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Button2</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Button3RateOnHold</name> 
+ <cat>ActionControl</cat> 
+<beh>I_RateOnHold</beh> 
+<beh>S_ChangeReset</beh> 
+</widget> 
+<widget>
+ <name>DoubleUp</name> 
+ <cat>ActionControl</cat> 
+<beh>I_SelectListItem</beh> 
+</widget> 
+<widget>
+ <name>Up</name> 
+ <cat>ActionControl</cat> 
+<beh>I_SelectListItem</beh> 
+</widget> 
+<widget>
+ <name>Down</name> 
+ <cat>ActionControl</cat> 
+<beh>I_SelectListItem</beh> 
+</widget> 
+<widget>
+ <name>DoubleDown</name> 
+ <cat>ActionControl</cat> 
+<beh>I_SelectListItem</beh> 
+</widget> 
+<widget>
+ <name>Run</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Hold</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Prime</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Mute</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Options</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Level</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>OnOff</name> 
+ <cat>ActionControl</cat> 
+<beh>I_PowerDown</beh> 
+</widget> 
+<widget>
+ <name>AlarmLight</name> 
+ <cat>Responder</cat> 
+</widget> 
+<widget>
+ <name>Alarm</name> 
+ <cat>Responder</cat> 
+</widget> 
+<widget>
+ <name>TimerRateOnHold</name> 
+ <cat>Responder</cat> 
+<beh>I_RateOnHold</beh> 
+<beh>S_ChangeReset</beh> 
+</widget> 
+<widget>
+ <name>Door</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>RunLight</name> 
+ <cat>Responder</cat> 
+<beh>S_Infusing</beh> 
+</widget> 
+<widget>
+ <name>OnHoldLight</name> 
+ <cat>Responder</cat> 
+<beh>S_OnHold</beh> 
+</widget> 
+<widget>
+ <name>PlugLight</name> 
+ <cat>Responder</cat> 
+<beh>S_Charging</beh> 
+</widget> 
+<widget>
+ <name>BatteryLight</name> 
+ <cat>Responder</cat> 
+<beh>S_BatteryStatus</beh> 
+</widget> 
+<widget>
+ <name>Display</name> 
+ <cat>Responder</cat> 
+<beh>I_SelectListItem</beh> 
+</widget> 
+<widget>
+ <name>Button3RateInfusing</name> 
+ <cat>ActionControl</cat> 
+<beh>I_RateInfusing</beh> 
+<beh>S_ChangeReset</beh> 
+</widget> 
+<widget>
+ <name>TimerRateInfusing</name> 
+ <cat>Responder</cat> 
+<beh>I_RateInfusing</beh> 
+<beh>S_ChangeReset</beh> 
+</widget> 
+</cpmodel> 
+
+ <cpmodel> 
+ <cpname>VTBITime</cpname> 
+<widget>
+ <name>Button1</name> 
+ <cat>ActionControl</cat> 
+<beh>I_RateOnHold</beh> 
+<beh>S_ChangeReset</beh> 
+</widget> 
+<widget>
+ <name>Button2</name> 
+ <cat>ActionControl</cat> 
+<beh>I_VTBIBags</beh> 
+</widget> 
+<widget>
+ <name>Button3</name> 
+ <cat>ActionControl</cat> 
+<beh>I_RateOnHold</beh> 
+<beh>S_ChangeReset</beh> 
+</widget> 
+<widget>
+ <name>DoubleUp</name> 
+ <cat>ActionControl</cat> 
+<beh>S_IncreaseTimeDouble</beh> 
+</widget> 
+<widget>
+ <name>Up</name> 
+ <cat>ActionControl</cat> 
+<beh>S_IncreaseTime</beh> 
+</widget> 
+<widget>
+ <name>Down</name> 
+ <cat>ActionControl</cat> 
+<beh>S_DecreaseTime</beh> 
+</widget> 
+<widget>
+ <name>DoubleDown</name> 
+ <cat>ActionControl</cat> 
+<beh>S_DecreaseTimeDouble</beh> 
+</widget> 
+<widget>
+ <name>Run</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Hold</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Prime</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Mute</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Options</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Level</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>OnOff</name> 
+ <cat>ActionControl</cat> 
+<beh>I_PowerDown</beh> 
+</widget> 
+<widget>
+ <name>AlarmLight</name> 
+ <cat>Responder</cat> 
+</widget> 
+<widget>
+ <name>Alarm</name> 
+ <cat>Responder</cat> 
+</widget> 
+<widget>
+ <name>Timer</name> 
+ <cat>Responder</cat> 
+<beh>I_Attention</beh> 
+</widget> 
+<widget>
+ <name>Door</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>RunLight</name> 
+ <cat>Responder</cat> 
+</widget> 
+<widget>
+ <name>OnHoldLight</name> 
+ <cat>Responder</cat> 
+<beh>S_OnHold</beh> 
+</widget> 
+<widget>
+ <name>PlugLight</name> 
+ <cat>Responder</cat> 
+<beh>S_Charging</beh> 
+</widget> 
+<widget>
+ <name>BatteryLight</name> 
+ <cat>Responder</cat> 
+<beh>S_BatteryStatus</beh> 
+</widget> 
+<widget>
+ <name>Display</name> 
+ <cat>Responder</cat> 
+<beh>S_IncreaseTime</beh> 
+<beh>S_DecreaseTime</beh> 
+<beh>S_IncreaseTimeDouble</beh> 
+<beh>S_DecreaseTimeDouble</beh> 
+</widget> 
+<widget>
+ <name>DoubleUpChange</name> 
+ <cat>ActionControl</cat> 
+<beh>S_ChangeUp</beh> 
+</widget> 
+<widget>
+ <name>DoubleDownChange</name> 
+ <cat>ActionControl</cat> 
+<beh>S_ChangeDown</beh> 
+</widget> 
+</cpmodel> 
+
+ <cpmodel> 
+ <cpname>AdjustAlarmVolume</cpname> 
+<widget>
+ <name>Button1RateOnHold</name> 
+ <cat>ActionControl</cat> 
+<beh>I_RateOnHold</beh> 
+<beh>S_ChangeReset</beh> 
+</widget> 
+<widget>
+ <name>Button2</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Button3RateOnHold</name> 
+ <cat>ActionControl</cat> 
+<beh>I_RateOnHold</beh> 
+<beh>S_ChangeReset</beh> 
+</widget> 
+<widget>
+ <name>DoubleUp</name> 
+ <cat>ActionControl</cat> 
+<beh>S_TopVolumes</beh> 
+</widget> 
+<widget>
+ <name>Up</name> 
+ <cat>ActionControl</cat> 
+<beh>S_UpVolumesOne</beh> 
+</widget> 
+<widget>
+ <name>Down</name> 
+ <cat>ActionControl</cat> 
+<beh>S_DownVolumesOne</beh> 
+</widget> 
+<widget>
+ <name>DoubleDown</name> 
+ <cat>ActionControl</cat> 
+<beh>S_BottomVolumes</beh> 
+</widget> 
+<widget>
+ <name>Run</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Hold</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Prime</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Mute</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Options</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Level</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>OnOff</name> 
+ <cat>ActionControl</cat> 
+<beh>I_PowerDown</beh> 
+</widget> 
+<widget>
+ <name>AlarmLight</name> 
+ <cat>Responder</cat> 
+</widget> 
+<widget>
+ <name>Alarm</name> 
+ <cat>Responder</cat> 
+<beh>S_StartAlarm</beh> 
+</widget> 
+<widget>
+ <name>TimerRateOnHold</name> 
+ <cat>Responder</cat> 
+<beh>I_RateOnHold</beh> 
+<beh>S_ChangeReset</beh> 
+</widget> 
+<widget>
+ <name>Door</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>RunLight</name> 
+ <cat>Responder</cat> 
+<beh>S_Infusing</beh> 
+</widget> 
+<widget>
+ <name>OnHoldLight</name> 
+ <cat>Responder</cat> 
+<beh>S_OnHold</beh> 
+</widget> 
+<widget>
+ <name>PlugLight</name> 
+ <cat>Responder</cat> 
+<beh>S_Charging</beh> 
+</widget> 
+<widget>
+ <name>BatteryLight</name> 
+ <cat>Responder</cat> 
+<beh>S_BatteryStatus</beh> 
+</widget> 
+<widget>
+ <name>Display</name> 
+ <cat>Responder</cat> 
+<beh>S_TopVolumes</beh> 
+<beh>S_UpVolumesOne</beh> 
+<beh>S_DownVolumesOne</beh> 
+<beh>S_BottomVolumes</beh> 
+</widget> 
+<widget>
+ <name>Button1RateInfusing</name> 
+ <cat>ActionControl</cat> 
+<beh>I_RateInfusing</beh> 
+<beh>S_ChangeReset</beh> 
+</widget> 
+<widget>
+ <name>Button3RateInfusing</name> 
+ <cat>ActionControl</cat> 
+<beh>I_RateInfusing</beh> 
+<beh>S_ChangeReset</beh> 
+</widget> 
+<widget>
+ <name>TimeRateInfusing</name> 
+ <cat>Responder</cat> 
+<beh>I_RateInfusing</beh> 
+<beh>S_ChangeReset</beh> 
+</widget> 
+</cpmodel> 
+
+ <cpmodel> 
+ <cpname>EventLog</cpname> 
+<widget>
+ <name>Button1</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Button2</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Button3RateOnHold</name> 
+ <cat>ActionControl</cat> 
+<beh>I_RateOnHold</beh> 
+<beh>S_ChangeReset</beh> 
+</widget> 
+<widget>
+ <name>DoubleUp</name> 
+ <cat>ActionControl</cat> 
+<beh>I_SelectListItem</beh> 
+</widget> 
+<widget>
+ <name>Up</name> 
+ <cat>ActionControl</cat> 
+<beh>I_SelectListItem</beh> 
+</widget> 
+<widget>
+ <name>Down</name> 
+ <cat>ActionControl</cat> 
+<beh>I_SelectListItem</beh> 
+</widget> 
+<widget>
+ <name>DoubleDown</name> 
+ <cat>ActionControl</cat> 
+<beh>I_SelectListItem</beh> 
+</widget> 
+<widget>
+ <name>Run</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Hold</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Prime</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Mute</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Options</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Level</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>OnOff</name> 
+ <cat>ActionControl</cat> 
+<beh>I_PowerDown</beh> 
+</widget> 
+<widget>
+ <name>AlarmLight</name> 
+ <cat>Responder</cat> 
+</widget> 
+<widget>
+ <name>Alarm</name> 
+ <cat>Responder</cat> 
+</widget> 
+<widget>
+ <name>TimerRateOnHold</name> 
+ <cat>Responder</cat> 
+<beh>I_RateOnHold</beh> 
+<beh>S_ChangeReset</beh> 
+</widget> 
+<widget>
+ <name>Door</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>RunLight</name> 
+ <cat>Responder</cat> 
+<beh>S_Infusing</beh> 
+</widget> 
+<widget>
+ <name>OnHoldLight</name> 
+ <cat>Responder</cat> 
+<beh>S_OnHold</beh> 
+</widget> 
+<widget>
+ <name>PlugLight</name> 
+ <cat>Responder</cat> 
+<beh>S_Charging</beh> 
+</widget> 
+<widget>
+ <name>BatteryLight</name> 
+ <cat>Responder</cat> 
+<beh>S_BatteryStatus</beh> 
+</widget> 
+<widget>
+ <name>Display</name> 
+ <cat>Responder</cat> 
+<beh>I_SelectListItem</beh> 
+</widget> 
+<widget>
+ <name>Button3RateInfusing</name> 
+ <cat>ActionControl</cat> 
+<beh>I_RateInfusing</beh> 
+<beh>S_ChangeReset</beh> 
+</widget> 
+<widget>
+ <name>TimerRateInfusing</name> 
+ <cat>Responder</cat> 
+<beh>I_RateInfusing</beh> 
+<beh>S_ChangeReset</beh> 
+</widget> 
+</cpmodel> 
+
+ <cpmodel> 
+ <cpname>PumpDetails</cpname> 
+<widget>
+ <name>Button1</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Button2</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Button3RateOnHold</name> 
+ <cat>ActionControl</cat> 
+<beh>I_RateOnHold</beh> 
+<beh>S_ChangeReset</beh> 
+</widget> 
+<widget>
+ <name>DoubleUp</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Up</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Down</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>DoubleDown</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Run</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Hold</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Prime</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Mute</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Options</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Level</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>OnOff</name> 
+ <cat>ActionControl</cat> 
+<beh>I_PowerDown</beh> 
+</widget> 
+<widget>
+ <name>AlarmLight</name> 
+ <cat>Responder</cat> 
+</widget> 
+<widget>
+ <name>Alarm</name> 
+ <cat>Responder</cat> 
+</widget> 
+<widget>
+ <name>TimerRateOnHold</name> 
+ <cat>Responder</cat> 
+<beh>I_RateOnHold</beh> 
+<beh>S_ChangeReset</beh> 
+</widget> 
+<widget>
+ <name>Door</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>RunLight</name> 
+ <cat>Responder</cat> 
+<beh>S_Infusing</beh> 
+</widget> 
+<widget>
+ <name>OnHoldLight</name> 
+ <cat>Responder</cat> 
+<beh>S_OnHold</beh> 
+</widget> 
+<widget>
+ <name>PlugLight</name> 
+ <cat>Responder</cat> 
+<beh>S_Charging</beh> 
+</widget> 
+<widget>
+ <name>BatteryLight</name> 
+ <cat>Responder</cat> 
+<beh>S_BatteryStatus</beh> 
+</widget> 
+<widget>
+ <name>Display</name> 
+ <cat>Responder</cat> 
+</widget> 
+<widget>
+ <name>Button3RateInfusing</name> 
+ <cat>ActionControl</cat> 
+<beh>I_RateInfusing</beh> 
+<beh>S_ChangeReset</beh> 
+</widget> 
+<widget>
+ <name>TimerRateInfusing</name> 
+ <cat>Responder</cat> 
+<beh>I_RateInfusing</beh> 
+<beh>S_ChangeReset</beh> 
+</widget> 
+</cpmodel> 
+
+ <cpmodel> 
+ <cpname>ProfileFilter</cpname> 
+<widget>
+ <name>Button1Add</name> 
+ <cat>ActionControl</cat> 
+<beh>S_AddProfile</beh> 
+</widget> 
+<widget>
+ <name>Button2RateOnHold</name> 
+ <cat>ActionControl</cat> 
+<beh>I_RateOnHold</beh> 
+<beh>S_ChangeReset</beh> 
+</widget> 
+<widget>
+ <name>Button3RateOnHold</name> 
+ <cat>ActionControl</cat> 
+<beh>I_RateOnHold</beh> 
+<beh>S_ChangeReset</beh> 
+</widget> 
+<widget>
+ <name>DoubleUp</name> 
+ <cat>ActionControl</cat> 
+<beh>S_TopOfProfile</beh> 
+</widget> 
+<widget>
+ <name>Up</name> 
+ <cat>ActionControl</cat> 
+<beh>S_UpProfileOne</beh> 
+</widget> 
+<widget>
+ <name>Down</name> 
+ <cat>ActionControl</cat> 
+<beh>S_DownProfileOne</beh> 
+</widget> 
+<widget>
+ <name>DoubleDown</name> 
+ <cat>ActionControl</cat> 
+<beh>S_BottomOfProfile</beh> 
+</widget> 
+<widget>
+ <name>Run</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Hold</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Prime</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Mute</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Options</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Level</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>OnOff</name> 
+ <cat>ActionControl</cat> 
+<beh>I_PowerDown</beh> 
+</widget> 
+<widget>
+ <name>AlarmLight</name> 
+ <cat>Responder</cat> 
+</widget> 
+<widget>
+ <name>Alarm</name> 
+ <cat>Responder</cat> 
+</widget> 
+<widget>
+ <name>TimerRateOnHold</name> 
+ <cat>Responder</cat> 
+<beh>I_RateOnHold</beh> 
+<beh>S_ChangeReset</beh> 
+</widget> 
+<widget>
+ <name>Door</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>RunLight</name> 
+ <cat>Responder</cat> 
+<beh>S_Infusing</beh> 
+</widget> 
+<widget>
+ <name>OnHoldLight</name> 
+ <cat>Responder</cat> 
+<beh>S_OnHold</beh> 
+</widget> 
+<widget>
+ <name>PlugLight</name> 
+ <cat>Responder</cat> 
+<beh>S_Charging</beh> 
+</widget> 
+<widget>
+ <name>BatteryLight</name> 
+ <cat>Responder</cat> 
+<beh>S_BatteryStatus</beh> 
+</widget> 
+<widget>
+ <name>Display</name> 
+ <cat>Responder</cat> 
+<beh>S_TopOfProfile</beh> 
+<beh>S_UpProfileOne</beh> 
+<beh>S_DownProfileOne</beh> 
+<beh>S_BottomOfProfile</beh> 
+<beh>S_AddProfile</beh> 
+<beh>S_RemoveProfile</beh> 
+</widget> 
+<widget>
+ <name>Button2RateInfusing</name> 
+ <cat>ActionControl</cat> 
+<beh>I_RateInfusing</beh> 
+<beh>S_ChangeReset</beh> 
+</widget> 
+<widget>
+ <name>Button3RateInfusing</name> 
+ <cat>ActionControl</cat> 
+<beh>I_RateInfusing</beh> 
+<beh>S_ChangeReset</beh> 
+</widget> 
+<widget>
+ <name>TimerRateInfusing</name> 
+ <cat>Responder</cat> 
+<beh>I_RateInfusing</beh> 
+<beh>S_ChangeReset</beh> 
+</widget> 
+<widget>
+ <name>Button1Remove</name> 
+ <cat>ActionControl</cat> 
+<beh>S_RemoveProfile</beh> 
+</widget> 
+</cpmodel> 
+
+ <cpmodel> 
+ <cpname>Standby</cpname> 
+<widget>
+ <name>Button1</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Button2</name> 
+ <cat>ActionControl</cat> 
+<beh>I_RateOnHold</beh> 
+<beh>S_ChangeReset</beh> 
+</widget> 
+<widget>
+ <name>Button3</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>DoubleUp</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Up</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Down</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>DoubleDown</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Run</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Hold</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Prime</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Mute</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Options</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Level</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>OnOff</name> 
+ <cat>ActionControl</cat> 
+<beh>I_PowerDown</beh> 
+</widget> 
+<widget>
+ <name>AlarmLight</name> 
+ <cat>Responder</cat> 
+</widget> 
+<widget>
+ <name>Alarm</name> 
+ <cat>Responder</cat> 
+</widget> 
+<widget>
+ <name>Timer</name> 
+ <cat>Responder</cat> 
+<beh>S_StartPowerSaving</beh> 
+</widget> 
+<widget>
+ <name>Door</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>RunLight</name> 
+ <cat>Responder</cat> 
+</widget> 
+<widget>
+ <name>OnHoldLight</name> 
+ <cat>Responder</cat> 
+<beh>S_OnHold</beh> 
+</widget> 
+<widget>
+ <name>PlugLight</name> 
+ <cat>Responder</cat> 
+<beh>S_Charging</beh> 
+</widget> 
+<widget>
+ <name>BatteryLight</name> 
+ <cat>Responder</cat> 
+<beh>S_BatteryStatus</beh> 
+</widget> 
+<widget>
+ <name>Display</name> 
+ <cat>Responder</cat> 
+<beh>S_StartPowerSaving</beh> 
+</widget> 
+</cpmodel> 
+
+ <cpmodel> 
+ <cpname>SetVTBI</cpname> 
+<widget>
+ <name>Button1</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Button2</name> 
+ <cat>ActionControl</cat> 
+<beh>I_VTBI</beh> 
+<beh>S_ChangeReset</beh> 
+</widget> 
+<widget>
+ <name>Button3RateOnHold</name> 
+ <cat>ActionControl</cat> 
+<beh>I_RateOnHold</beh> 
+<beh>S_ChangeReset</beh> 
+</widget> 
+<widget>
+ <name>DoubleUp</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Up</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Down</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>DoubleDown</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Run</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Hold</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Prime</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Mute</name> 
+ <cat>ActionControl</cat> 
+<beh>S_StopAlarm</beh> 
+</widget> 
+<widget>
+ <name>Options</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Level</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>OnOff</name> 
+ <cat>ActionControl</cat> 
+<beh>I_PowerDown</beh> 
+</widget> 
+<widget>
+ <name>AlarmLight</name> 
+ <cat>Responder</cat> 
+<beh>S_StartAlarm</beh> 
+<beh>S_StopAlarm</beh> 
+</widget> 
+<widget>
+ <name>Alarm</name> 
+ <cat>Responder</cat> 
+<beh>S_StartAlarm</beh> 
+<beh>S_StopAlarm</beh> 
+</widget> 
+<widget>
+ <name>Timer</name> 
+ <cat>Responder</cat> 
+<beh>S_StartAlarm</beh> 
+</widget> 
+<widget>
+ <name>Door</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>RunLight</name> 
+ <cat>Responder</cat> 
+<beh>S_Infusing</beh> 
+</widget> 
+<widget>
+ <name>OnHoldLight</name> 
+ <cat>Responder</cat> 
+<beh>S_OnHold</beh> 
+</widget> 
+<widget>
+ <name>PlugLight</name> 
+ <cat>Responder</cat> 
+<beh>S_Charging</beh> 
+</widget> 
+<widget>
+ <name>BatteryLight</name> 
+ <cat>Responder</cat> 
+<beh>S_BatteryStatus</beh> 
+</widget> 
+<widget>
+ <name>Display</name> 
+ <cat>Responder</cat> 
+</widget> 
+<widget>
+ <name>Button3RateInfusing</name> 
+ <cat>ActionControl</cat> 
+<beh>I_RateInfusing</beh> 
+<beh>S_ChangeReset</beh> 
+</widget> 
+</cpmodel> 
+
+ <cpmodel> 
+ <cpname>RateInfusing</cpname> 
+<widget>
+ <name>Button1</name> 
+ <cat>ActionControl</cat> 
+<beh>I_Volume</beh> 
+</widget> 
+<widget>
+ <name>Button2</name> 
+ <cat>ActionControl</cat> 
+<beh>I_VTBI</beh> 
+<beh>S_ChangeReset</beh> 
+</widget> 
+<widget>
+ <name>Button3</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>DoubleUp</name> 
+ <cat>ActionControl</cat> 
+<beh>S_IncreaseRateDouble</beh> 
+</widget> 
+<widget>
+ <name>Up</name> 
+ <cat>ActionControl</cat> 
+<beh>S_IncreaseRate</beh> 
+</widget> 
+<widget>
+ <name>Down</name> 
+ <cat>ActionControl</cat> 
+<beh>S_DecreaseRate</beh> 
+</widget> 
+<widget>
+ <name>DoubleDown</name> 
+ <cat>ActionControl</cat> 
+<beh>S_DecreaseRateDouble</beh> 
+</widget> 
+<widget>
+ <name>Run</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Hold</name> 
+ <cat>ActionControl</cat> 
+<beh>I_RateOnHold</beh> 
+<beh>S_ChangeReset</beh> 
+</widget> 
+<widget>
+ <name>Prime</name> 
+ <cat>ActionControl</cat> 
+<beh>I_Bolus</beh> 
+<beh>S_ChangeReset</beh> 
+</widget> 
+<widget>
+ <name>Mute</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Options</name> 
+ <cat>ActionControl</cat> 
+<beh>I_Options</beh> 
+</widget> 
+<widget>
+ <name>Level</name> 
+ <cat>ActionControl</cat> 
+<beh>I_PressureLevel</beh> 
+</widget> 
+<widget>
+ <name>OnOff</name> 
+ <cat>ActionControl</cat> 
+<beh>I_PowerDown</beh> 
+</widget> 
+<widget>
+ <name>AlarmLight</name> 
+ <cat>Responder</cat> 
+</widget> 
+<widget>
+ <name>Alarm</name> 
+ <cat>Responder</cat> 
+</widget> 
+<widget>
+ <name>Timer</name> 
+ <cat>Responder</cat> 
+</widget> 
+<widget>
+ <name>Door</name> 
+ <cat>ActionControl</cat> 
+<beh>I_DoorOpen</beh> 
+</widget> 
+<widget>
+ <name>RunLight</name> 
+ <cat>Responder</cat> 
+<beh>S_Infusing</beh> 
+</widget> 
+<widget>
+ <name>OnHoldLight</name> 
+ <cat>Responder</cat> 
+<beh>S_OnHold</beh> 
+</widget> 
+<widget>
+ <name>PlugLight</name> 
+ <cat>Responder</cat> 
+<beh>S_Charging</beh> 
+</widget> 
+<widget>
+ <name>BatteryLight</name> 
+ <cat>Responder</cat> 
+<beh>S_BatteryStatus</beh> 
+</widget> 
+<widget>
+ <name>Display</name> 
+ <cat>Responder</cat> 
+<beh>S_IncreaseRate</beh> 
+<beh>S_DecreaseRate</beh> 
+<beh>S_IncreaseRateDouble</beh> 
+<beh>S_DecreaseRateDouble</beh> 
+</widget> 
+<widget>
+ <name>DoubleUpTitrate</name> 
+ <cat>ActionControl</cat> 
+<beh>I_Titrate</beh> 
+</widget> 
+<widget>
+ <name>UpTitrate</name> 
+ <cat>ActionControl</cat> 
+<beh>I_Titrate</beh> 
+</widget> 
+<widget>
+ <name>DownTitrate</name> 
+ <cat>ActionControl</cat> 
+<beh>I_Titrate</beh> 
+</widget> 
+<widget>
+ <name>DoubleDownTitrate</name> 
+ <cat>ActionControl</cat> 
+<beh>I_Titrate</beh> 
+</widget> 
+<widget>
+ <name>DoubleUpChange</name> 
+ <cat>ActionControl</cat> 
+<beh>S_ChangeUp</beh> 
+</widget> 
+<widget>
+ <name>DoubleDownChange</name> 
+ <cat>ActionControl</cat> 
+<beh>S_ChangeDown</beh> 
+</widget> 
+</cpmodel> 
+
+ <cpmodel> 
+ <cpname>Bolus</cpname> 
+<widget>
+ <name>Button1</name> 
+ <cat>ActionControl</cat> 
+<beh>S_StartAlarm</beh> 
+<beh>S_IncreaseBolus</beh> 
+</widget> 
+<widget>
+ <name>Button2</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Button3</name> 
+ <cat>ActionControl</cat> 
+<beh>I_RateInfusing</beh> 
+<beh>S_ChangeReset</beh> 
+</widget> 
+<widget>
+ <name>DoubleUp</name> 
+ <cat>ActionControl</cat> 
+<beh>S_IncreaseBolusDouble</beh> 
+</widget> 
+<widget>
+ <name>Up</name> 
+ <cat>ActionControl</cat> 
+<beh>S_IncreaseBolus</beh> 
+</widget> 
+<widget>
+ <name>Down</name> 
+ <cat>ActionControl</cat> 
+<beh>S_DecreaseBolus</beh> 
+</widget> 
+<widget>
+ <name>DoubleDown</name> 
+ <cat>ActionControl</cat> 
+<beh>S_DecreaseBolusDouble</beh> 
+</widget> 
+<widget>
+ <name>Run</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Hold</name> 
+ <cat>ActionControl</cat> 
+<beh>I_RateOnHold</beh> 
+<beh>S_ChangeReset</beh> 
+</widget> 
+<widget>
+ <name>Prime</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Mute</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Options</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Level</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>OnOff</name> 
+ <cat>ActionControl</cat> 
+<beh>I_PowerDown</beh> 
+</widget> 
+<widget>
+ <name>AlarmLight</name> 
+ <cat>Responder</cat> 
+</widget> 
+<widget>
+ <name>Alarm</name> 
+ <cat>Responder</cat> 
+<beh>S_StartAlarm</beh> 
+</widget> 
+<widget>
+ <name>Timer</name> 
+ <cat>Responder</cat> 
+<beh>I_RateInfusing</beh> 
+<beh>S_ChangeReset</beh> 
+</widget> 
+<widget>
+ <name>Door</name> 
+ <cat>ActionControl</cat> 
+<beh>I_DoorOpen</beh> 
+</widget> 
+<widget>
+ <name>RunLight</name> 
+ <cat>Responder</cat> 
+<beh>S_Infusing</beh> 
+</widget> 
+<widget>
+ <name>OnHoldLight</name> 
+ <cat>Responder</cat> 
+</widget> 
+<widget>
+ <name>PlugLight</name> 
+ <cat>Responder</cat> 
+<beh>S_Charging</beh> 
+</widget> 
+<widget>
+ <name>BatteryLight</name> 
+ <cat>Responder</cat> 
+<beh>S_BatteryStatus</beh> 
+</widget> 
+<widget>
+ <name>Display</name> 
+ <cat>Responder</cat> 
+<beh>S_IncreaseBolus</beh> 
+<beh>S_DecreaseBolus</beh> 
+<beh>S_IncreaseBolusDouble</beh> 
+<beh>S_DecreaseBolusDouble</beh> 
+</widget> 
+<widget>
+ <name>DoubleUpChange</name> 
+ <cat>ActionControl</cat> 
+<beh>S_ChangeUp</beh> 
+</widget> 
+<widget>
+ <name>DoubleDownChange</name> 
+ <cat>ActionControl</cat> 
+<beh>S_ChangeDown</beh> 
+</widget> 
+</cpmodel> 
+
+ <cpmodel> 
+ <cpname>Titrate</cpname> 
+<widget>
+ <name>Button1</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Button2</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Button3</name> 
+ <cat>ActionControl</cat> 
+<beh>I_RateInfusing</beh> 
+<beh>S_ChangeReset</beh> 
+</widget> 
+<widget>
+ <name>DoubleUp</name> 
+ <cat>ActionControl</cat> 
+<beh>S_IncreaseRateDouble</beh> 
+</widget> 
+<widget>
+ <name>Up</name> 
+ <cat>ActionControl</cat> 
+<beh>S_IncreaseRate</beh> 
+</widget> 
+<widget>
+ <name>Down</name> 
+ <cat>ActionControl</cat> 
+<beh>S_DecreaseRate</beh> 
+</widget> 
+<widget>
+ <name>DoubleDown</name> 
+ <cat>ActionControl</cat> 
+<beh>S_DecreaseRateDouble</beh> 
+</widget> 
+<widget>
+ <name>RunRateInfusing</name> 
+ <cat>ActionControl</cat> 
+<beh>I_RateInfusing</beh> 
+<beh>S_StopAlarm</beh> 
+<beh>S_ChangeReset</beh> 
+</widget> 
+<widget>
+ <name>Hold</name> 
+ <cat>ActionControl</cat> 
+<beh>I_RateOnHold</beh> 
+<beh>S_ChangeReset</beh> 
+</widget> 
+<widget>
+ <name>Prime</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Mute</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Options</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Level</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>OnOff</name> 
+ <cat>ActionControl</cat> 
+<beh>I_PowerDown</beh> 
+<beh>S_StopAlarm</beh> 
+</widget> 
+<widget>
+ <name>AlarmLight</name> 
+ <cat>Responder</cat> 
+<beh>S_StartAlarm</beh> 
+<beh>S_StopAlarm</beh> 
+</widget> 
+<widget>
+ <name>Alarm</name> 
+ <cat>Responder</cat> 
+<beh>S_StartAlarm</beh> 
+<beh>S_StopAlarm</beh> 
+</widget> 
+<widget>
+ <name>Timer</name> 
+ <cat>Responder</cat> 
+<beh>S_StartAlarm</beh> 
+</widget> 
+<widget>
+ <name>Door</name> 
+ <cat>ActionControl</cat> 
+<beh>I_DoorOpen</beh> 
+</widget> 
+<widget>
+ <name>RunLight</name> 
+ <cat>Responder</cat> 
+<beh>S_Infusing</beh> 
+</widget> 
+<widget>
+ <name>OnHoldLight</name> 
+ <cat>Responder</cat> 
+</widget> 
+<widget>
+ <name>PlugLight</name> 
+ <cat>Responder</cat> 
+<beh>S_Charging</beh> 
+</widget> 
+<widget>
+ <name>BatteryLight</name> 
+ <cat>Responder</cat> 
+<beh>S_BatteryStatus</beh> 
+</widget> 
+<widget>
+ <name>Display</name> 
+ <cat>Responder</cat> 
+<beh>S_IncreaseRate</beh> 
+<beh>S_DecreaseRate</beh> 
+<beh>S_IncreaseRateDouble</beh> 
+<beh>S_DecreaseRateDouble</beh> 
+</widget> 
+<widget>
+ <name>RunTitrateDoseNotPermitted</name> 
+ <cat>ActionControl</cat> 
+<beh>I_TitrateDoseNotPermitted</beh> 
+</widget> 
+</cpmodel> 
+
+ <cpmodel> 
+ <cpname>TitrateDoseNotPermitted</cpname> 
+<widget>
+ <name>Button1</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Button2</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Button3</name> 
+ <cat>ActionControl</cat> 
+<beh>I_RateInfusing</beh> 
+<beh>S_ChangeReset</beh> 
+</widget> 
+<widget>
+ <name>DoubleUp</name> 
+ <cat>ActionControl</cat> 
+<beh>I_Titrate</beh> 
+</widget> 
+<widget>
+ <name>Up</name> 
+ <cat>ActionControl</cat> 
+<beh>I_Titrate</beh> 
+</widget> 
+<widget>
+ <name>Down</name> 
+ <cat>ActionControl</cat> 
+<beh>I_Titrate</beh> 
+</widget> 
+<widget>
+ <name>DoubleDown</name> 
+ <cat>ActionControl</cat> 
+<beh>I_Titrate</beh> 
+</widget> 
+<widget>
+ <name>Run</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Hold</name> 
+ <cat>ActionControl</cat> 
+<beh>I_RateOnHold</beh> 
+<beh>S_ChangeReset</beh> 
+</widget> 
+<widget>
+ <name>Prime</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Mute</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Options</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Level</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>OnOff</name> 
+ <cat>ActionControl</cat> 
+<beh>I_PowerDown</beh> 
+</widget> 
+<widget>
+ <name>AlarmLight</name> 
+ <cat>Responder</cat> 
+<beh>S_StartAlarm</beh> 
+<beh>S_StopAlarm</beh> 
+</widget> 
+<widget>
+ <name>Alarm</name> 
+ <cat>Responder</cat> 
+<beh>S_StartAlarm</beh> 
+<beh>S_StopAlarm</beh> 
+</widget> 
+<widget>
+ <name>Timer</name> 
+ <cat>Responder</cat> 
+<beh>S_StartAlarm</beh> 
+</widget> 
+<widget>
+ <name>Door</name> 
+ <cat>ActionControl</cat> 
+<beh>I_DoorOpen</beh> 
+</widget> 
+<widget>
+ <name>RunLight</name> 
+ <cat>Responder</cat> 
+<beh>S_Infusing</beh> 
+</widget> 
+<widget>
+ <name>OnHoldLight</name> 
+ <cat>Responder</cat> 
+</widget> 
+<widget>
+ <name>PlugLight</name> 
+ <cat>Responder</cat> 
+<beh>S_Charging</beh> 
+</widget> 
+<widget>
+ <name>BatteryLight</name> 
+ <cat>Responder</cat> 
+<beh>S_BatteryStatus</beh> 
+</widget> 
+<widget>
+ <name>Display</name> 
+ <cat>Responder</cat> 
+</widget> 
+</cpmodel> 
+
+ <cpmodel> 
+ <cpname>DoorOpen</cpname> 
+<widget>
+ <name>Button1</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Button2</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Button3</name> 
+ <cat>ActionControl</cat> 
+<beh>I_RateOnHold</beh> 
+<beh>S_ChangeReset</beh> 
+</widget> 
+<widget>
+ <name>DoubleUp</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Up</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Down</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>DoubleDown</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Run</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Hold</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Prime</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Mute</name> 
+ <cat>ActionControl</cat> 
+<beh>S_StopAlarm</beh> 
+</widget> 
+<widget>
+ <name>Options</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Level</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>OnOff</name> 
+ <cat>ActionControl</cat> 
+<beh>I_PowerDown</beh> 
+</widget> 
+<widget>
+ <name>AlarmLight</name> 
+ <cat>Responder</cat> 
+<beh>S_StartAlarm</beh> 
+<beh>S_StopAlarm</beh> 
+</widget> 
+<widget>
+ <name>Alarm</name> 
+ <cat>Responder</cat> 
+<beh>S_StartAlarm</beh> 
+<beh>S_StopAlarm</beh> 
+</widget> 
+<widget>
+ <name>Timer</name> 
+ <cat>Responder</cat> 
+<beh>S_StartAlarm</beh> 
+</widget> 
+<widget>
+ <name>Door</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>RunLight</name> 
+ <cat>Responder</cat> 
+</widget> 
+<widget>
+ <name>OnHoldLight</name> 
+ <cat>Responder</cat> 
+<beh>S_OnHold</beh> 
+</widget> 
+<widget>
+ <name>PlugLight</name> 
+ <cat>Responder</cat> 
+<beh>S_Charging</beh> 
+</widget> 
+<widget>
+ <name>BatteryLight</name> 
+ <cat>Responder</cat> 
+<beh>S_BatteryStatus</beh> 
+</widget> 
+<widget>
+ <name>Display</name> 
+ <cat>Responder</cat> 
+</widget> 
+</cpmodel> 
+
+ <cpmodel> 
+ <cpname>VTBIBags</cpname> 
+<widget>
+ <name>Button1</name> 
+ <cat>ActionControl</cat> 
+<beh>I_VTBI</beh> 
+<beh>S_SetVTBIBags</beh> 
+<beh>S_ChangeReset</beh> 
+</widget> 
+<widget>
+ <name>Button2</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Button3</name> 
+ <cat>ActionControl</cat> 
+<beh>I_VTBI</beh> 
+<beh>S_ChangeReset</beh> 
+</widget> 
+<widget>
+ <name>DoubleUp</name> 
+ <cat>ActionControl</cat> 
+<beh>S_TopOfVTBIBags</beh> 
+</widget> 
+<widget>
+ <name>Up</name> 
+ <cat>ActionControl</cat> 
+<beh>S_UpVTBIBagsOne</beh> 
+</widget> 
+<widget>
+ <name>Down</name> 
+ <cat>ActionControl</cat> 
+<beh>S_DownVTBIBagsOne</beh> 
+</widget> 
+<widget>
+ <name>DoubleDown</name> 
+ <cat>ActionControl</cat> 
+<beh>S_BottomOfVTBIBags</beh> 
+</widget> 
+<widget>
+ <name>Run</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Hold</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Prime</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Mute</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Options</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Level</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>OnOff</name> 
+ <cat>ActionControl</cat> 
+<beh>I_PowerDown</beh> 
+</widget> 
+<widget>
+ <name>AlarmLight</name> 
+ <cat>Responder</cat> 
+</widget> 
+<widget>
+ <name>Alarm</name> 
+ <cat>Responder</cat> 
+</widget> 
+<widget>
+ <name>TimerRateOnHold</name> 
+ <cat>Responder</cat> 
+<beh>I_RateOnHold</beh> 
+<beh>S_ChangeReset</beh> 
+</widget> 
+<widget>
+ <name>Door</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>RunLight</name> 
+ <cat>Responder</cat> 
+<beh>S_Infusing</beh> 
+</widget> 
+<widget>
+ <name>OnHoldLight</name> 
+ <cat>Responder</cat> 
+<beh>S_OnHold</beh> 
+</widget> 
+<widget>
+ <name>PlugLight</name> 
+ <cat>Responder</cat> 
+<beh>S_Charging</beh> 
+</widget> 
+<widget>
+ <name>BatteryLight</name> 
+ <cat>Responder</cat> 
+<beh>S_BatteryStatus</beh> 
+</widget> 
+<widget>
+ <name>Display</name> 
+ <cat>Responder</cat> 
+<beh>S_TopOfVTBIBags</beh> 
+<beh>S_UpVTBIBagsOne</beh> 
+<beh>S_DownVTBIBagsOne</beh> 
+<beh>S_BottomOfVTBIBags</beh> 
+</widget> 
+<widget>
+ <name>TimeRateInfusing</name> 
+ <cat>Responder</cat> 
+<beh>I_RateInfusing</beh> 
+<beh>S_ChangeReset</beh> 
+</widget> 
+</cpmodel> 
+
+ <cpmodel> 
+ <cpname>RateOnHold</cpname> 
+<widget>
+ <name>Button1</name> 
+ <cat>ActionControl</cat> 
+<beh>I_Volume</beh> 
+</widget> 
+<widget>
+ <name>Button2</name> 
+ <cat>ActionControl</cat> 
+<beh>I_VTBI</beh> 
+<beh>S_ChangeReset</beh> 
+</widget> 
+<widget>
+ <name>Button3</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>DoubleUp</name> 
+ <cat>ActionControl</cat> 
+<beh>S_IncreaseRateDouble</beh> 
+</widget> 
+<widget>
+ <name>Up</name> 
+ <cat>ActionControl</cat> 
+<beh>S_IncreaseRate</beh> 
+</widget> 
+<widget>
+ <name>Down</name> 
+ <cat>ActionControl</cat> 
+<beh>S_DecreaseRate</beh> 
+</widget> 
+<widget>
+ <name>DoubleDown</name> 
+ <cat>ActionControl</cat> 
+<beh>S_DecreaseRateDouble</beh> 
+</widget> 
+<widget>
+ <name>RunSetNotFitted</name> 
+ <cat>ActionControl</cat> 
+<beh>I_SetNotFitted</beh> 
+<beh>S_NoRateSet</beh> 
+</widget> 
+<widget>
+ <name>Hold</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Prime</name> 
+ <cat>ActionControl</cat> 
+<beh>I_Prime</beh> 
+</widget> 
+<widget>
+ <name>Mute</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Options</name> 
+ <cat>ActionControl</cat> 
+<beh>I_Options</beh> 
+</widget> 
+<widget>
+ <name>Level</name> 
+ <cat>ActionControl</cat> 
+<beh>I_PressureLevel</beh> 
+</widget> 
+<widget>
+ <name>OnOff</name> 
+ <cat>ActionControl</cat> 
+<beh>I_PowerDown</beh> 
+</widget> 
+<widget>
+ <name>AlarmLight</name> 
+ <cat>Responder</cat> 
+</widget> 
+<widget>
+ <name>Alarm</name> 
+ <cat>Responder</cat> 
+<beh>S_NoRateSet</beh> 
+</widget> 
+<widget>
+ <name>Timer</name> 
+ <cat>Responder</cat> 
+<beh>I_Attention</beh> 
+</widget> 
+<widget>
+ <name>Door</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>RunLight</name> 
+ <cat>Responder</cat> 
+</widget> 
+<widget>
+ <name>OnHoldLight</name> 
+ <cat>Responder</cat> 
+<beh>S_OnHold</beh> 
+</widget> 
+<widget>
+ <name>PlugLight</name> 
+ <cat>Responder</cat> 
+<beh>S_Charging</beh> 
+</widget> 
+<widget>
+ <name>BatteryLight</name> 
+ <cat>Responder</cat> 
+<beh>S_BatteryStatus</beh> 
+</widget> 
+<widget>
+ <name>Display</name> 
+ <cat>Responder</cat> 
+<beh>S_IncreaseRate</beh> 
+<beh>S_DecreaseRate</beh> 
+<beh>S_IncreaseRateDouble</beh> 
+<beh>S_DecreaseRateDouble</beh> 
+</widget> 
+<widget>
+ <name>RunSetVTBI</name> 
+ <cat>ActionControl</cat> 
+<beh>I_SetVTBI</beh> 
+<beh>S_NoRateSet</beh> 
+</widget> 
+<widget>
+ <name>DoubleUpChange</name> 
+ <cat>ActionControl</cat> 
+<beh>S_ChangeUp</beh> 
+</widget> 
+<widget>
+ <name>DoubleDownChange</name> 
+ <cat>ActionControl</cat> 
+<beh>S_ChangeDown</beh> 
+</widget> 
+<widget>
+ <name>Run</name> 
+ <cat>ActionControl</cat> 
+<beh>I_RateInfusing</beh> 
+<beh>S_Infusing</beh> 
+</widget> 
+</cpmodel> 
+
+ <cpmodel> 
+ <cpname>VTBI</cpname> 
+<widget>
+ <name>Button2</name> 
+ <cat>ActionControl</cat> 
+<beh>I_VTBIBags</beh> 
+</widget> 
+<widget>
+ <name>Button3RateOnHold</name> 
+ <cat>ActionControl</cat> 
+<beh>I_RateOnHold</beh> 
+<beh>S_ChangeReset</beh> 
+</widget> 
+<widget>
+ <name>DoubleUp</name> 
+ <cat>ActionControl</cat> 
+<beh>S_IncreaseVTBIDouble</beh> 
+</widget> 
+<widget>
+ <name>Up</name> 
+ <cat>ActionControl</cat> 
+<beh>S_IncreaseVTBI</beh> 
+</widget> 
+<widget>
+ <name>Down</name> 
+ <cat>ActionControl</cat> 
+<beh>S_DecreaseVTBI</beh> 
+</widget> 
+<widget>
+ <name>DoubleDown</name> 
+ <cat>ActionControl</cat> 
+<beh>S_DecreaseVTBIDouble</beh> 
+</widget> 
+<widget>
+ <name>Run</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Hold</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Prime</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Mute</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Options</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Level</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>OnOff</name> 
+ <cat>ActionControl</cat> 
+<beh>I_PowerDown</beh> 
+</widget> 
+<widget>
+ <name>AlarmLight</name> 
+ <cat>Responder</cat> 
+</widget> 
+<widget>
+ <name>Alarm</name> 
+ <cat>Responder</cat> 
+</widget> 
+<widget>
+ <name>TimerRateOnHold</name> 
+ <cat>Responder</cat> 
+<beh>I_RateOnHold</beh> 
+<beh>S_ChangeReset</beh> 
+</widget> 
+<widget>
+ <name>Door</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>RunLight</name> 
+ <cat>Responder</cat> 
+<beh>S_Infusing</beh> 
+</widget> 
+<widget>
+ <name>OnHoldLight</name> 
+ <cat>Responder</cat> 
+<beh>S_OnHold</beh> 
+</widget> 
+<widget>
+ <name>PlugLight</name> 
+ <cat>Responder</cat> 
+<beh>S_Charging</beh> 
+</widget> 
+<widget>
+ <name>BatteryLight</name> 
+ <cat>Responder</cat> 
+<beh>S_BatteryStatus</beh> 
+</widget> 
+<widget>
+ <name>Display</name> 
+ <cat>Responder</cat> 
+<beh>S_IncreaseVTBI</beh> 
+<beh>S_DecreaseVTBI</beh> 
+<beh>S_IncreaseVTBIDouble</beh> 
+<beh>S_DecreaseVTBIDouble</beh> 
+</widget> 
+<widget>
+ <name>Button3RateInfusing</name> 
+ <cat>ActionControl</cat> 
+<beh>I_RateInfusing</beh> 
+<beh>S_ChangeReset</beh> 
+</widget> 
+<widget>
+ <name>TimerRateInfusing</name> 
+ <cat>Responder</cat> 
+<beh>I_RateInfusing</beh> 
+<beh>S_ChangeReset</beh> 
+</widget> 
+<widget>
+ <name>DoubleUpChange</name> 
+ <cat>ActionControl</cat> 
+<beh>S_ChangeUp</beh> 
+</widget> 
+<widget>
+ <name>DoubleDownChange</name> 
+ <cat>ActionControl</cat> 
+<beh>S_ChangeDown</beh> 
+</widget> 
+<widget>
+ <name>Button1</name> 
+ <cat>ActionControl</cat> 
+<beh>I_EndRate</beh> 
+<beh>S_SetVTBI</beh> 
+<beh>S_ChangeReset</beh> 
+</widget> 
+</cpmodel> 
+
+ <cpmodel> 
+ <cpname>EndRate</cpname> 
+<widget>
+ <name>Button1</name> 
+ <cat>ActionControl</cat> 
+<beh>I_RateOnHold</beh> 
+</widget> 
+<widget>
+ <name>Button2</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Button3</name> 
+ <cat>ActionControl</cat> 
+<beh>I_VTBI</beh> 
+</widget> 
+<widget>
+ <name>DoubleUp</name> 
+ <cat>ActionControl</cat> 
+<beh>S_TopEndRate</beh> 
+</widget> 
+<widget>
+ <name>Up</name> 
+ <cat>ActionControl</cat> 
+<beh>S_UpEndRateOne</beh> 
+</widget> 
+<widget>
+ <name>Down</name> 
+ <cat>ActionControl</cat> 
+<beh>S_DownEndRateOne</beh> 
+</widget> 
+<widget>
+ <name>DoubleDown</name> 
+ <cat>ActionControl</cat> 
+<beh>S_BottomEndRate</beh> 
+</widget> 
+<widget>
+ <name>Run</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Hold</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Prime</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Mute</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Options</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>Level</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>OnOff</name> 
+ <cat>ActionControl</cat> 
+<beh>I_RateOnHold</beh> 
+</widget> 
+<widget>
+ <name>AlarmLight</name> 
+ <cat>Responder</cat> 
+</widget> 
+<widget>
+ <name>Alarm</name> 
+ <cat>Responder</cat> 
+</widget> 
+<widget>
+ <name>Timer</name> 
+ <cat>Responder</cat> 
+</widget> 
+<widget>
+ <name>Door</name> 
+ <cat>ActionControl</cat> 
+</widget> 
+<widget>
+ <name>RunLight</name> 
+ <cat>Responder</cat> 
+</widget> 
+<widget>
+ <name>OnHoldLight</name> 
+ <cat>Responder</cat> 
+</widget> 
+<widget>
+ <name>PlugLight</name> 
+ <cat>Responder</cat> 
+</widget> 
+<widget>
+ <name>BatteryLight</name> 
+ <cat>Responder</cat> 
+</widget> 
+<widget>
+ <name>Display</name> 
+ <cat>Responder</cat> 
+<beh>S_TopEndRate</beh> 
+<beh>S_UpEndRateOne</beh> 
+<beh>S_DownEndRateOne</beh> 
+<beh>S_BottomEndRate</beh> 
+</widget> 
+</cpmodel> 
+</PresentationModel> 
+<PIM>
+<transition>
+<start>Options</start> 
+ <end>Dosing</end> 
+ <ibeh>I_Dosing</ibeh> 
+ </transition> 
+<transition>
+<start>Options</start> 
+ <end>RateInfusing</end> 
+ <ibeh>I_RateInfusing</ibeh> 
+ </transition> 
+<transition>
+<start>Options</start> 
+ <end>Standby</end> 
+ <ibeh>I_Standby</ibeh> 
+ </transition> 
+<transition>
+<start>Options</start> 
+ <end>PowerDown</end> 
+ <ibeh>I_PowerDown</ibeh> 
+ </transition> 
+<transition>
+<start>Options</start> 
+ <end>RateOnHold</end> 
+ <ibeh>I_RateOnHold</ibeh> 
+ </transition> 
+<transition>
+<start>Options</start> 
+ <end>EventLog</end> 
+ <ibeh>I_EventLog</ibeh> 
+ </transition> 
+<transition>
+<start>Options</start> 
+ <end>ProfileFilter</end> 
+ <ibeh>I_ProfileFilter</ibeh> 
+ </transition> 
+<transition>
+<start>Options</start> 
+ <end>AdjustAlarmVolume</end> 
+ <ibeh>I_AdjustAlarmVolume</ibeh> 
+ </transition> 
+<transition>
+<start>Options</start> 
+ <end>VTBITime</end> 
+ <ibeh>I_VTBITime</ibeh> 
+ </transition> 
+<transition>
+<start>Options</start> 
+ <end>SelectDrugCategory</end> 
+ <ibeh>I_SelectDrugCategory</ibeh> 
+ </transition> 
+<transition>
+<start>Options</start> 
+ <end>PumpDetails</end> 
+ <ibeh>I_PumpDetails</ibeh> 
+ </transition> 
+<transition>
+<start>DoorOpen</start> 
+ <end>PowerDown</end> 
+ <ibeh>I_PowerDown</ibeh> 
+ </transition> 
+<transition>
+<start>DoorOpen</start> 
+ <end>RateOnHold</end> 
+ <ibeh>I_RateOnHold</ibeh> 
+ </transition> 
+<transition>
+<start>Prime</start> 
+ <end>SetNotFitted</end> 
+ <ibeh>I_SetNotFitted</ibeh> 
+ </transition> 
+<transition>
+<start>Prime</start> 
+ <end>PowerDown</end> 
+ <ibeh>I_PowerDown</ibeh> 
+ </transition> 
+<transition>
+<start>Prime</start> 
+ <end>RateOnHold</end> 
+ <ibeh>I_RateOnHold</ibeh> 
+ </transition> 
+<transition>
+<start>EventLog</start> 
+ <end>RateInfusing</end> 
+ <ibeh>I_RateInfusing</ibeh> 
+ </transition> 
+<transition>
+<start>EventLog</start> 
+ <end>PowerDown</end> 
+ <ibeh>I_PowerDown</ibeh> 
+ </transition> 
+<transition>
+<start>EventLog</start> 
+ <end>RateOnHold</end> 
+ <ibeh>I_RateOnHold</ibeh> 
+ </transition> 
+<transition>
+<start>SelectDrug</start> 
+ <end>PowerDown</end> 
+ <ibeh>I_PowerDown</ibeh> 
+ </transition> 
+<transition>
+<start>SelectDrug</start> 
+ <end>ConfirmRate</end> 
+ <ibeh>I_ConfirmRate</ibeh> 
+ </transition> 
+<transition>
+<start>SelectDrug</start> 
+ <end>Attention</end> 
+ <ibeh>I_Attention</ibeh> 
+ </transition> 
+<transition>
+<start>SelectDrug</start> 
+ <end>SelectDrugCategory</end> 
+ <ibeh>I_SelectDrugCategory</ibeh> 
+ </transition> 
+<transition>
+<start>Profile</start> 
+ <end>PowerDown</end> 
+ <ibeh>I_PowerDown</ibeh> 
+ </transition> 
+<transition>
+<start>Profile</start> 
+ <end>Attention</end> 
+ <ibeh>I_Attention</ibeh> 
+ </transition> 
+<transition>
+<start>Profile</start> 
+ <end>Options</end> 
+ <ibeh>I_Options</ibeh> 
+ </transition> 
+<transition>
+<start>Profile</start> 
+ <end>ConfirmProfile</end> 
+ <ibeh>I_ConfirmProfile</ibeh> 
+ </transition> 
+<transition>
+<start>Off</start> 
+ <end>ClearSetup</end> 
+ <ibeh>I_ClearSetup</ibeh> 
+ </transition> 
+<transition>
+<start>SetVTBI</start> 
+ <end>RateInfusing</end> 
+ <ibeh>I_RateInfusing</ibeh> 
+ </transition> 
+<transition>
+<start>SetVTBI</start> 
+ <end>PowerDown</end> 
+ <ibeh>I_PowerDown</ibeh> 
+ </transition> 
+<transition>
+<start>SetVTBI</start> 
+ <end>RateOnHold</end> 
+ <ibeh>I_RateOnHold</ibeh> 
+ </transition> 
+<transition>
+<start>SetVTBI</start> 
+ <end>VTBI</end> 
+ <ibeh>I_VTBI</ibeh> 
+ </transition> 
+<transition>
+<start>RateInfusing</start> 
+ <end>PressureLevel</end> 
+ <ibeh>I_PressureLevel</ibeh> 
+ </transition> 
+<transition>
+<start>RateInfusing</start> 
+ <end>PowerDown</end> 
+ <ibeh>I_PowerDown</ibeh> 
+ </transition> 
+<transition>
+<start>RateInfusing</start> 
+ <end>RateOnHold</end> 
+ <ibeh>I_RateOnHold</ibeh> 
+ </transition> 
+<transition>
+<start>RateInfusing</start> 
+ <end>Volume</end> 
+ <ibeh>I_Volume</ibeh> 
+ </transition> 
+<transition>
+<start>RateInfusing</start> 
+ <end>Titrate</end> 
+ <ibeh>I_Titrate</ibeh> 
+ </transition> 
+<transition>
+<start>RateInfusing</start> 
+ <end>Options</end> 
+ <ibeh>I_Options</ibeh> 
+ </transition> 
+<transition>
+<start>RateInfusing</start> 
+ <end>Bolus</end> 
+ <ibeh>I_Bolus</ibeh> 
+ </transition> 
+<transition>
+<start>RateInfusing</start> 
+ <end>DoorOpen</end> 
+ <ibeh>I_DoorOpen</ibeh> 
+ </transition> 
+<transition>
+<start>RateInfusing</start> 
+ <end>VTBI</end> 
+ <ibeh>I_VTBI</ibeh> 
+ </transition> 
+<transition>
+<start>VTBITime</start> 
+ <end>PowerDown</end> 
+ <ibeh>I_PowerDown</ibeh> 
+ </transition> 
+<transition>
+<start>VTBITime</start> 
+ <end>RateOnHold</end> 
+ <ibeh>I_RateOnHold</ibeh> 
+ </transition> 
+<transition>
+<start>VTBITime</start> 
+ <end>Attention</end> 
+ <ibeh>I_Attention</ibeh> 
+ </transition> 
+<transition>
+<start>VTBITime</start> 
+ <end>VTBIBags</end> 
+ <ibeh>I_VTBIBags</ibeh> 
+ </transition> 
+<transition>
+<start>RateOnHold</start> 
+ <end>SetNotFitted</end> 
+ <ibeh>I_SetNotFitted</ibeh> 
+ </transition> 
+<transition>
+<start>RateOnHold</start> 
+ <end>PressureLevel</end> 
+ <ibeh>I_PressureLevel</ibeh> 
+ </transition> 
+<transition>
+<start>RateOnHold</start> 
+ <end>PowerDown</end> 
+ <ibeh>I_PowerDown</ibeh> 
+ </transition> 
+<transition>
+<start>RateOnHold</start> 
+ <end>Volume</end> 
+ <ibeh>I_Volume</ibeh> 
+ </transition> 
+<transition>
+<start>RateOnHold</start> 
+ <end>Prime</end> 
+ <ibeh>I_Prime</ibeh> 
+ </transition> 
+<transition>
+<start>RateOnHold</start> 
+ <end>Attention</end> 
+ <ibeh>I_Attention</ibeh> 
+ </transition> 
+<transition>
+<start>RateOnHold</start> 
+ <end>Options</end> 
+ <ibeh>I_Options</ibeh> 
+ </transition> 
+<transition>
+<start>RateOnHold</start> 
+ <end>SetVTBI</end> 
+ <ibeh>I_SetVTBI</ibeh> 
+ </transition> 
+<transition>
+<start>RateOnHold</start> 
+ <end>VTBI</end> 
+ <ibeh>I_VTBI</ibeh> 
+ </transition> 
+<transition>
+<start>Titrate</start> 
+ <end>RateInfusing</end> 
+ <ibeh>I_RateInfusing</ibeh> 
+ </transition> 
+<transition>
+<start>Titrate</start> 
+ <end>PowerDown</end> 
+ <ibeh>I_PowerDown</ibeh> 
+ </transition> 
+<transition>
+<start>Titrate</start> 
+ <end>RateOnHold</end> 
+ <ibeh>I_RateOnHold</ibeh> 
+ </transition> 
+<transition>
+<start>Titrate</start> 
+ <end>TitrateDoseNotPermitted</end> 
+ <ibeh>I_TitrateDoseNotPermitted</ibeh> 
+ </transition> 
+<transition>
+<start>Titrate</start> 
+ <end>DoorOpen</end> 
+ <ibeh>I_DoorOpen</ibeh> 
+ </transition> 
+<transition>
+<start>ConfirmRate</start> 
+ <end>PowerDown</end> 
+ <ibeh>I_PowerDown</ibeh> 
+ </transition> 
+<transition>
+<start>ConfirmRate</start> 
+ <end>RateOnHold</end> 
+ <ibeh>I_RateOnHold</ibeh> 
+ </transition> 
+<transition>
+<start>ConfirmRate</start> 
+ <end>Attention</end> 
+ <ibeh>I_Attention</ibeh> 
+ </transition> 
+<transition>
+<start>ConfirmRate</start> 
+ <end>SelectDrug</end> 
+ <ibeh>I_SelectDrug</ibeh> 
+ </transition> 
+<transition>
+<start>AdjustAlarmVolume</start> 
+ <end>RateInfusing</end> 
+ <ibeh>I_RateInfusing</ibeh> 
+ </transition> 
+<transition>
+<start>AdjustAlarmVolume</start> 
+ <end>PowerDown</end> 
+ <ibeh>I_PowerDown</ibeh> 
+ </transition> 
+<transition>
+<start>AdjustAlarmVolume</start> 
+ <end>RateOnHold</end> 
+ <ibeh>I_RateOnHold</ibeh> 
+ </transition> 
+<transition>
+<start>PumpDetails</start> 
+ <end>RateInfusing</end> 
+ <ibeh>I_RateInfusing</ibeh> 
+ </transition> 
+<transition>
+<start>PumpDetails</start> 
+ <end>PowerDown</end> 
+ <ibeh>I_PowerDown</ibeh> 
+ </transition> 
+<transition>
+<start>PumpDetails</start> 
+ <end>RateOnHold</end> 
+ <ibeh>I_RateOnHold</ibeh> 
+ </transition> 
+<transition>
+<start>Dosing</start> 
+ <end>RateInfusing</end> 
+ <ibeh>I_RateInfusing</ibeh> 
+ </transition> 
+<transition>
+<start>Dosing</start> 
+ <end>PowerDown</end> 
+ <ibeh>I_PowerDown</ibeh> 
+ </transition> 
+<transition>
+<start>Dosing</start> 
+ <end>RateOnHold</end> 
+ <ibeh>I_RateOnHold</ibeh> 
+ </transition> 
+<transition>
+<start>VTBIBags</start> 
+ <end>PowerDown</end> 
+ <ibeh>I_PowerDown</ibeh> 
+ </transition> 
+<transition>
+<start>VTBIBags</start> 
+ <end>RateInfusing</end> 
+ <ibeh>I_RateInfusing</ibeh> 
+ </transition> 
+<transition>
+<start>VTBIBags</start> 
+ <end>RateOnHold</end> 
+ <ibeh>I_RateOnHold</ibeh> 
+ </transition> 
+<transition>
+<start>VTBIBags</start> 
+ <end>VTBI</end> 
+ <ibeh>I_VTBI</ibeh> 
+ </transition> 
+<transition>
+<start>ClearSetup</start> 
+ <end>PowerDown</end> 
+ <ibeh>I_PowerDown</ibeh> 
+ </transition> 
+<transition>
+<start>ClearSetup</start> 
+ <end>RateOnHold</end> 
+ <ibeh>I_RateOnHold</ibeh> 
+ </transition> 
+<transition>
+<start>ClearSetup</start> 
+ <end>Attention</end> 
+ <ibeh>I_Attention</ibeh> 
+ </transition> 
+<transition>
+<start>ClearSetup</start> 
+ <end>ConfirmProfile</end> 
+ <ibeh>I_ConfirmProfile</ibeh> 
+ </transition> 
+<transition>
+<start>ConfirmProfile</start> 
+ <end>PowerDown</end> 
+ <ibeh>I_PowerDown</ibeh> 
+ </transition> 
+<transition>
+<start>ConfirmProfile</start> 
+ <end>Profile</end> 
+ <ibeh>I_Profile</ibeh> 
+ </transition> 
+<transition>
+<start>ConfirmProfile</start> 
+ <end>Attention</end> 
+ <ibeh>I_Attention</ibeh> 
+ </transition> 
+<transition>
+<start>Attention</start> 
+ <end>PowerDown</end> 
+ <ibeh>I_PowerDown</ibeh> 
+ </transition> 
+<transition>
+<start>Attention</start> 
+ <end>RateOnHold</end> 
+ <ibeh>I_RateOnHold</ibeh> 
+ </transition> 
+<transition>
+<start>Attention</start> 
+ <end>ConfirmRate</end> 
+ <ibeh>I_ConfirmRate</ibeh> 
+ </transition> 
+<transition>
+<start>Attention</start> 
+ <end>Profile</end> 
+ <ibeh>I_Profile</ibeh> 
+ </transition> 
+<transition>
+<start>Attention</start> 
+ <end>ConfirmProfile</end> 
+ <ibeh>I_ConfirmProfile</ibeh> 
+ </transition> 
+<transition>
+<start>Attention</start> 
+ <end>VTBITime</end> 
+ <ibeh>I_VTBITime</ibeh> 
+ </transition> 
+<transition>
+<start>Attention</start> 
+ <end>ClearSetup</end> 
+ <ibeh>I_ClearSetup</ibeh> 
+ </transition> 
+<transition>
+<start>Attention</start> 
+ <end>SelectDrugCategory</end> 
+ <ibeh>I_SelectDrugCategory</ibeh> 
+ </transition> 
+<transition>
+<start>Attention</start> 
+ <end>SelectDrug</end> 
+ <ibeh>I_SelectDrug</ibeh> 
+ </transition> 
+<transition>
+<start>SetNotFitted</start> 
+ <end>PowerDown</end> 
+ <ibeh>I_PowerDown</ibeh> 
+ </transition> 
+<transition>
+<start>SetNotFitted</start> 
+ <end>RateOnHold</end> 
+ <ibeh>I_RateOnHold</ibeh> 
+ </transition> 
+<transition>
+<start>SetNotFitted</start> 
+ <end>DoorOpen</end> 
+ <ibeh>I_DoorOpen</ibeh> 
+ </transition> 
+<transition>
+<start>Bolus</start> 
+ <end>RateInfusing</end> 
+ <ibeh>I_RateInfusing</ibeh> 
+ </transition> 
+<transition>
+<start>Bolus</start> 
+ <end>PowerDown</end> 
+ <ibeh>I_PowerDown</ibeh> 
+ </transition> 
+<transition>
+<start>Bolus</start> 
+ <end>RateOnHold</end> 
+ <ibeh>I_RateOnHold</ibeh> 
+ </transition> 
+<transition>
+<start>Bolus</start> 
+ <end>DoorOpen</end> 
+ <ibeh>I_DoorOpen</ibeh> 
+ </transition> 
+<transition>
+<start>ProfileFilter</start> 
+ <end>RateInfusing</end> 
+ <ibeh>I_RateInfusing</ibeh> 
+ </transition> 
+<transition>
+<start>ProfileFilter</start> 
+ <end>PowerDown</end> 
+ <ibeh>I_PowerDown</ibeh> 
+ </transition> 
+<transition>
+<start>ProfileFilter</start> 
+ <end>RateOnHold</end> 
+ <ibeh>I_RateOnHold</ibeh> 
+ </transition> 
+<transition>
+<start>Standby</start> 
+ <end>PowerDown</end> 
+ <ibeh>I_PowerDown</ibeh> 
+ </transition> 
+<transition>
+<start>Standby</start> 
+ <end>RateOnHold</end> 
+ <ibeh>I_RateOnHold</ibeh> 
+ </transition> 
+<transition>
+<start>VTBI</start> 
+ <end>RateInfusing</end> 
+ <ibeh>I_RateInfusing</ibeh> 
+ </transition> 
+<transition>
+<start>VTBI</start> 
+ <end>PowerDown</end> 
+ <ibeh>I_PowerDown</ibeh> 
+ </transition> 
+<transition>
+<start>VTBI</start> 
+ <end>RateOnHold</end> 
+ <ibeh>I_RateOnHold</ibeh> 
+ </transition> 
+<transition>
+<start>VTBI</start> 
+ <end>VTBIBags</end> 
+ <ibeh>I_VTBIBags</ibeh> 
+ </transition> 
+<transition>
+<start>TitrateDoseNotPermitted</start> 
+ <end>RateInfusing</end> 
+ <ibeh>I_RateInfusing</ibeh> 
+ </transition> 
+<transition>
+<start>TitrateDoseNotPermitted</start> 
+ <end>PowerDown</end> 
+ <ibeh>I_PowerDown</ibeh> 
+ </transition> 
+<transition>
+<start>TitrateDoseNotPermitted</start> 
+ <end>RateOnHold</end> 
+ <ibeh>I_RateOnHold</ibeh> 
+ </transition> 
+<transition>
+<start>TitrateDoseNotPermitted</start> 
+ <end>Titrate</end> 
+ <ibeh>I_Titrate</ibeh> 
+ </transition> 
+<transition>
+<start>TitrateDoseNotPermitted</start> 
+ <end>DoorOpen</end> 
+ <ibeh>I_DoorOpen</ibeh> 
+ </transition> 
+<transition>
+<start>PressureLevel</start> 
+ <end>RateInfusing</end> 
+ <ibeh>I_RateInfusing</ibeh> 
+ </transition> 
+<transition>
+<start>PressureLevel</start> 
+ <end>PowerDown</end> 
+ <ibeh>I_PowerDown</ibeh> 
+ </transition> 
+<transition>
+<start>PressureLevel</start> 
+ <end>RateOnHold</end> 
+ <ibeh>I_RateOnHold</ibeh> 
+ </transition> 
+<transition>
+<start>Volume</start> 
+ <end>RateInfusing</end> 
+ <ibeh>I_RateInfusing</ibeh> 
+ </transition> 
+<transition>
+<start>Volume</start> 
+ <end>PowerDown</end> 
+ <ibeh>I_PowerDown</ibeh> 
+ </transition> 
+<transition>
+<start>Volume</start> 
+ <end>RateOnHold</end> 
+ <ibeh>I_RateOnHold</ibeh> 
+ </transition> 
+<transition>
+<start>SelectDrugCategory</start> 
+ <end>PowerDown</end> 
+ <ibeh>I_PowerDown</ibeh> 
+ </transition> 
+<transition>
+<start>SelectDrugCategory</start> 
+ <end>Attention</end> 
+ <ibeh>I_Attention</ibeh> 
+ </transition> 
+<transition>
+<start>SelectDrugCategory</start> 
+ <end>SelectDrug</end> 
+ <ibeh>I_SelectDrug</ibeh> 
+ </transition> 
+<transition>
+<start>ConfirmProfile</start> 
+ <end>SelectDrugCategory</end> 
+ <ibeh>I_SelectCategory</ibeh> 
+ </transition> 
+<transition>
+<start>RateOnHold</start> 
+ <end>RateInfusing</end> 
+ <ibeh>I_RateInfusing</ibeh> 
+ </transition> 
+<transition>
+<start>VTBI</start> 
+ <end>RateOnHold</end> 
+ <ibeh>I_RateOnHold</ibeh> 
+ </transition> 
+<transition>
+<start>VTBI</start> 
+ <end>EndRate</end> 
+ <ibeh>I_EndRate</ibeh> 
+ </transition> 
+<transition>
+<start>EndRate</start> 
+ <end>RateOnHold</end> 
+ <ibeh>I_RateOnHold</ibeh> 
+ </transition> 
+<transition>
+<start>EndRate</start> 
+ <end>VTBI</end> 
+ <ibeh>I_VTBI</ibeh> 
+ </transition> 
+</PIM> 
+<PMR> 
+<rel> 
+ <sbeh>S_SwitchOn</sbeh> 
+ <sop>SwitchOn</sop> 
+ </rel> 
+<rel> 
+ <sbeh>S_ClearSetup</sbeh> 
+ <sop>ClearSetup</sop> 
+ </rel> 
+<rel> 
+ <sbeh>S_ChangeReset</sbeh> 
+ <sop>ChangeReset</sop> 
+ </rel> 
+<rel> 
+ <sbeh>S_OnHold</sbeh> 
+ <sop>OnHold</sop> 
+ </rel> 
+<rel> 
+ <sbeh>S_Charging</sbeh> 
+ <sop>Charging</sop> 
+ </rel> 
+<rel> 
+ <sbeh>S_BatteryStatus</sbeh> 
+ <sop>BatteryStatus</sop> 
+ </rel> 
+<rel> 
+ <sbeh>S_CountDownToOff</sbeh> 
+ <sop>CountDownToOff</sop> 
+ </rel> 
+<rel> 
+ <sbeh>S_Infusing</sbeh> 
+ <sop>Infusing</sop> 
+ </rel> 
+<rel> 
+ <sbeh>S_SetProfile</sbeh> 
+ <sop>SetProfile</sop> 
+ </rel> 
+<rel> 
+ <sbeh>S_TopOfProfile</sbeh> 
+ <sop>TopOfProfile</sop> 
+ </rel> 
+<rel> 
+ <sbeh>S_UpProfileOne</sbeh> 
+ <sop>UpProfileOne</sop> 
+ </rel> 
+<rel> 
+ <sbeh>S_DownProfileOne</sbeh> 
+ <sop>DownProfileOne</sop> 
+ </rel> 
+<rel> 
+ <sbeh>S_BottomOfProfile</sbeh> 
+ <sop>BottomOfProfile</sop> 
+ </rel> 
+<rel> 
+ <sbeh>S_SetDrugCategory</sbeh> 
+ <sop>SetDrugCategory</sop> 
+ </rel> 
+<rel> 
+ <sbeh>S_TopCategory</sbeh> 
+ <sop>TopCategory</sop> 
+ </rel> 
+<rel> 
+ <sbeh>S_UpCategoryOne</sbeh> 
+ <sop>UpCategoryOne</sop> 
+ </rel> 
+<rel> 
+ <sbeh>S_DownCategoryOne</sbeh> 
+ <sop>DownCategoryOne</sop> 
+ </rel> 
+<rel> 
+ <sbeh>S_BottomCategory</sbeh> 
+ <sop>BottomCategory</sop> 
+ </rel> 
+<rel> 
+ <sbeh>S_SetDrug</sbeh> 
+ <sop>SetDrug</sop> 
+ </rel> 
+<rel> 
+ <sbeh>S_TopOfDrugs</sbeh> 
+ <sop>TopOfDrugs</sop> 
+ </rel> 
+<rel> 
+ <sbeh>S_UpDrugsOne</sbeh> 
+ <sop>UpDrugsOne</sop> 
+ </rel> 
+<rel> 
+ <sbeh>S_DownDrugsOne</sbeh> 
+ <sop>DownDrugsOne</sop> 
+ </rel> 
+<rel> 
+ <sbeh>S_BottomOfDrugs</sbeh> 
+ <sop>BottomOfDrugs</sop> 
+ </rel> 
+<rel> 
+ <sbeh>S_SetRate</sbeh> 
+ <sop>SetRate</sop> 
+ </rel> 
+<rel> 
+ <sbeh>S_ClearVolume</sbeh> 
+ <sop>ClearVolume</sop> 
+ </rel> 
+<rel> 
+ <sbeh>S_StopAlarm</sbeh> 
+ <sop>StopAlarm</sop> 
+ </rel> 
+<rel> 
+ <sbeh>S_StartAlarm</sbeh> 
+ <sop>StartAlarm</sop> 
+ </rel> 
+<rel> 
+ <sbeh>S_TopOfOptions</sbeh> 
+ <sop>TopOfOptions</sop> 
+ </rel> 
+<rel> 
+ <sbeh>S_UpOptionsOne</sbeh> 
+ <sop>UpOptionsOne</sop> 
+ </rel> 
+<rel> 
+ <sbeh>S_DownOptionsOne</sbeh> 
+ <sop>DownOptionsOne</sop> 
+ </rel> 
+<rel> 
+ <sbeh>S_BottomOfOptions</sbeh> 
+ <sop>BottomOfOptions</sop> 
+ </rel> 
+<rel> 
+ <sbeh>S_IncreaseSelection</sbeh> 
+ <sop>IncreaseSelection</sop> 
+ </rel> 
+<rel> 
+ <sbeh>S_DecreaseSelection</sbeh> 
+ <sop>DecreaseSelection</sop> 
+ </rel> 
+<rel> 
+ <sbeh>S_IncreaseTimeDouble</sbeh> 
+ <sop>IncreaseTimeDouble</sop> 
+ </rel> 
+<rel> 
+ <sbeh>S_IncreaseTime</sbeh> 
+ <sop>IncreaseTime</sop> 
+ </rel> 
+<rel> 
+ <sbeh>S_DecreaseTime</sbeh> 
+ <sop>DecreaseTime</sop> 
+ </rel> 
+<rel> 
+ <sbeh>S_DecreaseTimeDouble</sbeh> 
+ <sop>DecreaseTimeDouble</sop> 
+ </rel> 
+<rel> 
+ <sbeh>S_ChangeUp</sbeh> 
+ <sop>ChangeUp</sop> 
+ </rel> 
+<rel> 
+ <sbeh>S_ChangeDown</sbeh> 
+ <sop>ChangeDown</sop> 
+ </rel> 
+<rel> 
+ <sbeh>S_TopVolumes</sbeh> 
+ <sop>TopVolumes</sop> 
+ </rel> 
+<rel> 
+ <sbeh>S_UpVolumesOne</sbeh> 
+ <sop>UpVolumesOne</sop> 
+ </rel> 
+<rel> 
+ <sbeh>S_DownVolumesOne</sbeh> 
+ <sop>DownVolumesOne</sop> 
+ </rel> 
+<rel> 
+ <sbeh>S_BottomVolumes</sbeh> 
+ <sop>BottomVolumes</sop> 
+ </rel> 
+<rel> 
+ <sbeh>S_AddProfile</sbeh> 
+ <sop>AddProfile</sop> 
+ </rel> 
+<rel> 
+ <sbeh>S_RemoveProfile</sbeh> 
+ <sop>RemoveProfile</sop> 
+ </rel> 
+<rel> 
+ <sbeh>S_StartPowerSaving</sbeh> 
+ <sop>StartPowerSaving</sop> 
+ </rel> 
+<rel> 
+ <sbeh>S_IncreaseRateDouble</sbeh> 
+ <sop>IncreaseRateDouble</sop> 
+ </rel> 
+<rel> 
+ <sbeh>S_IncreaseRate</sbeh> 
+ <sop>IncreaseRate</sop> 
+ </rel> 
+<rel> 
+ <sbeh>S_DecreaseRate</sbeh> 
+ <sop>DecreaseRate</sop> 
+ </rel> 
+<rel> 
+ <sbeh>S_DecreaseRateDouble</sbeh> 
+ <sop>DecreaseRateDouble</sop> 
+ </rel> 
+<rel> 
+ <sbeh>S_IncreaseBolus</sbeh> 
+ <sop>IncreaseBolus</sop> 
+ </rel> 
+<rel> 
+ <sbeh>S_IncreaseBolusDouble</sbeh> 
+ <sop>IncreaseBolusDouble</sop> 
+ </rel> 
+<rel> 
+ <sbeh>S_DecreaseBolus</sbeh> 
+ <sop>DecreaseBolus</sop> 
+ </rel> 
+<rel> 
+ <sbeh>S_DecreaseBolusDouble</sbeh> 
+ <sop>DecreaseBolusDouble</sop> 
+ </rel> 
+<rel> 
+ <sbeh>S_SetVTBIBags</sbeh> 
+ <sop>SetVTBIBags</sop> 
+ </rel> 
+<rel> 
+ <sbeh>S_TopOfVTBIBags</sbeh> 
+ <sop>TopOfVTBIBags</sop> 
+ </rel> 
+<rel> 
+ <sbeh>S_UpVTBIBagsOne</sbeh> 
+ <sop>UpVTBIBagsOne</sop> 
+ </rel> 
+<rel> 
+ <sbeh>S_DownVTBIBagsOne</sbeh> 
+ <sop>DownVTBIBagsOne</sop> 
+ </rel> 
+<rel> 
+ <sbeh>S_BottomOfVTBIBags</sbeh> 
+ <sop>BottomOfVTBIBags</sop> 
+ </rel> 
+<rel> 
+ <sbeh>S_SetVTBI</sbeh> 
+ <sop>SetVTBI</sop> 
+ </rel> 
+<rel> 
+ <sbeh>S_IncreaseVTBIDouble</sbeh> 
+ <sop>IncreaseVTBIDouble</sop> 
+ </rel> 
+<rel> 
+ <sbeh>S_IncreaseVTBI</sbeh> 
+ <sop>IncreaseVTBI</sop> 
+ </rel> 
+<rel> 
+ <sbeh>S_DecreaseVTBI</sbeh> 
+ <sop>DecreaseVTBI</sop> 
+ </rel> 
+<rel> 
+ <sbeh>S_DecreaseVTBIDouble</sbeh> 
+ <sop>DecreaseVTBIDouble</sop> 
+ </rel> 
+<rel> 
+ <sbeh>S_NoRateSet</sbeh> 
+ <sop>NoRateSet</sop> 
+ </rel> 
+ <rel> 
+ <sbeh>S_TopEndRate</sbeh> 
+ <sop>TopEndRate</sop> 
+ </rel> 
+  <rel> 
+ <sbeh>S_UpEndRateOne</sbeh> 
+ <sop>UpEndRateOne</sop> 
+ </rel> 
+ <rel> 
+ <sbeh>S_DownEndRateOne</sbeh> 
+ <sop>DownEndRateOne</sop> 
+ </rel> 
+ <rel> 
+ <sbeh>S_BottomEndRate</sbeh> 
+ <sop>BottomEndRate</sop> 
+ </rel>
+</PMR> 
+</PIMS>
