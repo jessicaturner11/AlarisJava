@@ -1,0 +1,5154 @@
+\section{Z Specification}\label{ZSpecification2}
+
+\subsection*{AlarisInfusionPump}
+%Defining custom types
+\begin{zed}
+	INFUSING ::= Yes | No | Paused\\
+	PROFILE ::= CriticalCare | MedicalWard | Pediatrics | SurgicalWard | \\
+	TrainingADULT | TrainingPEDIATRICS\\
+	DRUGCATEGORY ::= mlh | ABCDE | FGHIJ | KLMNO | PQRST\\
+	 | UVWXYZ\\
+	DRUG ::= Adrenaline | AmiodaroneBolus | AmiodaroneInf |\\
+	Dobutamine | FLUIDSANDBLOODS | Gentamicin | Morphine | \\
+	Noradrenaline | Propofol\\
+	ENDRATE ::= STOP | KVO | CONTINUE\\
+	BATTERYSTATUS ::= Charge | Discharge\\
+	BOLUS ::= Enabled | Disabled | HandsOnOnly | \\
+	HandsOnAndHandsFree\\
+	ALARMVOLUME ::= High | Medium | Low\\
+	LIGHT ::= On | Off\\
+	BOOLEAN ::= True | False\\
+	UNITDISPLAY ::= UgMIN | Ug24h | mg24h | unit24h | mmol24h | \\
+	mlkgMIN | ngkgh | UgkgMIN | Ugkgh | mgkgMIN | mgkgh | gkgMIN | \\
+	unitkgMIN | mmolkgMIN | mmolkgh | mlh1\\
+	DRUGOVERRIDEMODE ::= Always | Smart\\
+	ALARM ::= Go | Stop\\
+	OPTIONS ::= DosingSummary | InfusionSetup | SetVTBIOverTime | \\
+	AdjustAlarmVolume | EventLog | PumpDetails | ProfileFilter | StandBy\\
+\end{zed}
+\vfill
+\begin{schema}{AlarisInfusionPump}
+	alarm : ALARM\\
+	alarmLimit : \nat\\
+	alarmVolumeSelected : ALARMVOLUME\\
+	profile : PROFILE\\
+	profileSelected : PROFILE\\
+	profilesActive : \power PROFILE\\
+	drugCategory : DRUGCATEGORY\\
+	drugCategorySelected : DRUGCATEGORY\\
+	drug : DRUG\\
+	drugSelected : DRUG\\
+	rate : \nat\\
+	endRate : ENDRATE\\
+	doseRateSoftMin : \nat\\
+	doseRateSoftMax : \nat\\
+	doseRateHardMax : \nat\\
+	doseRateDefault : \nat\\
+	volume : \nat\\
+	VTBI : \nat\\
+	VTBIBagSize : \nat\\
+	VTBIBagSizeSelected : \nat\\
+	time : \nat\\
+	battStatus : BATTERYSTATUS\\
+	bolus : \nat\\
+	bolusVolume : \nat\\
+	infusing : INFUSING\\
+	\pagebreak
+	countdown : \nat\\
+	powerSavingCount : \nat\\
+	option : OPTIONS\\
+	State : \nat\\
+\end{schema}
+\vfill
+\begin{schema}{Settings}
+	alarmMax : \nat\\
+	alarmVolume : ALARMVOLUME\\
+	audioVolumeAdjustable : BOOLEAN\\
+	profileFiltering : BOOLEAN\\
+	drugOverrideMode : DRUGOVERRIDEMODE\\
+	infusionRateMax : \nat\\
+	rateTitration : BOOLEAN\\
+	volumeInfused : \nat\\
+	concentration : \nat\\
+	concentrationMin : \nat\\
+	concentrationMax : \nat\\
+	VTBIClearRate : BOOLEAN\\
+	primaryVTBIMax : \nat\\
+	batteryPercent: \nat\\
+	pumpingPressure : \nat\\
+	pressureDisplay : BOOLEAN\\
+	pressureMax : \nat\\
+	bolusCategory : BOLUS\\
+	bolusRateMax : \nat\\
+	bolusVolumeMax : \nat\\
+	\pagebreak
+	bolusDoseDefault : \nat\\
+	bolusRateDefault : \nat\\
+	weight : \nat\\
+	weightDefault : \nat\\
+	weightSoftMin : \nat\\
+	weightSoftMax : \nat\\
+	autoNightMode : BOOLEAN\\
+	autoSave : BOOLEAN\\
+	eventLog : BOOLEAN\\
+	standbyMode : BOOLEAN\\
+	primeRate : \nat\\
+	secondaryInfusion : BOOLEAN\\
+	values : \nat \rel \nat\\
+	\where
+	alarmMax = 8\\
+	alarmVolume = Medium\\
+	audioVolumeAdjustable = True\\
+	profileFiltering = True\\
+	drugOverrideMode = Smart\\
+	infusionRateMax = 1200\\
+	rateTitration = True\\
+	volumeInfused = 0\\
+	concentration = 0\\
+	concentrationMin = 0\\
+	concentrationMax = 0\\
+	VTBIClearRate = True\\
+	primaryVTBIMax = 9999\\
+	batteryPercent = 11\\
+	\pagebreak
+	pumpingPressure = 0\\
+	pressureDisplay = True\\
+	pressureMax = 8\\
+	bolusCategory = HandsOnOnly\\
+	bolusRateMax = 1200\\
+	bolusVolumeMax = 5\\
+	bolusDoseDefault = 0\\
+	bolusRateDefault = 0\\
+	weight = weightDefault\\
+	weightDefault = 1\\
+	weightSoftMin = 1\\
+	weightSoftMax = 150\\
+	autoNightMode = True\\
+	autoSave = True\\
+	eventLog = True\\
+	standbyMode = True\\
+	primeRate = 0\\
+	secondaryInfusion = False\\
+	values = \{(1,1),(2,10),(3,100),(4,1000)\}\\
+\end{schema}
+
+\begin{schema}{Init}
+	AlarisInfusionPump\\
+	\where
+	alarm = Stop\\
+	alarmLimit = 5\\
+	alarmVolumeSelected = Medium\\
+	profile = CriticalCare\\
+	\pagebreak
+	profileSelected = profile\\
+	profilesActive = \{ CriticalCare,MedicalWard,Pediatrics,Surgical\\
+	Ward,TrainingADULT,TrainingPEDIATRICS \}\\
+	drugCategory = mlh\\
+	drugCategorySelected = drugCategory\\
+	drug = Adrenaline\\
+	drugSelected = drug\\
+	rate = 0\\
+	endRate = CONTINUE\\
+	doseRateSoftMin = 0\\
+	doseRateSoftMax = 0\\
+	doseRateHardMax = 0\\
+	doseRateDefault = 0\\
+	volume = 0\\
+	VTBI = 0\\
+	VTBIBagSize = 0\\
+	VTBIBagSizeSelected = 500\\
+	%VTBIBagSize = 0\\
+	time = 0\\
+	battStatus = Charge\\
+	bolus = 0\\
+	bolusVolume = 0\\
+	infusing = No\\
+	countdown = 5\\
+	powerSavingCount = 10\\
+	option = DosingSummary\\
+	State = 1\\
+\end{schema}
+
+\begin{schema}{Invariant}
+	AlarisInfusionPump\\
+	Settings\\
+	\where
+	alarmLimit \geq 0 \land alarmLimit \leq alarmMax\\
+	audioVolumeAdjustable = True\\
+	profileFiltering = True\\
+	drugOverrideMode = Smart\\
+	rate \geq 0 \land rate \leq doseRateHardMax\\
+	doseRateSoftMin \geq 0 \land doseRateSoftMin \leq doseRateHardMax\\
+	doseRateSoftMax \geq doseRateSoftMin \land doseRateSoftMax \leq doseRate\\
+	HardMax\\
+	doseRateHardMax \geq doseRateSoftMax \land doseRateHardMax \leq \\
+	infusionRateMax\\
+	doseRateDefault \geq doseRateSoftMin \land doseRateDefault \leq infusion\\
+	RateMax\\
+	infusionRateMax = 1200\\
+	rateTitration = True\\
+	volume \geq 0\\
+	volumeInfused \geq 0 \land volumeInfused \leq volume\\
+	concentration \geq concentrationMin \land concentration \leq concentration\\
+	Max\\
+	VTBI \geq 0 \land VTBI \leq primaryVTBIMax\\
+	VTBIBagSize \geq 0 \land VTBIBagSize \leq 3000\\
+	VTBIClearRate = True\\
+	primaryVTBIMax = 9999\\
+	time \geq 0\\
+	\pagebreak
+	batteryPercent \geq 0 \land batteryPercent \leq 100\\
+	pumpingPressure \geq 0 \land pumpingPressure \leq pressureMax\\
+	pressureDisplay = True\\
+	pressureMax = 8\\
+	bolus \geq 0 \land bolus \leq bolusVolumeMax\\
+	bolusVolume \geq 0 \land bolusVolume \leq bolusVolumeMax\\
+	bolusCategory = HandsOnOnly\\
+	bolusRateMax = 1200\\
+	bolusVolumeMax = 5\\
+	bolusDoseDefault \geq 0 \land bolusDoseDefault \leq bolusVolumeMax\\
+	bolusRateDefault \geq 0 \land bolusRateDefault \leq bolusRateMax\\
+	weight \geq weightSoftMin \land weight \leq weightSoftMax\\
+	weightDefault = 1\\
+	weightSoftMin = 1\\
+	weightSoftMax = 150\\
+	countdown \geq 0 \land countdown \leq 5\\
+	autoNightMode = True\\
+	autoSave = True\\
+	eventLog = True\\
+	standbyMode = True\\
+	primeRate \geq 0\\
+	secondaryInfusion = False\\
+	powerSavingCount \geq 0 \land powerSavingCount \leq 10\\
+	State \leq 4 \land State \geq 1\\
+\end{schema}
+
+\begin{schema}{IncreaseVTBI}
+\pagebreak
+	\Delta AlarisInfusionPump\\
+	Settings\\
+	\where
+	alarm' = alarm\\
+	alarmLimit' = alarmLimit\\
+	%alarmMax' = alarmMax\\
+	%alarmVolume' = alarmVolume\\
+	%audioVolumeAdjustable' = audioVolumeAdjustable\\ 
+	alarmVolumeSelected' = alarmVolumeSelected\\
+	profile' = profile\\
+	%profileFiltering' = profileFiltering\\
+	profilesActive' = profilesActive\\    
+	profileSelected' = profileSelected\\
+	drugCategory' = drugCategory\\ drugCategorySelected' = drugCategorySelected\\
+	drug' = drug\\ drugSelected' = drugSelected\\
+	%drugOverrideMode' = drugOverrideMode\\
+	rate' = rate\\
+	endRate' = endRate\\
+	doseRateSoftMin' = doseRateSoftMin\\
+	doseRateSoftMax' = doseRateSoftMax\\
+	doseRateHardMax' = doseRateHardMax\\
+	doseRateDefault' = doseRateDefault\\
+	%infusionRateMax' = infusionRateMax\\
+	%rateTitration' = rateTitration\\
+	volume' = volume\\
+	%volumeInfused' = volumeInfused\\
+	%concentration' = concentration\\
+	%concentrationMin' = concentrationMin\\
+	%concentrationMax' = concentrationMax\\
+	VTBI < primaryVTBIMax\\
+	VTBI' = VTBI + values(State)\\
+	VTBIBagSize' = 0\\ VTBIBagSizeSelected' = VTBIBagSizeSelected\\
+	%VTBIClearRate' = VTBIClearRate\\
+	%primaryVTBIMax' = primaryVTBIMax\\ 
+	time' = time\\ 
+	State' = State\\
+	%values' = values\\
+	battStatus' = battStatus\\
+	%batteryPercent' = batteryPercent\\
+	%pumpingPressure' = pumpingPressure\\
+	%pressureDisplay' = pressureDisplay\\
+	%pressureMax' = pressureMax\\
+	bolus' = bolus\\
+	\pagebreak
+	bolusVolume' = bolusVolume\\
+	%bolusCategory' = bolusCategory\\
+	%bolusRateMax' = bolusRateMax\\
+	%bolusVolumeMax' = bolusVolumeMax\\
+	%bolusDoseDefault' = bolusDoseDefault\\
+	%bolusRateDefault' = bolusRateDefault\\
+	infusing = No\\
+	infusing' = infusing\\
+	%weight' = weight\\
+	%weightDefault' = weightDefault\\
+	%weightSoftMin' = weightSoftMin\\
+	%weightSoftMax' = weightSoftMax\\
+	countdown > 0 \land countdown' = 5\\
+	%autoNightMode' = autoNightMode\\
+	%autoSave' = autoSave\\
+	%eventLog' = eventLog\\
+	%standbyMode' = standbyMode\\
+	%primeRate' = primeRate\\
+	%secondaryInfusion' = secondaryInfusion\\
+	powerSavingCount' = powerSavingCount\\ option' = option\\
+\end{schema}
+
+\begin{schema}{DecreaseVTBI}
+	\Delta AlarisInfusionPump\\
+	Settings\\
+	\where
+	alarm' = alarm\\
+	alarmLimit' = alarmLimit\\
+	%alarmMax' = alarmMax\\
+	%alarmVolume' = alarmVolume\\
+	%audioVolumeAdjustable' = audioVolumeAdjustable\\ 
+	alarmVolumeSelected' = alarmVolumeSelected\\
+	profile' = profile\\
+	%profileFiltering' = profileFiltering\\
+	profilesActive' = profilesActive\\  
+	  profileSelected' = profileSelected\\
+	drugCategory' = drugCategory\\ drugCategorySelected' = drugCategorySelected\\
+	drug' = drug\\ drugSelected' = drugSelected\\
+	%drugOverrideMode' = drugOverrideMode\\
+	rate' = rate\\
+	endRate' = endRate\\
+	doseRateSoftMin' = doseRateSoftMin\\
+	doseRateSoftMax' = doseRateSoftMax\\
+	doseRateHardMax' = doseRateHardMax\\
+	doseRateDefault' = doseRateDefault\\
+	%infusionRateMax' = infusionRateMax\\
+	%rateTitration' = rateTitration\\
+	\pagebreak
+	volume' = volume\\
+	%volumeInfused' = volumeInfused\\
+	%concentration' = concentration\\
+	%concentrationMin' = concentrationMin\\
+	%concentrationMax' = concentrationMax\\
+	VTBI \geq 0\\
+	VTBI' = VTBI - values(State)\\
+	VTBIBagSize' = 0\\ VTBIBagSizeSelected' = VTBIBagSizeSelected\\
+	%VTBIClearRate' = VTBIClearRate\\
+	%primaryVTBIMax' = primaryVTBIMax\\ 
+	time' = time\\ 
+	State' = State\\
+	%values' = values\\
+	battStatus' = battStatus\\
+	%batteryPercent' = batteryPercent\\
+	%pumpingPressure' = pumpingPressure\\
+	%pressureDisplay' = pressureDisplay\\
+	%pressureMax' = pressureMax\\
+	bolus' = bolus\\
+	bolusVolume' = bolusVolume\\
+	%bolusCategory' = bolusCategory\\
+	%bolusRateMax' = bolusRateMax\\
+	%bolusVolumeMax' = bolusVolumeMax\\
+	%bolusDoseDefault' = bolusDoseDefault\\
+	%bolusRateDefault' = bolusRateDefault\\
+	infusing = No\\
+	infusing' = infusing\\
+	%weight' = weight\\
+	%weightDefault' = weightDefault\\
+	%weightSoftMin' = weightSoftMin\\
+	%weightSoftMax' = weightSoftMax\\
+	countdown > 0 \land countdown' = 5\\
+	%autoNightMode' = autoNightMode\\
+	%autoSave' = autoSave\\
+	%eventLog' = eventLog\\
+	%standbyMode' = standbyMode\\
+	%primeRate' = primeRate\\
+	%secondaryInfusion' = secondaryInfusion\\
+	powerSavingCount' = powerSavingCount\\ option' = option\\
+\end{schema}
+
+\begin{schema}{IncreaseVTBIDouble}
+	\Delta AlarisInfusionPump\\
+	Settings\\
+	\where
+	alarm' = alarm\\
+	alarmLimit' = alarmLimit\\
+	%alarmMax' = alarmMax\\
+	%alarmVolume' = alarmVolume\\
+	%audioVolumeAdjustable' = audioVolumeAdjustable\\ 
+	alarmVolumeSelected' = alarmVolumeSelected\\
+	profile' = profile\\
+	%profileFiltering' = profileFiltering\\
+	profilesActive' = profilesActive\\  
+	  profileSelected' = profileSelected\\
+	drugCategory' = drugCategory\\ 
+	\pagebreak
+	drugCategorySelected' = drugCategorySelected\\
+	drug' = drug\\ drugSelected' = drugSelected\\
+	%drugOverrideMode' = drugOverrideMode\\
+	rate' = rate\\
+	endRate' = endRate\\
+	doseRateSoftMin' = doseRateSoftMin\\
+	doseRateSoftMax' = doseRateSoftMax\\
+	doseRateHardMax' = doseRateHardMax\\
+	doseRateDefault' = doseRateDefault\\
+	%infusionRateMax' = infusionRateMax\\
+	%rateTitration' = rateTitration\\
+	volume' = volume\\
+	%volumeInfused' = volumeInfused\\
+	%concentration' = concentration\\
+	%concentrationMin' = concentrationMin\\
+	%concentrationMax' = concentrationMax\\
+	VTBI < primaryVTBIMax\\
+	State + 1 \leq 4\\
+	VTBI' = VTBI + values(State+1)\\
+	VTBIBagSize' = 0\\ VTBIBagSizeSelected' = VTBIBagSizeSelected\\
+	%VTBIClearRate' = VTBIClearRate\\
+	%primaryVTBIMax' = primaryVTBIMax\\ 
+	time' = time\\ 
+	State' = State\\
+	%values' = values\\
+	battStatus' = battStatus\\
+	%batteryPercent' = batteryPercent\\
+	%pumpingPressure' = pumpingPressure\\
+	%pressureDisplay' = pressureDisplay\\
+	%pressureMax' = pressureMax\\
+	bolus' = bolus\\
+	bolusVolume' = bolusVolume\\
+	%bolusCategory' = bolusCategory\\
+	%bolusRateMax' = bolusRateMax\\
+	%bolusVolumeMax' = bolusVolumeMax\\
+	%bolusDoseDefault' = bolusDoseDefault\\
+	%bolusRateDefault' = bolusRateDefault\\
+	infusing = No\\
+	infusing' = infusing\\
+	%weight' = weight\\
+	%weightDefault' = weightDefault\\
+	%weightSoftMin' = weightSoftMin\\
+	%weightSoftMax' = weightSoftMax\\
+	countdown > 0 \land countdown' = 5\\
+	%autoNightMode' = autoNightMode\\
+	%autoSave' = autoSave\\
+	%eventLog' = eventLog\\
+	%standbyMode' = standbyMode\\
+	%primeRate' = primeRate\\
+	%secondaryInfusion' = secondaryInfusion\\
+	powerSavingCount' = powerSavingCount\\ option' = option\\
+\end{schema}
+
+\begin{schema}{DecreaseVTBIDouble}
+	\Delta AlarisInfusionPump\\
+	Settings\\
+	\where
+	alarm' = alarm\\
+	alarmLimit' = alarmLimit\\
+	%alarmMax' = alarmMax\\
+	%alarmVolume' = alarmVolume\\
+	%audioVolumeAdjustable' = audioVolumeAdjustable\\ 
+	alarmVolumeSelected' = alarmVolumeSelected\\
+	profile' = profile\\
+	%profileFiltering' = profileFiltering\\
+	profilesActive' = profilesActive\\  
+	  profileSelected' = profileSelected\\
+	drugCategory' = drugCategory\\ drugCategorySelected' = drugCategorySelected\\
+	drug' = drug\\ drugSelected' = drugSelected\\
+	%drugOverrideMode' = drugOverrideMode\\
+	rate' = rate\\
+	endRate' = endRate\\
+	doseRateSoftMin' = doseRateSoftMin\\
+	doseRateSoftMax' = doseRateSoftMax\\
+	doseRateHardMax' = doseRateHardMax\\
+	doseRateDefault' = doseRateDefault\\
+	%infusionRateMax' = infusionRateMax\\
+	%rateTitration' = rateTitration\\
+	volume' = volume\\
+	%volumeInfused' = volumeInfused\\
+	%concentration' = concentration\\
+	%concentrationMin' = concentrationMin\\
+	%concentrationMax' = concentrationMax\\
+	VTBI \geq 0\\
+	State + 1 \leq 4\\
+	VTBI' = VTBI - values(State+1)\\
+	VTBIBagSize' = 0\\ VTBIBagSizeSelected' = VTBIBagSizeSelected\\
+	%VTBIClearRate' = VTBIClearRate\\
+	%primaryVTBIMax' = primaryVTBIMax\\ 
+	time' = time\\ 
+	\pagebreak
+	State' = State\\
+	%values' = values\\ 
+	battStatus' = battStatus\\
+	%batteryPercent' = batteryPercent\\
+	%pumpingPressure' = pumpingPressure\\
+	%pressureDisplay' = pressureDisplay\\
+	%pressureMax' = pressureMax\\
+	bolus' = bolus\\
+	bolusVolume' = bolusVolume\\
+	%bolusCategory' = bolusCategory\\
+	%bolusRateMax' = bolusRateMax\\
+	%bolusVolumeMax' = bolusVolumeMax\\
+	%bolusDoseDefault' = bolusDoseDefault\\
+	%bolusRateDefault' = bolusRateDefault\\
+	infusing = No\\
+	infusing' = infusing\\
+	%weight' = weight\\
+	%weightDefault' = weightDefault\\
+	%weightSoftMin' = weightSoftMin\\
+	%weightSoftMax' = weightSoftMax\\
+	countdown > 0 \land countdown' = 5\\
+	%autoNightMode' = autoNightMode\\
+	%autoSave' = autoSave\\
+	%eventLog' = eventLog\\
+	%standbyMode' = standbyMode\\
+	%primeRate' = primeRate\\
+	%secondaryInfusion' = secondaryInfusion\\
+	powerSavingCount' = powerSavingCount\\ option' = option\\
+\end{schema}
+
+\begin{schema}{ChangeDown}
+	\Delta AlarisInfusionPump\\
+	 
+	Settings\\
+	\where
+	alarm' = alarm\\
+	alarmLimit' = alarmLimit\\
+	%alarmMax' = alarmMax\\
+	%alarmVolume' = alarmVolume\\
+	%audioVolumeAdjustable' = audioVolumeAdjustable\\ 
+	alarmVolumeSelected' = alarmVolumeSelected\\
+	profile' = profile\\
+	%profileFiltering' = profileFiltering\\
+	profilesActive' = profilesActive\\  
+	  profileSelected' = profileSelected\\
+	drugCategory' = drugCategory\\ drugCategorySelected' = drugCategorySelected\\
+	drug' = drug\\ drugSelected' = drugSelected\\
+	%drugOverrideMode' = drugOverrideMode\\
+	rate' = rate\\
+	endRate' = endRate\\
+	doseRateSoftMin' = doseRateSoftMin\\
+	\pagebreak
+	doseRateSoftMax' = doseRateSoftMax\\
+	doseRateHardMax' = doseRateHardMax\\
+	doseRateDefault' = doseRateDefault\\
+	%infusionRateMax' = infusionRateMax\\
+	%rateTitration' = rateTitration\\
+	volume' = volume\\
+	%volumeInfused' = volumeInfused\\
+	%concentration' = concentration\\
+	%concentrationMin' = concentrationMin\\
+	%concentrationMax' = concentrationMax\\
+	VTBI' = VTBI\\
+	VTBIBagSize' = VTBIBagSize\\ VTBIBagSizeSelected' = VTBIBagSizeSelected\\
+	%VTBIClearRate' = VTBIClearRate\\
+	%primaryVTBIMax' = primaryVTBIMax\\ 
+	time' = time\\ 
+	State > 1\\
+	State' = State -1\\
+	%values' = values\\ 
+	battStatus' = battStatus\\
+	%batteryPercent' = batteryPercent\\
+	%pumpingPressure' = pumpingPressure\\
+	%pressureDisplay' = pressureDisplay\\
+	%pressureMax' = pressureMax\\
+	bolus' = bolus\\
+	bolusVolume' = bolusVolume\\
+	%bolusCategory' = bolusCategory\\
+	%bolusRateMax' = bolusRateMax\\
+	%bolusVolumeMax' = bolusVolumeMax\\
+	%bolusDoseDefault' = bolusDoseDefault\\
+	%bolusRateDefault' = bolusRateDefault\\
+	infusing' = infusing\\
+	%weight' = weight\\
+	%weightDefault' = weightDefault\\
+	%weightSoftMin' = weightSoftMin\\
+	%weightSoftMax' = weightSoftMax\\
+	countdown > 0 \land countdown' = 5\\
+	%autoNightMode' = autoNightMode\\
+	%autoSave' = autoSave\\
+	%eventLog' = eventLog\\
+	%standbyMode' = standbyMode\\
+	%primeRate' = primeRate\\
+	%secondaryInfusion' = secondaryInfusion\\
+	powerSavingCount' = powerSavingCount\\ option' = option\\
+\end{schema}
+
+\begin{schema}{ChangeUp}
+	\Delta AlarisInfusionPump\\
+	Settings\\
+	\where
+	alarm' = alarm\\
+	alarmLimit' = alarmLimit\\
+	%alarmMax' = alarmMax\\
+	%alarmVolume' = alarmVolume\\
+	%audioVolumeAdjustable' = audioVolumeAdjustable\\ 
+	alarmVolumeSelected' = alarmVolumeSelected\\
+	profile' = profile\\
+	%profileFiltering' = profileFiltering\\
+	profilesActive' = profilesActive\\  
+	\pagebreak
+	  profileSelected' = profileSelected\\
+	drugCategory' = drugCategory\\ drugCategorySelected' = drugCategorySelected\\
+	drug' = drug\\ drugSelected' = drugSelected\\
+	%drugOverrideMode' = drugOverrideMode\\
+	rate' = rate\\
+	endRate' = endRate\\
+	doseRateSoftMin' = doseRateSoftMin\\
+	doseRateSoftMax' = doseRateSoftMax\\
+	doseRateHardMax' = doseRateHardMax\\
+	doseRateDefault' = doseRateDefault\\
+	%infusionRateMax' = infusionRateMax\\
+	%rateTitration' = rateTitration\\
+	volume' = volume\\
+	%volumeInfused' = volumeInfused\\
+	%concentration' = concentration\\
+	%concentrationMin' = concentrationMin\\
+	%concentrationMax' = concentrationMax\\
+	VTBI' = VTBI\\
+	VTBIBagSize' = VTBIBagSize\\ 
+	VTBIBagSizeSelected' = VTBIBagSizeSelected\\
+	%VTBIClearRate' = VTBIClearRate\\
+	State < 4\\
+	%primaryVTBIMax' = primaryVTBIMax\\ 
+	time' = time\\ 
+	State' = State +1\\
+	%values' = values\\ 
+	battStatus' = battStatus\\
+	%batteryPercent' = batteryPercent\\
+	%pumpingPressure' = pumpingPressure\\
+	%pressureDisplay' = pressureDisplay\\
+	%pressureMax' = pressureMax\\
+	bolus' = bolus\\
+	bolusVolume' = bolusVolume\\
+	%bolusCategory' = bolusCategory\\
+	%bolusRateMax' = bolusRateMax\\
+	%bolusVolumeMax' = bolusVolumeMax\\
+	%bolusDoseDefault' = bolusDoseDefault\\
+	%bolusRateDefault' = bolusRateDefault\\
+	infusing' = infusing\\
+	%weight' = weight\\
+	%weightDefault' = weightDefault\\
+	%weightSoftMin' = weightSoftMin\\
+	%weightSoftMax' = weightSoftMax\\
+	countdown > 0 \land countdown' = 5\\
+	%autoNightMode' = autoNightMode\\
+	%autoSave' = autoSave\\
+	%eventLog' = eventLog\\
+	%standbyMode' = standbyMode\\
+	%primeRate' = primeRate\\
+	%secondaryInfusion' = secondaryInfusion\\
+	powerSavingCount' = powerSavingCount\\ option' = option\\
+\end{schema}
+
+%Rate is set on increase, therefore no need for seperate schema
+\begin{schema}{IncreaseRate}
+	\Delta AlarisInfusionPump\\
+	Settings\\
+	\where
+	alarm' = alarm\\
+	alarmLimit' = alarmLimit\\
+	%alarmMax' = alarmMax\\
+	%alarmVolume' = alarmVolume\\
+	%audioVolumeAdjustable' = audioVolumeAdjustable\\ 
+	alarmVolumeSelected' = alarmVolumeSelected\\
+	profile' = profile\\
+	%profileFiltering' = profileFiltering\\
+	profilesActive' = profilesActive\\  
+	  profileSelected' = profileSelected\\
+	drugCategory' = drugCategory\\ drugCategorySelected' = drugCategorySelected\\
+	drug' = drug\\ drugSelected' = drugSelected\\
+	%drugOverrideMode' = drugOverrideMode\\
+	rate < infusionRateMax\\
+	rate' = rate + values(State)\\
+	endRate' = endRate\\
+	doseRateSoftMin' = doseRateSoftMin\\
+	doseRateSoftMax' = doseRateSoftMax\\
+	doseRateHardMax' = doseRateHardMax\\
+	doseRateDefault' = doseRateDefault\\
+	%infusionRateMax' = infusionRateMax\\
+	%rateTitration' = rateTitration\\
+	volume' = volume\\
+	%volumeInfused' = volumeInfused\\
+	%concentration' = concentration\\
+	%concentrationMin' = concentrationMin\\
+	%concentrationMax' = concentrationMax\\
+	VTBI' = VTBI\\
+	VTBIBagSize' = VTBIBagSize\\ VTBIBagSizeSelected' = VTBIBagSizeSelected\\
+	%VTBIClearRate' = VTBIClearRate\\
+	%primaryVTBIMax' = primaryVTBIMax\\ 
+	time' = time\\ 
+	State' = State\\
+	%values' = values\\
+	\pagebreak
+	battStatus' = battStatus\\
+	%batteryPercent' = batteryPercent\\
+	%pumpingPressure' = pumpingPressure\\
+	%pressureDisplay' = pressureDisplay\\
+	%pressureMax' = pressureMax\\
+	bolus' = 0\\
+	bolusVolume' = 0\\
+	%bolusCategory' = bolusCategory\\
+	%bolusRateMax' = bolusRateMax\\
+	%bolusVolumeMax' = bolusVolumeMax\\
+	%bolusDoseDefault' = bolusDoseDefault\\
+	%bolusRateDefault' = bolusRateDefault\\
+	infusing = Yes\\
+	infusing' = infusing\\
+	%weight' = weight\\
+	%weightDefault' = weightDefault\\
+	%weightSoftMin' = weightSoftMin\\
+	%weightSoftMax' = weightSoftMax\\
+	countdown > 0 \land countdown' = 5\\
+	%autoNightMode' = autoNightMode\\
+	%autoSave' = autoSave\\
+	%eventLog' = eventLog\\
+	%standbyMode' = standbyMode\\
+	%primeRate' = primeRate\\
+	%secondaryInfusion' = secondaryInfusion\\
+	powerSavingCount' = powerSavingCount\\ option' = option\\
+\end{schema}
+
+\begin{schema}{DecreaseRate}
+	\Delta AlarisInfusionPump\\
+	 
+	Settings\\
+	\where
+	alarm' = alarm\\
+	alarmLimit' = alarmLimit\\
+	%alarmMax' = alarmMax\\
+	%alarmVolume' = alarmVolume\\
+	%audioVolumeAdjustable' = audioVolumeAdjustable\\ 
+	alarmVolumeSelected' = alarmVolumeSelected\\
+	profile' = profile\\
+	%profileFiltering' = profileFiltering\\
+	profilesActive' = profilesActive\\  
+	  profileSelected' = profileSelected\\
+	drugCategory' = drugCategory\\ drugCategorySelected' = drugCategorySelected\\
+	drug' = drug\\ drugSelected' = drugSelected\\
+	%drugOverrideMode' = drugOverrideMode\\
+	rate \geq 0\\
+	rate' = rate - values(State)\\
+	endRate' = endRate\\
+	doseRateSoftMin' = doseRateSoftMin\\
+	\pagebreak
+	doseRateSoftMax' = doseRateSoftMax\\
+	doseRateHardMax' = doseRateHardMax\\
+	doseRateDefault' = doseRateDefault\\
+	%infusionRateMax' = infusionRateMax\\
+	%rateTitration' = rateTitration\\
+	volume' = volume\\
+	%volumeInfused' = volumeInfused\\
+	%concentration' = concentration\\
+	%concentrationMin' = concentrationMin\\
+	%concentrationMax' = concentrationMax\\
+	VTBI' = VTBI\\
+	VTBIBagSize' = VTBIBagSize\\ VTBIBagSizeSelected' = VTBIBagSizeSelected\\
+	%VTBIClearRate' = VTBIClearRate\\
+	%primaryVTBIMax' = primaryVTBIMax\\ 
+	time' = time\\ 
+	State' = State\\
+	%values' = values\\
+	battStatus' = battStatus\\
+	%batteryPercent' = batteryPercent\\
+	%pumpingPressure' = pumpingPressure\\
+	%pressureDisplay' = pressureDisplay\\
+	%pressureMax' = pressureMax\\
+	bolus' = 0\\
+	bolusVolume' = 0\\
+	%bolusCategory' = bolusCategory\\
+	%bolusRateMax' = bolusRateMax\\
+	%bolusVolumeMax' = bolusVolumeMax\\
+	%bolusDoseDefault' = bolusDoseDefault\\
+	%bolusRateDefault' = bolusRateDefault\\
+	infusing = Yes\\
+	infusing' = infusing\\
+	%weight' = weight\\
+	%weightDefault' = weightDefault\\
+	%weightSoftMin' = weightSoftMin\\
+	%weightSoftMax' = weightSoftMax\\
+	countdown > 0 \land countdown' = 5\\
+	%autoNightMode' = autoNightMode\\
+	%autoSave' = autoSave\\
+	%eventLog' = eventLog\\
+	%standbyMode' = standbyMode\\
+	%primeRate' = primeRate\\
+	%secondaryInfusion' = secondaryInfusion\\
+	powerSavingCount' = powerSavingCount\\ option' = option\\
+\end{schema}
+
+\begin{schema}{IncreaseRateDouble}
+	\Delta AlarisInfusionPump\\
+	Settings\\
+	\where
+	alarm' = alarm\\
+	alarmLimit' = alarmLimit\\
+	%alarmMax' = alarmMax\\
+	%alarmVolume' = alarmVolume\\
+	%audioVolumeAdjustable' = audioVolumeAdjustable\\ 
+	alarmVolumeSelected' = alarmVolumeSelected\\
+	profile' = profile\\
+	%profileFiltering' = profileFiltering\\
+	profilesActive' = profilesActive\\  
+	\pagebreak
+	  profileSelected' = profileSelected\\
+	drugCategory' = drugCategory\\ drugCategorySelected' = drugCategorySelected\\
+	drug' = drug\\ drugSelected' = drugSelected\\
+	%drugOverrideMode' = drugOverrideMode\\
+	rate < infusionRateMax\\
+	State + 1 \leq 4\\
+	rate' = rate + values(State + 1)\\
+	endRate' = endRate\\
+	doseRateSoftMin' = doseRateSoftMin\\
+	doseRateSoftMax' = doseRateSoftMax\\
+	doseRateHardMax' = doseRateHardMax\\
+	doseRateDefault' = doseRateDefault\\
+	%infusionRateMax' = infusionRateMax\\
+	%rateTitration' = rateTitration\\
+	volume' = volume\\
+	%volumeInfused' = volumeInfused\\
+	%concentration' = concentration\\
+	%concentrationMin' = concentrationMin\\
+	%concentrationMax' = concentrationMax\\
+	VTBI' = VTBI\\
+	VTBIBagSize' = VTBIBagSize\\ VTBIBagSizeSelected' = VTBIBagSizeSelected\\
+	%VTBIClearRate' = VTBIClearRate\\
+	%primaryVTBIMax' = primaryVTBIMax\\ 
+	time' = time\\ 
+	State' = State\\
+	%values' = values\\
+	battStatus' = battStatus\\
+	%batteryPercent' = batteryPercent\\
+	%pumpingPressure' = pumpingPressure\\
+	%pressureDisplay' = pressureDisplay\\
+	%pressureMax' = pressureMax\\
+	bolus' = 0\\
+	bolusVolume' = 0\\
+	%bolusCategory' = bolusCategory\\
+	%bolusRateMax' = bolusRateMax\\
+	%bolusVolumeMax' = bolusVolumeMax\\
+	%bolusDoseDefault' = bolusDoseDefault\\
+	%bolusRateDefault' = bolusRateDefault\\
+	infusing = Yes\\
+	infusing' = infusing\\
+	%weight' = weight\\
+	%weightDefault' = weightDefault\\
+	%weightSoftMin' = weightSoftMin\\
+	%weightSoftMax' = weightSoftMax\\
+	countdown > 0 \land countdown' = 5\\
+	%autoNightMode' = autoNightMode\\
+	%autoSave' = autoSave\\
+	%eventLog' = eventLog\\
+	%standbyMode' = standbyMode\\
+	%primeRate' = primeRate\\
+	%secondaryInfusion' = secondaryInfusion\\
+	powerSavingCount' = powerSavingCount\\ option' = option\\
+\end{schema}
+
+\begin{schema}{DecreaseRateDouble}
+	\Delta AlarisInfusionPump\\
+	Settings\\
+	\where
+	alarm' = alarm\\
+	alarmLimit' = alarmLimit\\
+	%alarmMax' = alarmMax\\
+	%alarmVolume' = alarmVolume\\
+	%audioVolumeAdjustable' = audioVolumeAdjustable\\ 
+	alarmVolumeSelected' = alarmVolumeSelected\\
+	profile' = profile\\
+	%profileFiltering' = profileFiltering\\
+	profilesActive' = profilesActive\\  
+	  profileSelected' = profileSelected\\
+	drugCategory' = drugCategory\\ drugCategorySelected' = drugCategorySelected\\
+	drug' = drug\\ drugSelected' = drugSelected\\
+	%drugOverrideMode' = drugOverrideMode\\
+	rate \geq 0\\
+	State + 1 \leq 4\\
+	rate' = rate - values(State + 1)\\
+	endRate' = endRate\\
+	doseRateSoftMin' = doseRateSoftMin\\
+	doseRateSoftMax' = doseRateSoftMax\\
+	doseRateHardMax' = doseRateHardMax\\
+	doseRateDefault' = doseRateDefault\\
+	%infusionRateMax' = infusionRateMax\\
+	%rateTitration' = rateTitration\\
+	volume' = volume\\
+	%volumeInfused' = volumeInfused\\
+	%concentration' = concentration\\
+	%concentrationMin' = concentrationMin\\
+	%concentrationMax' = concentrationMax\\
+	VTBI' = VTBI\\
+	VTBIBagSize' = VTBIBagSize\\ VTBIBagSizeSelected' = VTBIBagSizeSelected\\
+	%VTBIClearRate' = VTBIClearRate\\
+	%primaryVTBIMax' = primaryVTBIMax\\ 
+	time' = time\\ 
+	\pagebreak
+	State' = State\\
+	%values' = values\\
+	battStatus' = battStatus\\
+	%batteryPercent' = batteryPercent\\
+	%pumpingPressure' = pumpingPressure\\
+	%pressureDisplay' = pressureDisplay\\
+	%pressureMax' = pressureMax\\
+	bolus' = 0\\
+	bolusVolume' = 0\\
+	%bolusCategory' = bolusCategory\\
+	%bolusRateMax' = bolusRateMax\\
+	%bolusVolumeMax' = bolusVolumeMax\\
+	%bolusDoseDefault' = bolusDoseDefault\\
+	%bolusRateDefault' = bolusRateDefault\\
+	infusing = Yes\\
+	infusing' = infusing\\
+	%weight' = weight\\
+	%weightDefault' = weightDefault\\
+	%weightSoftMin' = weightSoftMin\\
+	%weightSoftMax' = weightSoftMax\\
+	countdown > 0 \land countdown' = 5\\
+	%autoNightMode' = autoNightMode\\
+	%autoSave' = autoSave\\
+	%eventLog' = eventLog\\
+	%standbyMode' = standbyMode\\
+	%primeRate' = primeRate\\
+	%secondaryInfusion' = secondaryInfusion\\
+	powerSavingCount' = powerSavingCount\\ option' = option\\
+\end{schema}
+
+\begin{schema}{CountDownToOff}
+	\Delta AlarisInfusionPump\\
+	Settings\\
+	\where
+	alarm' = alarm\\
+	alarmLimit' = alarmLimit\\
+	%alarmMax' = alarmMax\\
+	%alarmVolume' = alarmVolume\\
+	%audioVolumeAdjustable' = audioVolumeAdjustable\\ 
+	alarmVolumeSelected' = alarmVolumeSelected\\
+	profile' = profile\\
+	%profileFiltering' = profileFiltering\\
+	profilesActive' = profilesActive\\  
+	  profileSelected' = profileSelected\\
+	drugCategory' = drugCategory\\ drugCategorySelected' = drugCategorySelected\\
+	drug' = drug\\ drugSelected' = drugSelected\\
+	%drugOverrideMode' = drugOverrideMode\\
+	rate' = rate\\
+	endRate' = endRate\\
+	doseRateSoftMin' = doseRateSoftMin\\
+	\pagebreak
+	doseRateSoftMax' = doseRateSoftMax\\
+	doseRateHardMax' = doseRateHardMax\\
+	doseRateDefault' = doseRateDefault\\
+	%infusionRateMax' = infusionRateMax\\
+	%rateTitration' = rateTitration\\
+	volume' = volume\\
+	%volumeInfused' = volumeInfused\\
+	%concentration' = concentration\\
+	%concentrationMin' = concentrationMin\\
+	%concentrationMax' = concentrationMax\\
+	VTBI' = VTBI\\
+	VTBIBagSize' = VTBIBagSize\\ VTBIBagSizeSelected' = VTBIBagSizeSelected\\
+	%VTBIClearRate' = VTBIClearRate\\
+	%primaryVTBIMax' = primaryVTBIMax\\ 
+	time' = time\\ State' = State\\
+	%values' = values\\
+	battStatus' = battStatus\\
+	%batteryPercent' = batteryPercent\\
+	%pumpingPressure' = pumpingPressure\\
+	%pressureDisplay' = pressureDisplay\\
+	%pressureMax' = pressureMax\\
+	bolus' = 0\\
+	bolusVolume' = 0\\
+	%bolusCategory' = bolusCategory\\
+	%bolusRateMax' = bolusRateMax\\
+	%bolusVolumeMax' = bolusVolumeMax\\
+	%bolusDoseDefault' = bolusDoseDefault\\
+	%bolusRateDefault' = bolusRateDefault\\
+	infusing' = infusing\\
+	%weight' = weight\\
+	%weightDefault' = weightDefault\\
+	%weightSoftMin' = weightSoftMin\\
+	%weightSoftMax' = weightSoftMax\\
+	countdown > 0\\
+	countdown' = countdown - 1\\
+	%autoNightMode' = autoNightMode\\
+	%autoSave' = autoSave\\
+	%eventLog' = eventLog\\
+	%standbyMode' = standbyMode\\
+	%primeRate' = primeRate\\
+	%secondaryInfusion' = secondaryInfusion\\
+	powerSavingCount' = powerSavingCount\\ option' = option\\
+\end{schema}
+
+\begin{schema}{IncreaseSelection}
+	\Delta AlarisInfusionPump\\
+	 
+	Settings\\
+	\where
+	alarm' = alarm\\
+	alarmLimit < alarmMax\\
+	alarmLimit' = alarmLimit + 1\\
+	%alarmMax' = alarmMax\\
+	%alarmVolume' = alarmVolume\\
+	%audioVolumeAdjustable' = audioVolumeAdjustable\\ 
+	alarmVolumeSelected' = alarmVolumeSelected\\
+	profile' = profile\\
+	\pagebreak
+	%profileFiltering' = profileFiltering\\
+	profilesActive' = profilesActive\\  
+	  profileSelected' = profileSelected\\
+	drugCategory' = drugCategory\\ drugCategorySelected' = drugCategorySelected\\
+	drug' = drug\\ drugSelected' = drugSelected\\
+	%drugOverrideMode' = drugOverrideMode\\
+	rate' = rate\\
+	endRate' = endRate\\
+	doseRateSoftMin' = doseRateSoftMin\\
+	doseRateSoftMax' = doseRateSoftMax\\
+	doseRateHardMax' = doseRateHardMax\\
+	doseRateDefault' = doseRateDefault\\
+	%infusionRateMax' = infusionRateMax\\
+	%rateTitration' = rateTitration\\
+	volume' = volume\\
+	%volumeInfused' = volumeInfused\\
+	%concentration' = concentration\\
+	%concentrationMin' = concentrationMin\\
+	%concentrationMax' = concentrationMax\\
+	VTBI' = VTBI\\
+	VTBIBagSize' = VTBIBagSize\\ VTBIBagSizeSelected' = VTBIBagSizeSelected\\
+	%VTBIClearRate' = VTBIClearRate\\
+	%primaryVTBIMax' = primaryVTBIMax\\ 
+	time' = time\\ State' = State\\
+	%values' = values\\
+	battStatus' = battStatus\\
+	%batteryPercent' = batteryPercent\\
+	%pumpingPressure' = pumpingPressure\\
+	%pressureDisplay' = pressureDisplay\\
+	%pressureMax' = pressureMax\\
+	bolus' = 0\\
+	bolusVolume' = 0\\
+	%bolusCategory' = bolusCategory\\
+	%bolusRateMax' = bolusRateMax\\
+	%bolusVolumeMax' = bolusVolumeMax\\
+	%bolusDoseDefault' = bolusDoseDefault\\
+	%bolusRateDefault' = bolusRateDefault\\
+	infusing' = infusing\\
+	%weight' = weight\\
+	%weightDefault' = weightDefault\\
+	%weightSoftMin' = weightSoftMin\\
+	%weightSoftMax' = weightSoftMax\\
+	countdown > 0 \land countdown' = 5\\
+	%autoNightMode' = autoNightMode\\
+	%autoSave' = autoSave\\
+	%eventLog' = eventLog\\
+	%standbyMode' = standbyMode\\
+	%primeRate' = primeRate\\
+	%secondaryInfusion' = secondaryInfusion\\
+	powerSavingCount' = powerSavingCount\\ option' = option\\
+\end{schema}
+
+\begin{schema}{DecreaseSelection}
+	\Delta AlarisInfusionPump\\ 
+	Settings\\
+	\where
+	alarm' = alarm\\
+	alarmLimit \geq 0\\
+	alarmLimit' = alarmLimit - 1\\
+	%alarmMax' = alarmMax\\
+	%alarmVolume' = alarmVolume\\
+	%audioVolumeAdjustable' = audioVolumeAdjustable\\ 
+	alarmVolumeSelected' = alarmVolumeSelected\\
+	profile' = profile\\
+	%profileFiltering' = profileFiltering\\
+	profilesActive' = profilesActive\\  
+	  profileSelected' = profileSelected\\
+	drugCategory' = drugCategory\\ drugCategorySelected' = drugCategorySelected\\
+	drug' = drug\\ drugSelected' = drugSelected\\
+	%drugOverrideMode' = drugOverrideMode\\
+	rate' = rate\\
+	endRate' = endRate\\
+	doseRateSoftMin' = doseRateSoftMin\\
+	doseRateSoftMax' = doseRateSoftMax\\
+	doseRateHardMax' = doseRateHardMax\\
+	doseRateDefault' = doseRateDefault\\
+	%infusionRateMax' = infusionRateMax\\
+	%rateTitration' = rateTitration\\
+	volume' = volume\\
+	%volumeInfused' = volumeInfused\\
+	%concentration' = concentration\\
+	%concentrationMin' = concentrationMin\\
+	%concentrationMax' = concentrationMax\\
+	VTBI' = VTBI\\
+	VTBIBagSize' = VTBIBagSize\\ VTBIBagSizeSelected' = VTBIBagSizeSelected\\
+	%VTBIClearRate' = VTBIClearRate\\
+	%primaryVTBIMax' = primaryVTBIMax\\ 
+	time' = time\\ State' = State\\
+	%values' = values\\
+	\pagebreak
+	battStatus' = battStatus\\
+	%batteryPercent' = batteryPercent\\
+	%pumpingPressure' = pumpingPressure\\
+	%pressureDisplay' = pressureDisplay\\
+	%pressureMax' = pressureMax\\
+	bolus' = 0\\
+	bolusVolume' = 0\\
+	%bolusCategory' = bolusCategory\\
+	%bolusRateMax' = bolusRateMax\\
+	%bolusVolumeMax' = bolusVolumeMax\\
+	%bolusDoseDefault' = bolusDoseDefault\\
+	%bolusRateDefault' = bolusRateDefault\\
+	infusing' = infusing\\
+	%weight' = weight\\
+	%weightDefault' = weightDefault\\
+	%weightSoftMin' = weightSoftMin\\
+	%weightSoftMax' = weightSoftMax\\
+	countdown > 0 \land countdown' = 5\\
+	%autoNightMode' = autoNightMode\\
+	%autoSave' = autoSave\\
+	%eventLog' = eventLog\\
+	%standbyMode' = standbyMode\\
+	%primeRate' = primeRate\\
+	%secondaryInfusion' = secondaryInfusion\\
+	powerSavingCount' = powerSavingCount\\ option' = option\\
+\end{schema}
+
+\begin{schema}{SwitchOn}
+	\Delta AlarisInfusionPump\\
+	
+	Settings\\
+	\where
+	alarm' = alarm\\
+	alarmLimit' = alarmLimit\\
+	%alarmMax' = alarmMax\\
+	%alarmVolume' = alarmVolume\\
+	%audioVolumeAdjustable' = audioVolumeAdjustable\\ 
+	alarmVolumeSelected' = alarmVolumeSelected\\
+	profile' = profile\\
+	%profileFiltering' = profileFiltering\\
+	profilesActive' = profilesActive\\  
+	  profileSelected' = profileSelected\\
+	drugCategory' = drugCategory\\ drugCategorySelected' = drugCategorySelected\\
+	drug' = drug\\ drugSelected' = drugSelected\\
+	%drugOverrideMode' = drugOverrideMode\\
+	rate' = rate\\
+	endRate' = endRate\\
+	doseRateSoftMin' = doseRateSoftMin\\
+	doseRateSoftMax' = doseRateSoftMax\\
+	doseRateHardMax' = doseRateHardMax\\
+	\pagebreak
+	doseRateDefault' = doseRateDefault\\
+	%infusionRateMax' = infusionRateMax\\
+	%rateTitration' = rateTitration\\
+	volume' = volume\\
+	%volumeInfused' = volumeInfused\\
+	%concentration' = concentration\\
+	%concentrationMin' = concentrationMin\\
+	%concentrationMax' = concentrationMax\\
+	VTBI' = VTBI\\
+	VTBIBagSize' = VTBIBagSize\\ VTBIBagSizeSelected' = VTBIBagSizeSelected\\
+	%VTBIClearRate' = VTBIClearRate\\
+	%primaryVTBIMax' = primaryVTBIMax\\ 
+	time' = time\\ State' = State\\
+	%values' = values\\
+	battStatus' = battStatus\\
+	%batteryPercent' = batteryPercent\\
+	%pumpingPressure' = pumpingPressure\\
+	%pressureDisplay' = pressureDisplay\\
+	%pressureMax' = pressureMax\\
+	bolus' = 0\\
+	bolusVolume' = 0\\
+	%bolusCategory' = bolusCategory\\
+	%bolusRateMax' = bolusRateMax\\
+	%bolusVolumeMax' = bolusVolumeMax\\
+	%bolusDoseDefault' = bolusDoseDefault\\
+	%bolusRateDefault' = bolusRateDefault\\
+	infusing = No\\
+	infusing' = No\\
+	%weight' = weight\\
+	%weightDefault' = weightDefault\\
+	%weightSoftMin' = weightSoftMin\\
+	%weightSoftMax' = weightSoftMax\\
+	countdown = 0 \land countdown' = 5\\
+	%autoNightMode' = autoNightMode\\
+	%autoSave' = autoSave\\
+	%eventLog' = eventLog\\
+	%standbyMode' = standbyMode\\
+	%primeRate' = primeRate\\
+	%secondaryInfusion' = secondaryInfusion\\
+	powerSavingCount' = powerSavingCount\\ option' = option\\
+\end{schema}
+
+\begin{schema}{StartAlarm}
+	\Delta AlarisInfusionPump\\
+	
+	Settings\\
+	\where
+	alarm = Stop\\
+	alarm' = Go\\
+	alarmLimit' = alarmLimit\\
+	%alarmMax' = alarmMax\\
+	%alarmVolume' = alarmVolume\\
+	%audioVolumeAdjustable' = audioVolumeAdjustable\\ 
+	alarmVolumeSelected' = alarmVolumeSelected\\
+	profile' = profile\\
+	%profileFiltering' = profileFiltering\\
+	profilesActive' = profilesActive\\  
+	  profileSelected' = profileSelected\\
+	  \pagebreak
+	drugCategory' = drugCategory\\ drugCategorySelected' = drugCategorySelected\\
+	drug' = drug\\ drugSelected' = drugSelected\\
+	%drugOverrideMode' = drugOverrideMode\\
+	rate' = rate\\
+	endRate' = endRate\\
+	doseRateSoftMin' = doseRateSoftMin\\
+	doseRateSoftMax' = doseRateSoftMax\\
+	doseRateHardMax' = doseRateHardMax\\
+	doseRateDefault' = doseRateDefault\\
+	%infusionRateMax' = infusionRateMax\\
+	%rateTitration' = rateTitration\\
+	volume' = volume\\
+	%volumeInfused' = volumeInfused\\
+	%concentration' = concentration\\
+	%concentrationMin' = concentrationMin\\
+	%concentrationMax' = concentrationMax\\
+	VTBI' = VTBI\\
+	VTBIBagSize' = VTBIBagSize\\ VTBIBagSizeSelected' = VTBIBagSizeSelected\\
+	%VTBIClearRate' = VTBIClearRate\\
+	%primaryVTBIMax' = primaryVTBIMax\\ 
+	time' = time\\ State' = State\\
+	%values' = values\\
+	battStatus' = battStatus\\
+	%batteryPercent' = batteryPercent\\
+	%pumpingPressure' = pumpingPressure\\
+	%pressureDisplay' = pressureDisplay\\
+	%pressureMax' = pressureMax\\
+	bolus' = 0\\
+	bolusVolume' = 0\\
+	%bolusCategory' = bolusCategory\\
+	%bolusRateMax' = bolusRateMax\\
+	%bolusVolumeMax' = bolusVolumeMax\\
+	%bolusDoseDefault' = bolusDoseDefault\\
+	%bolusRateDefault' = bolusRateDefault\\
+	infusing' = No\\
+	%weight' = weight\\
+	%weightDefault' = weightDefault\\
+	%weightSoftMin' = weightSoftMin\\
+	%weightSoftMax' = weightSoftMax\\
+	countdown > 0 \land countdown' = 5\\
+	%autoNightMode' = autoNightMode\\
+	%autoSave' = autoSave\\
+	%eventLog' = eventLog\\
+	%standbyMode' = standbyMode\\
+	%primeRate' = primeRate\\
+	%secondaryInfusion' = secondaryInfusion\\
+	powerSavingCount' = powerSavingCount\\ option' = option\\
+\end{schema}
+
+\begin{schema}{StopAlarm}
+	\Delta AlarisInfusionPump\\
+	\pagebreak
+	Settings\\
+	\where
+	alarm = Go\\
+	alarm' = Stop\\
+	alarmLimit' = alarmLimit\\
+	%alarmMax' = alarmMax\\
+	%alarmVolume' = alarmVolume\\
+	%audioVolumeAdjustable' = audioVolumeAdjustable\\ 
+	alarmVolumeSelected' = alarmVolumeSelected\\
+	profile' = profile\\
+	%profileFiltering' = profileFiltering\\
+	profilesActive' = profilesActive\\  
+	  profileSelected' = profileSelected\\
+	drugCategory' = drugCategory\\ drugCategorySelected' = drugCategorySelected\\
+	drug' = drug\\ drugSelected' = drugSelected\\
+	%drugOverrideMode' = drugOverrideMode\\
+	rate' = rate\\
+	endRate' = endRate\\
+	doseRateSoftMin' = doseRateSoftMin\\
+	doseRateSoftMax' = doseRateSoftMax\\
+	doseRateHardMax' = doseRateHardMax\\
+	doseRateDefault' = doseRateDefault\\
+	%infusionRateMax' = infusionRateMax\\
+	%rateTitration' = rateTitration\\
+	volume' = volume\\
+	%volumeInfused' = volumeInfused\\
+	%concentration' = concentration\\
+	%concentrationMin' = concentrationMin\\
+	%concentrationMax' = concentrationMax\\
+	VTBI' = VTBI\\
+	VTBIBagSize' = VTBIBagSize\\ VTBIBagSizeSelected' = VTBIBagSizeSelected\\
+	%VTBIClearRate' = VTBIClearRate\\
+	%primaryVTBIMax' = primaryVTBIMax\\ 
+	time' = time\\ State' = State\\
+	%values' = values\\
+	battStatus' = battStatus\\
+	%batteryPercent' = batteryPercent\\
+	%pumpingPressure' = pumpingPressure\\
+	%pressureDisplay' = pressureDisplay\\
+	%pressureMax' = pressureMax\\
+	bolus' = 0\\
+		\pagebreak
+	bolusVolume' = 0\\
+	%bolusCategory' = bolusCategory\\
+	%bolusRateMax' = bolusRateMax\\
+	%bolusVolumeMax' = bolusVolumeMax\\
+	%bolusDoseDefault' = bolusDoseDefault\\
+	%bolusRateDefault' = bolusRateDefault\\
+	infusing = No\\
+	infusing' = infusing\\
+	%weight' = weight\\
+	%weightDefault' = weightDefault\\
+	%weightSoftMin' = weightSoftMin\\
+	%weightSoftMax' = weightSoftMax\\
+	countdown > 0 \land countdown' = 5\\
+	%autoNightMode' = autoNightMode\\
+	%autoSave' = autoSave\\
+	%eventLog' = eventLog\\
+	%standbyMode' = standbyMode\\
+	%primeRate' = primeRate\\
+	%secondaryInfusion' = secondaryInfusion\\
+	powerSavingCount' = powerSavingCount\\ option' = option\\
+\end{schema}
+
+\begin{schema}{IncreaseBolus}
+	\Delta AlarisInfusionPump\\
+	
+	Settings\\
+	\where
+	alarm' = alarm\\
+	alarmLimit' = alarmLimit\\
+	%alarmMax' = alarmMax\\
+	%alarmVolume' = alarmVolume\\
+	%audioVolumeAdjustable' = audioVolumeAdjustable\\ 
+	alarmVolumeSelected' = alarmVolumeSelected\\
+	profile' = profile\\
+	%profileFiltering' = profileFiltering\\
+	profilesActive' = profilesActive\\  
+	  profileSelected' = profileSelected\\
+	drugCategory' = drugCategory\\ drugCategorySelected' = drugCategorySelected\\
+	drug' = drug\\ drugSelected' = drugSelected\\
+	%drugOverrideMode' = drugOverrideMode\\
+	rate' = rate\\
+	endRate' = endRate\\
+	doseRateSoftMin' = doseRateSoftMin\\
+		
+	doseRateSoftMax' = doseRateSoftMax\\
+	doseRateHardMax' = doseRateHardMax\\
+	
+	doseRateDefault' = doseRateDefault\\
+	\pagebreak
+	%infusionRateMax' = infusionRateMax\\
+	%rateTitration' = rateTitration\\
+	volume' = volume\\
+	%volumeInfused' = volumeInfused\\
+	%concentration' = concentration\\
+	%concentrationMin' = concentrationMin\\
+	%concentrationMax' = concentrationMax\\
+	VTBI' = VTBI\\
+	VTBIBagSize' = VTBIBagSize\\ VTBIBagSizeSelected' = VTBIBagSizeSelected\\
+	%VTBIClearRate' = VTBIClearRate\\
+	%primaryVTBIMax' = primaryVTBIMax\\ 
+	time' = time\\ State' = State\\
+	%values' = values\\
+	battStatus' = battStatus\\
+	%batteryPercent' = batteryPercent\\
+	%pumpingPressure' = pumpingPressure\\
+	%pressureDisplay' = pressureDisplay\\
+	%pressureMax' = pressureMax\\
+	bolus < bolusRateMax\\
+	bolus' = bolus + values(State)\\
+	bolusVolume' = bolusVolume\\
+	%bolusCategory' = bolusCategory\\
+	%bolusRateMax' = bolusRateMax\\
+	%bolusVolumeMax' = bolusVolumeMax\\
+	%bolusDoseDefault' = bolusDoseDefault\\
+	%bolusRateDefault' = bolusRateDefault\\
+	infusing = Yes\\
+	infusing' = infusing\\
+	%weight' = weight\\
+	%weightDefault' = weightDefault\\
+	%weightSoftMin' = weightSoftMin\\
+	%weightSoftMax' = weightSoftMax\\
+	countdown > 0 \land countdown' = 5\\
+	%autoNightMode' = autoNightMode\\
+	%autoSave' = autoSave\\
+	%eventLog' = eventLog\\
+	%standbyMode' = standbyMode\\
+	%primeRate' = primeRate\\
+	%secondaryInfusion' = secondaryInfusion\\
+	powerSavingCount' = powerSavingCount\\ option' = option\\
+\end{schema}
+
+\begin{schema}{DecreaseBolus}
+	\Delta AlarisInfusionPump\\
+	
+	Settings\\
+	\where
+	alarm' = alarm\\
+	alarmLimit' = alarmLimit\\
+	%alarmMax' = alarmMax\\
+	%alarmVolume' = alarmVolume\\
+	%audioVolumeAdjustable' = audioVolumeAdjustable\\ 
+	alarmVolumeSelected' = alarmVolumeSelected\\
+	profile' = profile\\
+	%profileFiltering' = profileFiltering\\
+	profilesActive' = profilesActive\\  
+	  profileSelected' = profileSelected\\
+	  
+	drugCategory' = drugCategory\\ 
+	\pagebreak
+	drugCategorySelected' = drugCategorySelected\\
+	drug' = drug\\ drugSelected' = drugSelected\\
+	%drugOverrideMode' = drugOverrideMode\\
+	rate' = rate\\
+	endRate' = endRate\\
+	doseRateSoftMin' = doseRateSoftMin\\
+	doseRateSoftMax' = doseRateSoftMax\\
+	doseRateHardMax' = doseRateHardMax\\
+	doseRateDefault' = doseRateDefault\\
+	%infusionRateMax' = infusionRateMax\\
+	%rateTitration' = rateTitration\\
+	volume' = volume\\
+	%volumeInfused' = volumeInfused\\
+	%concentration' = concentration\\
+	%concentrationMin' = concentrationMin\\
+	%concentrationMax' = concentrationMax\\
+	VTBI' = VTBI\\
+	VTBIBagSize' = VTBIBagSize\\ VTBIBagSizeSelected' = VTBIBagSizeSelected\\
+	%VTBIClearRate' = VTBIClearRate\\
+	%primaryVTBIMax' = primaryVTBIMax\\ 
+	time' = time\\ State' = State\\
+	%values' = values\\
+	battStatus' = battStatus\\
+	%batteryPercent' = batteryPercent\\
+	%pumpingPressure' = pumpingPressure\\
+	%pressureDisplay' = pressureDisplay\\
+	%pressureMax' = pressureMax\\
+	bolus < bolusRateMax\\
+	bolus' = bolus - values(State)\\
+	bolusVolume' = bolusVolume\\
+	%bolusCategory' = bolusCategory\\
+	%bolusRateMax' = bolusRateMax\\
+	%bolusVolumeMax' = bolusVolumeMax\\
+	%bolusDoseDefault' = bolusDoseDefault\\
+	%bolusRateDefault' = bolusRateDefault\\
+	infusing = Yes\\
+	infusing' = infusing\\
+	%weight' = weight\\
+	%weightDefault' = weightDefault\\
+	%weightSoftMin' = weightSoftMin\\
+	%weightSoftMax' = weightSoftMax\\
+	countdown > 0 \land countdown' = 5\\
+	%autoNightMode' = autoNightMode\\
+	%autoSave' = autoSave\\
+	%eventLog' = eventLog\\
+	%standbyMode' = standbyMode\\
+	%primeRate' = primeRate\\
+	%secondaryInfusion' = secondaryInfusion\\
+	powerSavingCount' = powerSavingCount\\ option' = option\\
+\end{schema}
+
+\begin{schema}{IncreaseBolusDouble}
+\pagebreak
+	\Delta AlarisInfusionPump\\
+	
+	Settings\\
+	\where
+	alarm' = alarm\\
+	alarmLimit' = alarmLimit\\
+	%alarmMax' = alarmMax\\
+	%alarmVolume' = alarmVolume\\
+	%audioVolumeAdjustable' = audioVolumeAdjustable\\ 
+	alarmVolumeSelected' = alarmVolumeSelected\\
+	profile' = profile\\
+	%profileFiltering' = profileFiltering\\
+	profilesActive' = profilesActive\\  
+	  profileSelected' = profileSelected\\
+	drugCategory' = drugCategory\\ drugCategorySelected' = drugCategorySelected\\
+	drug' = drug\\ drugSelected' = drugSelected\\
+	%drugOverrideMode' = drugOverrideMode\\
+	rate' = rate\\
+	endRate' = endRate\\
+	doseRateSoftMin' = doseRateSoftMin\\
+	doseRateSoftMax' = doseRateSoftMax\\
+	doseRateHardMax' = doseRateHardMax\\
+	doseRateDefault' = doseRateDefault\\
+	%infusionRateMax' = infusionRateMax\\
+	%rateTitration' = rateTitration\\
+	volume' = volume\\
+	%volumeInfused' = volumeInfused\\
+	%concentration' = concentration\\
+	%concentrationMin' = concentrationMin\\
+	%concentrationMax' = concentrationMax\\
+	VTBI' = VTBI\\
+	VTBIBagSize' = VTBIBagSize\\ VTBIBagSizeSelected' = VTBIBagSizeSelected\\
+	%VTBIClearRate' = VTBIClearRate\\
+	%primaryVTBIMax' = primaryVTBIMax\\ 
+	time' = time\\ State' = State\\
+	%values' = values\\
+	battStatus' = battStatus\\
+	%batteryPercent' = batteryPercent\\
+	%pumpingPressure' = pumpingPressure\\
+	%pressureDisplay' = pressureDisplay\\
+	%pressureMax' = pressureMax\\
+	bolus < bolusRateMax\\
+	State + 1 \leq 4\\
+	\pagebreak
+	bolus' = bolus + values(State + 1)\\
+	bolusVolume' = bolusVolume\\
+	%bolusCategory' = bolusCategory\\
+	%bolusRateMax' = bolusRateMax\\
+	%bolusVolumeMax' = bolusVolumeMax\\
+	%bolusDoseDefault' = bolusDoseDefault\\
+	%bolusRateDefault' = bolusRateDefault\\
+	infusing = Yes\\
+	infusing' = infusing\\
+	%weight' = weight\\
+	%weightDefault' = weightDefault\\
+	%weightSoftMin' = weightSoftMin\\
+	%weightSoftMax' = weightSoftMax\\
+	countdown > 0 \land countdown' = 5\\
+	%autoNightMode' = autoNightMode\\
+	%autoSave' = autoSave\\
+	%eventLog' = eventLog\\
+	%standbyMode' = standbyMode\\
+	%primeRate' = primeRate\\
+	%secondaryInfusion' = secondaryInfusion\\
+	powerSavingCount' = powerSavingCount\\ option' = option\\
+\end{schema}
+
+\begin{schema}{DecreaseBolusDouble}
+	\Delta AlarisInfusionPump\\
+	Settings\\
+	\where
+	alarm' = alarm\\
+	alarmLimit' = alarmLimit\\
+	%alarmMax' = alarmMax\\
+	%alarmVolume' = alarmVolume\\
+	%audioVolumeAdjustable' = audioVolumeAdjustable\\ 
+	alarmVolumeSelected' = alarmVolumeSelected\\
+	profile' = profile\\
+	%profileFiltering' = profileFiltering\\
+	profilesActive' = profilesActive\\  
+	  profileSelected' = profileSelected\\
+	drugCategory' = drugCategory\\ drugCategorySelected' = drugCategorySelected\\
+	drug' = drug\\ drugSelected' = drugSelected\\
+	%drugOverrideMode' = drugOverrideMode\\
+	rate' = rate\\
+	endRate' = endRate\\
+	doseRateSoftMin' = doseRateSoftMin\\
+	doseRateSoftMax' = doseRateSoftMax\\
+	doseRateHardMax' = doseRateHardMax\\
+	\pagebreak
+	doseRateDefault' = doseRateDefault\\
+	%infusionRateMax' = infusionRateMax\\
+	%rateTitration' = rateTitration\\
+	volume' = volume\\
+	%volumeInfused' = volumeInfused\\
+	%concentration' = concentration\\
+	%concentrationMin' = concentrationMin\\
+	%concentrationMax' = concentrationMax\\
+	VTBI' = VTBI\\
+	VTBIBagSize' = VTBIBagSize\\ VTBIBagSizeSelected' = VTBIBagSizeSelected\\
+	%VTBIClearRate' = VTBIClearRate\\
+	%primaryVTBIMax' = primaryVTBIMax\\ 
+	time' = time\\ State' = State\\
+	%values' = values\\
+	battStatus' = battStatus\\
+	%batteryPercent' = batteryPercent\\
+	%pumpingPressure' = pumpingPressure\\
+	%pressureDisplay' = pressureDisplay\\
+	%pressureMax' = pressureMax\\
+	bolus < bolusRateMax\\
+	State + 1 \leq 4\\
+	bolus' = bolus - values(State + 1)\\
+	bolusVolume' = bolusVolume\\
+	%bolusCategory' = bolusCategory\\
+	%bolusRateMax' = bolusRateMax\\
+	%bolusVolumeMax' = bolusVolumeMax\\
+	%bolusDoseDefault' = bolusDoseDefault\\
+	%bolusRateDefault' = bolusRateDefault\\
+	infusing = Yes\\
+	infusing' = infusing\\
+	%weight' = weight\\
+	%weightDefault' = weightDefault\\
+	%weightSoftMin' = weightSoftMin\\
+	%weightSoftMax' = weightSoftMax\\
+	countdown > 0 \land countdown' = 5\\
+	%autoNightMode' = autoNightMode\\
+	%autoSave' = autoSave\\
+	%eventLog' = eventLog\\
+	%standbyMode' = standbyMode\\
+	%primeRate' = primeRate\\
+	%secondaryInfusion' = secondaryInfusion\\
+	powerSavingCount' = powerSavingCount\\ option' = option\\
+\end{schema}
+
+\begin{schema}{Infusing}
+	\Delta AlarisInfusionPump\\
+	Settings\\
+	\where
+	alarm' = alarm\\
+	alarmLimit' = alarmLimit\\
+	%alarmMax' = alarmMax\\
+	%alarmVolume' = alarmVolume\\
+	%audioVolumeAdjustable' = audioVolumeAdjustable\\ 
+	alarmVolumeSelected' = alarmVolumeSelected\\
+	profile' = profile\\
+	%profileFiltering' = profileFiltering\\
+	profilesActive' = profilesActive\\  
+	 \pagebreak
+	  profileSelected' = profileSelected\\
+	 
+	drugCategory' = drugCategory\\ drugCategorySelected' = drugCategorySelected\\
+	drug' = drug\\ drugSelected' = drugSelected\\
+	%drugOverrideMode' = drugOverrideMode\\
+	rate > 0\\
+	rate' = rate\\
+	endRate' = endRate\\
+	doseRateSoftMin' = doseRateSoftMin\\
+	doseRateSoftMax' = doseRateSoftMax\\
+	doseRateHardMax' = doseRateHardMax\\
+	doseRateDefault' = doseRateDefault\\
+	%infusionRateMax' = infusionRateMax\\
+	%rateTitration' = rateTitration\\
+	volume' = volume\\
+	%volume > 0\\
+	%volumeInfused' = volumeInfused\\
+	%concentration' = concentration\\
+	%concentration > 0\\
+	%concentrationMin' = concentrationMin\\
+	%concentrationMax' = concentrationMax\\
+	(VTBI > 0) \lor (VTBIBagSize > 0)\\
+	VTBI' = VTBI\\
+	VTBIBagSize' = VTBIBagSize\\ VTBIBagSizeSelected' = VTBIBagSizeSelected\\
+	%VTBIClearRate' = VTBIClearRate\\
+	%primaryVTBIMax' = primaryVTBIMax\\ 
+	time' = time\\ State' = State\\
+	%values' = values\\
+	battStatus' = battStatus\\
+	%batteryPercent' = batteryPercent\\
+	batteryPercent > 10\\
+	%pumpingPressure' = pumpingPressure\\
+	%pressureDisplay' = pressureDisplay\\
+	%pressureMax' = pressureMax\\
+	bolus' = bolus\\
+	bolusVolume' = bolusVolume\\
+	%bolusCategory' = bolusCategory\\
+	%bolusRateMax' = bolusRateMax\\
+	%bolusVolumeMax' = bolusVolumeMax\\
+	%bolusDoseDefault' = bolusDoseDefault\\
+	%bolusRateDefault' = bolusRateDefault\\
+	infusing = No\\
+	infusing' = Yes\\
+	%weight' = weight\\
+	%weightDefault' = weightDefault\\
+	%weightSoftMin' = weightSoftMin\\
+	%weightSoftMax' = weightSoftMax\\
+	countdown > 0 \land countdown' = 5\\
+	%autoNightMode' = autoNightMode\\
+	%autoSave' = autoSave\\
+	%eventLog' = eventLog\\
+	%standbyMode' = standbyMode\\
+	%primeRate' = primeRate\\
+	%secondaryInfusion' = secondaryInfusion\\
+	powerSavingCount' = powerSavingCount\\ option' = option\\
+\end{schema}
+
+\begin{schema}{OnHold}
+	\Delta AlarisInfusionPump\\
+	Settings\\
+	\where
+	alarm' = alarm\\
+	alarmLimit' = alarmLimit\\
+	%alarmMax' = alarmMax\\
+	%alarmVolume' = alarmVolume\\
+	%audioVolumeAdjustable' = audioVolumeAdjustable\\ 
+	alarmVolumeSelected' = alarmVolumeSelected\\
+	profile' = profile\\
+	%profileFiltering' = profileFiltering\\
+	profilesActive' = profilesActive\\  
+	  profileSelected' = profileSelected\\
+	drugCategory' = drugCategory\\ drugCategorySelected' = drugCategorySelected\\
+	drug' = drug\\ drugSelected' = drugSelected\\
+	%drugOverrideMode' = drugOverrideMode\\
+	rate' = rate\\
+	endRate' = endRate\\
+	doseRateSoftMin' = doseRateSoftMin\\
+	doseRateSoftMax' = doseRateSoftMax\\
+	doseRateHardMax' = doseRateHardMax\\
+	doseRateDefault' = doseRateDefault\\
+	%infusionRateMax' = infusionRateMax\\
+	%rateTitration' = rateTitration\\
+	volume' = volume\\
+	%volumeInfused' = volumeInfused\\
+	%concentration' = concentration\\
+	%concentrationMin' = concentrationMin\\
+	%concentrationMax' = concentrationMax\\
+	VTBI' = VTBI\\
+	VTBIBagSize' = VTBIBagSize\\ VTBIBagSizeSelected' = VTBIBagSizeSelected\\
+	%VTBIClearRate' = VTBIClearRate\\
+	%primaryVTBIMax' = primaryVTBIMax\\ 
+	time' = time\\ State' = State\\
+	%values' = values\\
+	battStatus' = battStatus\\
+	%batteryPercent' = batteryPercent\\
+	%pumpingPressure' = pumpingPressure\\
+	%pressureDisplay' = pressureDisplay\\
+	%pressureMax' = pressureMax\\
+	 \pagebreak
+	bolus' = bolus\\
+	bolusVolume' = bolusVolume\\
+	%bolusCategory' = bolusCategory\\
+	%bolusRateMax' = bolusRateMax\\
+	%bolusVolumeMax' = bolusVolumeMax\\
+	%bolusDoseDefault' = bolusDoseDefault\\
+	%bolusRateDefault' = bolusRateDefault\\
+	infusing' = No\\
+	%weight' = weight\\
+	%weightDefault' = weightDefault\\
+	%weightSoftMin' = weightSoftMin\\
+	%weightSoftMax' = weightSoftMax\\
+	countdown > 0 \land countdown' = 5\\
+	%autoNightMode' = autoNightMode\\
+	%autoSave' = autoSave\\
+	%eventLog' = eventLog\\
+	%standbyMode' = standbyMode\\
+	%primeRate' = primeRate\\
+	%secondaryInfusion' = secondaryInfusion\\
+	powerSavingCount' = powerSavingCount\\ option' = option\\
+\end{schema}
+
+\begin{schema}{Charging}
+	\Delta AlarisInfusionPump\\
+	Settings\\
+	\where
+	alarm' = alarm\\
+	alarmLimit' = alarmLimit\\
+	%alarmMax' = alarmMax\\
+	%alarmVolume' = alarmVolume\\
+	%audioVolumeAdjustable' = audioVolumeAdjustable\\ 
+	alarmVolumeSelected' = alarmVolumeSelected\\
+	profile' = profile\\
+	%profileFiltering' = profileFiltering\\
+	profilesActive' = profilesActive\\  
+	  profileSelected' = profileSelected\\
+	  
+	drugCategory' = drugCategory\\ drugCategorySelected' = drugCategorySelected\\
+	drug' = drug\\ drugSelected' = drugSelected\\
+	%drugOverrideMode' = drugOverrideMode\\
+	rate' = rate\\
+	endRate' = endRate\\
+	doseRateSoftMin' = doseRateSoftMin\\
+	doseRateSoftMax' = doseRateSoftMax\\
+	doseRateHardMax' = doseRateHardMax\\
+	 
+	doseRateDefault' = doseRateDefault\\
+	\pagebreak
+	%infusionRateMax' = infusionRateMax\\
+	%rateTitration' = rateTitration\\
+	volume' = volume\\
+	%volumeInfused' = volumeInfused\\
+	%concentration' = concentration\\
+	%concentrationMin' = concentrationMin\\
+	%concentrationMax' = concentrationMax\\
+	VTBI' = VTBI\\
+	VTBIBagSize' = VTBIBagSize\\ VTBIBagSizeSelected' = VTBIBagSizeSelected\\
+	%VTBIClearRate' = VTBIClearRate\\
+	%primaryVTBIMax' = primaryVTBIMax\\ 
+	time' = time\\ State' = State\\
+	%values' = values\\
+	battStatus = Discharge \land battStatus' = Charge\\
+	%batteryPercent' = batteryPercent\\
+	%pumpingPressure' = pumpingPressure\\
+	%pressureDisplay' = pressureDisplay\\
+	%pressureMax' = pressureMax\\
+	bolus' = bolus\\
+	bolusVolume' = bolusVolume\\
+	%bolusCategory' = bolusCategory\\
+	%bolusRateMax' = bolusRateMax\\
+	%bolusVolumeMax' = bolusVolumeMax\\
+	%bolusDoseDefault' = bolusDoseDefault\\
+	%bolusRateDefault' = bolusRateDefault\\
+	infusing' = infusing\\
+	%weight' = weight\\
+	%weightDefault' = weightDefault\\
+	%weightSoftMin' = weightSoftMin\\
+	%weightSoftMax' = weightSoftMax\\
+	countdown > 0 \land countdown' = 5\\
+	%autoNightMode' = autoNightMode\\
+	%autoSave' = autoSave\\
+	%eventLog' = eventLog\\
+	%standbyMode' = standbyMode\\
+	%primeRate' = primeRate\\
+	%secondaryInfusion' = secondaryInfusion\\
+	powerSavingCount' = powerSavingCount\\ option' = option\\
+\end{schema}
+
+\begin{schema}{BatteryStatus}
+	\Delta AlarisInfusionPump\\
+	Settings\\
+	\where
+	alarm' = alarm\\
+	alarmLimit' = alarmLimit\\
+	%alarmMax' = alarmMax\\
+	%alarmVolume' = alarmVolume\\
+	%audioVolumeAdjustable' = audioVolumeAdjustable\\ 
+	alarmVolumeSelected' = alarmVolumeSelected\\
+	profile' = profile\\
+	%profileFiltering' = profileFiltering\\
+	profilesActive' = profilesActive\\  
+	  profileSelected' = profileSelected\\
+	
+	drugCategory' = drugCategory\\ drugCategorySelected' = drugCategorySelected\\
+	drug' = drug\\ 
+	  \pagebreak
+	drugSelected' = drugSelected\\
+	%drugOverrideMode' = drugOverrideMode\\
+	rate' = rate\\
+	endRate' = endRate\\
+	doseRateSoftMin' = doseRateSoftMin\\
+	doseRateSoftMax' = doseRateSoftMax\\
+	doseRateHardMax' = doseRateHardMax\\
+	doseRateDefault' = doseRateDefault\\
+	%infusionRateMax' = infusionRateMax\\
+	%rateTitration' = rateTitration\\
+	volume' = volume\\
+	%volumeInfused' = volumeInfused\\
+	%concentration' = concentration\\
+	%concentrationMin' = concentrationMin\\
+	%concentrationMax' = concentrationMax\\
+	VTBI' = VTBI\\
+	VTBIBagSize' = VTBIBagSize\\ VTBIBagSizeSelected' = VTBIBagSizeSelected\\
+	%VTBIClearRate' = VTBIClearRate\\
+	%primaryVTBIMax' = primaryVTBIMax\\ 
+	time' = time\\ State' = State\\
+	%values' = values\\
+	battStatus' = battStatus\\
+	%batteryPercent' = batteryPercent\\
+	%pumpingPressure' = pumpingPressure\\
+	%pressureDisplay' = pressureDisplay\\
+	%pressureMax' = pressureMax\\
+	bolus' = bolus\\
+	bolusVolume' = bolusVolume\\
+	%bolusCategory' = bolusCategory\\
+	%bolusRateMax' = bolusRateMax\\
+	%bolusVolumeMax' = bolusVolumeMax\\
+	%bolusDoseDefault' = bolusDoseDefault\\
+	%bolusRateDefault' = bolusRateDefault\\
+	infusing' = infusing\\
+	%weight' = weight\\
+	%weightDefault' = weightDefault\\
+	%weightSoftMin' = weightSoftMin\\
+	%weightSoftMax' = weightSoftMax\\
+	countdown > 0 \land countdown' = 5\\
+	%autoNightMode' = autoNightMode\\
+	%autoSave' = autoSave\\
+	%eventLog' = eventLog\\
+	%standbyMode' = standbyMode\\
+	%primeRate' = primeRate\\
+	%secondaryInfusion' = secondaryInfusion\\
+	powerSavingCount' = powerSavingCount\\ option' = option\\
+\end{schema}
+
+\begin{schema}{ClearVolume}
+	\Delta AlarisInfusionPump\\
+	Settings\\
+	\where
+	alarm' = alarm\\
+	alarmLimit' = alarmLimit\\
+	%alarmMax' = alarmMax\\
+	%alarmVolume' = alarmVolume\\
+	%audioVolumeAdjustable' = audioVolumeAdjustable\\ 
+	\pagebreak
+	alarmVolumeSelected' = alarmVolumeSelected\\
+	profile' = profile\\
+	%profileFiltering' = profileFiltering\\
+	profilesActive' = profilesActive\\  
+	  profileSelected' = profileSelected\\
+	drugCategory' = drugCategory\\ drugCategorySelected' = drugCategorySelected\\
+	drug' = drug\\ drugSelected' = drugSelected\\
+	%drugOverrideMode' = drugOverrideMode\\
+	rate' = rate\\
+	endRate' = endRate\\
+	doseRateSoftMin' = doseRateSoftMin\\
+	doseRateSoftMax' = doseRateSoftMax\\
+	doseRateHardMax' = doseRateHardMax\\
+	doseRateDefault' = doseRateDefault\\
+	%infusionRateMax' = infusionRateMax\\
+	%rateTitration' = rateTitration\\
+	volume' = 0\\
+	%volumeInfused' = volumeInfused\\
+	%concentration' = concentration\\
+	%concentrationMin' = concentrationMin\\
+	%concentrationMax' = concentrationMax\\
+	VTBI' = VTBI\\
+	VTBIBagSize' = VTBIBagSize\\ VTBIBagSizeSelected' = VTBIBagSizeSelected\\
+	%VTBIClearRate' = VTBIClearRate\\
+	%primaryVTBIMax' = primaryVTBIMax\\ 
+	time' = time\\ State' = State\\
+	%values' = values\\
+	battStatus' = battStatus\\
+	%batteryPercent' = batteryPercent\\
+	%pumpingPressure' = pumpingPressure\\
+	%pressureDisplay' = pressureDisplay\\
+	%pressureMax' = pressureMax\\
+	bolus' = bolus\\
+	bolusVolume' = bolusVolume\\
+	%bolusCategory' = bolusCategory\\
+	%bolusRateMax' = bolusRateMax\\
+	%bolusVolumeMax' = bolusVolumeMax\\
+	%bolusDoseDefault' = bolusDoseDefault\\
+	%bolusRateDefault' = bolusRateDefault\\
+	infusing = Yes\\
+	infusing' = infusing\\
+	%weight' = weight\\
+	%weightDefault' = weightDefault\\
+	%weightSoftMin' = weightSoftMin\\
+	%weightSoftMax' = weightSoftMax\\
+	countdown > 0 \land countdown' = 5\\
+	%autoNightMode' = autoNightMode\\
+	%autoSave' = autoSave\\
+	%eventLog' = eventLog\\
+	%standbyMode' = standbyMode\\
+	%primeRate' = primeRate\\
+	%secondaryInfusion' = secondaryInfusion\\
+	powerSavingCount' = powerSavingCount\\ option' = option\\
+\end{schema}
+
+\begin{schema}{NoRateSet}
+	\Delta AlarisInfusionPump\\
+	Settings\\
+	\where
+	alarm' = Go\\
+	alarmLimit' = alarmLimit\\
+	%alarmMax' = alarmMax\\
+	%alarmVolume' = alarmVolume\\
+	%audioVolumeAdjustable' = audioVolumeAdjustable\\ 
+	alarmVolumeSelected' = alarmVolumeSelected\\
+	profile' = profile\\
+	%profileFiltering' = profileFiltering\\
+	profilesActive' = profilesActive\\  
+	  profileSelected' = profileSelected\\
+	drugCategory' = drugCategory\\ drugCategorySelected' = drugCategorySelected\\
+	drug' = drug\\ drugSelected' = drugSelected\\
+	%drugOverrideMode' = drugOverrideMode\\
+	rate = 0\\
+	rate' = rate\\
+	endRate' = endRate\\
+	doseRateSoftMin' = doseRateSoftMin\\
+	doseRateSoftMax' = doseRateSoftMax\\
+	doseRateHardMax' = doseRateHardMax\\
+	doseRateDefault' = doseRateDefault\\
+	%infusionRateMax' = infusionRateMax\\
+	%rateTitration' = rateTitration\\
+	volume' = volume\\
+	%volumeInfused' = volumeInfused\\
+	%concentration' = concentration\\
+	%concentrationMin' = concentrationMin\\
+	%concentrationMax' = concentrationMax\\
+	VTBI' = VTBI\\
+	VTBIBagSize' = VTBIBagSize\\ VTBIBagSizeSelected' = VTBIBagSizeSelected\\
+	%VTBIClearRate' = VTBIClearRate\\
+	%primaryVTBIMax' = primaryVTBIMax\\ 
+	time' = time\\ State' = State\\
+	%values' = values\\
+	\pagebreak
+	battStatus' = battStatus\\
+	%batteryPercent' = batteryPercent\\
+	%pumpingPressure' = pumpingPressure\\
+	%pressureDisplay' = pressureDisplay\\
+	%pressureMax' = pressureMax\\
+	bolus' = bolus\\
+	bolusVolume' = bolusVolume\\
+	%bolusCategory' = bolusCategory\\
+	%bolusRateMax' = bolusRateMax\\
+	%bolusVolumeMax' = bolusVolumeMax\\
+	%bolusDoseDefault' = bolusDoseDefault\\
+	%bolusRateDefault' = bolusRateDefault\\
+	infusing = No\\
+	infusing' = infusing\\
+	%weight' = weight\\
+	%weightDefault' = weightDefault\\
+	%weightSoftMin' = weightSoftMin\\
+	%weightSoftMax' = weightSoftMax\\
+	countdown > 0 \land countdown' = 5\\
+	%autoNightMode' = autoNightMode\\
+	%autoSave' = autoSave\\
+	%eventLog' = eventLog\\
+	%standbyMode' = standbyMode\\
+	%primeRate' = primeRate\\
+	%secondaryInfusion' = secondaryInfusion\\
+	powerSavingCount' = powerSavingCount\\ option' = option\\
+\end{schema}
+
+\begin{schema}{StartPowerSaving}
+	\Delta AlarisInfusionPump\\
+	Settings\\
+	\where
+	alarm' = alarm\\
+	alarmLimit' = alarmLimit\\
+	%alarmMax' = alarmMax\\
+	%alarmVolume' = alarmVolume\\
+	%audioVolumeAdjustable' = audioVolumeAdjustable\\ 
+	alarmVolumeSelected' = alarmVolumeSelected\\
+	profile' = profile\\
+	%profileFiltering' = profileFiltering\\
+	profilesActive' = profilesActive\\  
+	  profileSelected' = profileSelected\\
+	  
+	drugCategory' = drugCategory\\ drugCategorySelected' = drugCategorySelected\\
+	drug' = drug\\ drugSelected' = drugSelected\\
+	%drugOverrideMode' = drugOverrideMode\\
+	rate' = rate\\
+	
+	endRate' = endRate\\
+	doseRateSoftMin' = doseRateSoftMin\\
+	doseRateSoftMax' = doseRateSoftMax\\
+	\pagebreak
+	doseRateHardMax' = doseRateHardMax\\
+	doseRateDefault' = doseRateDefault\\
+	
+	%infusionRateMax' = infusionRateMax\\
+	%rateTitration' = rateTitration\\
+	volume' = volume\\
+	%volumeInfused' = volumeInfused\\
+	%concentration' = concentration\\
+	%concentrationMin' = concentrationMin\\
+	%concentrationMax' = concentrationMax\\
+	VTBI' = VTBI\\
+	VTBIBagSize' = VTBIBagSize\\ VTBIBagSizeSelected' = VTBIBagSizeSelected\\
+	%VTBIClearRate' = VTBIClearRate\\
+	%primaryVTBIMax' = primaryVTBIMax\\ 
+	time' = time\\ State' = State\\
+	%values' = values\\
+	battStatus' = battStatus\\
+	%batteryPercent' = batteryPercent\\
+	%pumpingPressure' = pumpingPressure\\
+	%pressureDisplay' = pressureDisplay\\
+	%pressureMax' = pressureMax\\
+	bolus' = bolus\\
+	bolusVolume' = bolusVolume\\
+	%bolusCategory' = bolusCategory\\
+	%bolusRateMax' = bolusRateMax\\
+	%bolusVolumeMax' = bolusVolumeMax\\
+	%bolusDoseDefault' = bolusDoseDefault\\
+	%bolusRateDefault' = bolusRateDefault\\
+	infusing' = infusing\\
+	%weight' = weight\\
+	%weightDefault' = weightDefault\\
+	%weightSoftMin' = weightSoftMin\\
+	%weightSoftMax' = weightSoftMax\\
+	countdown > 0 \land countdown' = 5\\
+	%autoNightMode' = autoNightMode\\
+	%autoSave' = autoSave\\
+	%eventLog' = eventLog\\
+	%standbyMode' = standbyMode\\
+	%primeRate' = primeRate\\
+	%secondaryInfusion' = secondaryInfusion\\
+	powerSavingCount = 0 \land powerSavingCount' = powerSavingCount\\ option' = option\\
+\end{schema}
+
+\begin{schema}{StopPowerSaving}
+	\Delta AlarisInfusionPump\\
+	Settings\\
+	\where
+	alarm' = alarm\\
+	alarmLimit' = alarmLimit\\
+	%alarmMax' = alarmMax\\
+	%alarmVolume' = alarmVolume\\
+	%audioVolumeAdjustable' = audioVolumeAdjustable\\ 
+	alarmVolumeSelected' = alarmVolumeSelected\\
+	profile' = profile\\
+	%profileFiltering' = profileFiltering\\
+	profilesActive' = profilesActive\\  
+	  profileSelected' = profileSelected\\
+	  
+	drugCategory' = drugCategory\\ 
+	\pagebreak
+	drugCategorySelected' = drugCategorySelected\\
+	drug' = drug\\ drugSelected' = drugSelected\\
+	%drugOverrideMode' = drugOverrideMode\\
+	rate' = rate\\
+	endRate' = endRate\\
+	doseRateSoftMin' = doseRateSoftMin\\
+	doseRateSoftMax' = doseRateSoftMax\\
+	doseRateHardMax' = doseRateHardMax\\
+	doseRateDefault' = doseRateDefault\\
+	%infusionRateMax' = infusionRateMax\\
+	%rateTitration' = rateTitration\\
+	volume' = volume\\
+	%volumeInfused' = volumeInfused\\
+	%concentration' = concentration\\
+	%concentrationMin' = concentrationMin\\
+	%concentrationMax' = concentrationMax\\
+	VTBI' = VTBI\\
+	VTBIBagSize' = VTBIBagSize\\ VTBIBagSizeSelected' = VTBIBagSizeSelected\\
+	%VTBIClearRate' = VTBIClearRate\\
+	%primaryVTBIMax' = primaryVTBIMax\\ 
+	time' = time\\ State' = State\\
+	%values' = values\\
+	battStatus' = battStatus\\
+	%batteryPercent' = batteryPercent\\
+	%pumpingPressure' = pumpingPressure\\
+	%pressureDisplay' = pressureDisplay\\
+	%pressureMax' = pressureMax\\
+	bolus' = bolus\\
+	bolusVolume' = bolusVolume\\
+	%bolusCategory' = bolusCategory\\
+	%bolusRateMax' = bolusRateMax\\
+	%bolusVolumeMax' = bolusVolumeMax\\
+	%bolusDoseDefault' = bolusDoseDefault\\
+	%bolusRateDefault' = bolusRateDefault\\
+	infusing' = infusing\\
+	%weight' = weight\\
+	%weightDefault' = weightDefault\\
+	%weightSoftMin' = weightSoftMin\\
+	%weightSoftMax' = weightSoftMax\\
+	countdown > 0 \land countdown' = 5\\
+	%autoNightMode' = autoNightMode\\
+	%autoSave' = autoSave\\
+	%eventLog' = eventLog\\
+	%standbyMode' = standbyMode\\
+	%primeRate' = primeRate\\
+	%secondaryInfusion' = secondaryInfusion\\
+	powerSavingCount = 0 \land powerSavingCount' = 10\\ option' = option\\
+\end{schema}
+
+\begin{schema}{PowerSavingTimer}
+	\Delta AlarisInfusionPump\\
+	Settings\\
+	\where
+	\pagebreak
+	alarm' = alarm\\
+	alarmLimit' = alarmLimit\\
+	%alarmMax' = alarmMax\\
+	%alarmVolume' = alarmVolume\\
+	%audioVolumeAdjustable' = audioVolumeAdjustable\\ 
+	alarmVolumeSelected' = alarmVolumeSelected\\
+	profile' = profile\\
+	%profileFiltering' = profileFiltering\\
+	profilesActive' = profilesActive\\  
+	  profileSelected' = profileSelected\\
+	drugCategory' = drugCategory\\ drugCategorySelected' = drugCategorySelected\\
+	drug' = drug\\ drugSelected' = drugSelected\\
+	%drugOverrideMode' = drugOverrideMode\\
+	rate' = rate\\
+	endRate' = endRate\\
+	doseRateSoftMin' = doseRateSoftMin\\
+	doseRateSoftMax' = doseRateSoftMax\\
+	doseRateHardMax' = doseRateHardMax\\
+	doseRateDefault' = doseRateDefault\\
+	%infusionRateMax' = infusionRateMax\\
+	%rateTitration' = rateTitration\\
+	volume' = volume\\
+	%volumeInfused' = volumeInfused\\
+	%concentration' = concentration\\
+	%concentrationMin' = concentrationMin\\
+	%concentrationMax' = concentrationMax\\
+	VTBI' = VTBI\\
+	VTBIBagSize' = VTBIBagSize\\ VTBIBagSizeSelected' = VTBIBagSizeSelected\\
+	%VTBIClearRate' = VTBIClearRate\\
+	%primaryVTBIMax' = primaryVTBIMax\\ 
+	time' = time\\ State' = State\\
+	%values' = values\\
+	battStatus' = battStatus\\
+	%batteryPercent' = batteryPercent\\
+	%pumpingPressure' = pumpingPressure\\
+	%pressureDisplay' = pressureDisplay\\
+	%pressureMax' = pressureMax\\
+	bolus' = bolus\\
+	bolusVolume' = bolusVolume\\
+	%bolusCategory' = bolusCategory\\
+	%bolusRateMax' = bolusRateMax\\
+	%bolusVolumeMax' = bolusVolumeMax\\
+	%bolusDoseDefault' = bolusDoseDefault\\
+	%bolusRateDefault' = bolusRateDefault\\
+	infusing' = infusing\\
+	%weight' = weight\\
+	%weightDefault' = weightDefault\\
+	%weightSoftMin' = weightSoftMin\\
+	%weightSoftMax' = weightSoftMax\\
+	countdown > 0 \land countdown' = 5\\
+	%autoNightMode' = autoNightMode\\
+	%autoSave' = autoSave\\
+	%eventLog' = eventLog\\
+	%standbyMode' = standbyMode\\
+	%primeRate' = primeRate\\
+	%secondaryInfusion' = secondaryInfusion\\
+	\pagebreak
+	powerSavingCount \geq 0 \land powerSavingCount'=\\
+	powerSavingCount-1\\
+	option' = option\\
+\end{schema}
+
+\begin{schema}{TopOfVTBIBags}
+	\Delta AlarisInfusionPump\\
+	Settings\\
+	\where
+	alarm' = alarm\\
+	alarmLimit' = alarmLimit\\
+	%alarmMax' = alarmMax\\
+	%alarmVolume' = alarmVolume\\
+	%audioVolumeAdjustable' = audioVolumeAdjustable\\ 
+	alarmVolumeSelected' = alarmVolumeSelected\\
+	profile' = profile\\
+	%profileFiltering' = profileFiltering\\
+	profilesActive' = profilesActive\\  
+	  profileSelected' = profileSelected\\
+	drugCategory' = drugCategory\\ drugCategorySelected' = drugCategorySelected\\
+	drug' = drug\\ drugSelected' = drugSelected\\
+	%drugOverrideMode' = drugOverrideMode\\
+	rate' = rate\\
+	endRate' = endRate\\
+	doseRateSoftMin' = doseRateSoftMin\\
+	doseRateSoftMax' = doseRateSoftMax\\
+	doseRateHardMax' = doseRateHardMax\\
+	doseRateDefault' = doseRateDefault\\
+	%infusionRateMax' = infusionRateMax\\
+	%rateTitration' = rateTitration\\
+	volume' = volume\\
+	%volumeInfused' = volumeInfused\\
+	%concentration' = concentration\\
+	%concentrationMin' = concentrationMin\\
+	%concentrationMax' = concentrationMax\\
+	VTBI' = VTBI\\
+	VTBIBagSizeSelected \leq 3000 \land VTBIBagSizeSelected \geq 0\\
+	\pagebreak
+	VTBIBagSizeSelected' = 3000\\
+	VTBIBagSize' = VTBIBagSize\\
+	%VTBIClearRate' = VTBIClearRate\\
+	%primaryVTBIMax' = primaryVTBIMax\\ 
+	time' = time\\ State' = State\\
+	%values' = values\\
+	battStatus' = battStatus\\
+	%batteryPercent' = batteryPercent\\
+	%pumpingPressure' = pumpingPressure\\
+	%pressureDisplay' = pressureDisplay\\
+	%pressureMax' = pressureMax\\
+	bolus' = bolus\\
+	bolusVolume' = bolusVolume\\
+	%bolusCategory' = bolusCategory\\
+	%bolusRateMax' = bolusRateMax\\
+	%bolusVolumeMax' = bolusVolumeMax\\
+	%bolusDoseDefault' = bolusDoseDefault\\
+	%bolusRateDefault' = bolusRateDefault\\
+	infusing' = infusing\\
+	%weight' = weight\\
+	%weightDefault' = weightDefault\\
+	%weightSoftMin' = weightSoftMin\\
+	%weightSoftMax' = weightSoftMax\\
+	countdown > 0 \land countdown' = 5\\
+	%autoNightMode' = autoNightMode\\
+	%autoSave' = autoSave\\
+	%eventLog' = eventLog\\
+	%standbyMode' = standbyMode\\
+	%primeRate' = primeRate\\
+	%secondaryInfusion' = secondaryInfusion\\
+	powerSavingCount' = powerSavingCount\\ option' = option\\
+\end{schema}
+
+\begin{schema}{UpVTBIBagsOne}
+	\Delta AlarisInfusionPump\\
+	 Settings\\
+	bagsNum : \nat \rel \nat\\
+	\where
+	bagsNum = \{ 0 \mapsto 50, 50 \mapsto 100, 100 \mapsto 200, 200 \mapsto 250, 250 \mapsto 500, \\
+	500 \mapsto 1000, 1000 \mapsto 1500, 1500 \mapsto 2000, 2000 \mapsto 3000\}\\
+	alarm' = alarm\\
+	alarmLimit' = alarmLimit\\
+	%alarmMax' = alarmMax\\
+	%alarmVolume' = alarmVolume\\
+	%audioVolumeAdjustable' = audioVolumeAdjustable\\ 
+	alarmVolumeSelected' = alarmVolumeSelected\\
+	profile' = profile\\
+	%profileFiltering' = profileFiltering\\
+	profilesActive' = profilesActive\\ 
+	  profileSelected' = profileSelected\\
+	drugCategory' = drugCategory\\ 
+	drugCategorySelected' = drugCategorySelected\\
+	\pagebreak 
+	drug' = drug\\ 
+	drugSelected' = drugSelected\\
+	%drugOverrideMode' = drugOverrideMode\\
+	rate' = rate\\
+	endRate' = endRate\\
+	doseRateSoftMin' = doseRateSoftMin\\
+	doseRateSoftMax' = doseRateSoftMax\\
+	doseRateHardMax' = doseRateHardMax\\
+	doseRateDefault' = doseRateDefault\\
+	%infusionRateMax' = infusionRateMax\\
+	%rateTitration' = rateTitration\\
+	volume' = volume\\
+	%volumeInfused' = volumeInfused\\
+	%concentration' = concentration\\
+	%concentrationMin' = concentrationMin\\
+	%concentrationMax' = concentrationMax\\
+	VTBI' = VTBI\\
+	VTBIBagSizeSelected < 3000 \land VTBIBagSizeSelected \geq 0\\
+	VTBIBagSizeSelected' = bagsNum(VTBIBagSizeSelected)\\
+	VTBIBagSize' = VTBIBagSize\\
+	%VTBIClearRate' = VTBIClearRate\\
+	%primaryVTBIMax' = primaryVTBIMax\\ 
+	time' = time\\ State' = State\\
+	%values' = values\\
+	battStatus' = battStatus\\
+	%batteryPercent' = batteryPercent\\
+	%pumpingPressure' = pumpingPressure\\
+	%pressureDisplay' = pressureDisplay\\
+	%pressureMax' = pressureMax\\
+	bolus' = bolus\\
+	bolusVolume' = bolusVolume\\
+	%bolusCategory' = bolusCategory\\
+	%bolusRateMax' = bolusRateMax\\
+	%bolusVolumeMax' = bolusVolumeMax\\
+	%bolusDoseDefault' = bolusDoseDefault\\
+	%bolusRateDefault' = bolusRateDefault\\
+	infusing' = infusing\\
+	%weight' = weight\\
+	%weightDefault' = weightDefault\\
+	%weightSoftMin' = weightSoftMin\\
+	%weightSoftMax' = weightSoftMax\\
+	countdown > 0 \land countdown' = 5\\
+	%autoNightMode' = autoNightMode\\
+	%autoSave' = autoSave\\
+	%eventLog' = eventLog\\
+	%standbyMode' = standbyMode\\
+	%primeRate' = primeRate\\
+	%secondaryInfusion' = secondaryInfusion\\
+	powerSavingCount' = powerSavingCount\\ option' = option\\
+\end{schema}
+
+\begin{schema}{DownVTBIBagsOne}
+	\Delta AlarisInfusionPump\\
+	 Settings\\
+	 \pagebreak 
+	bagsNum : \nat \rel \nat\\
+	\where
+	bagsNum = \{3000 \mapsto 2000, 2000 \mapsto 1500, 1500 \mapsto 1000, 1000 \mapsto 500, \\
+	500 \mapsto 250, 250 \mapsto 200, 200 \mapsto 100, 100 \mapsto 50, 50 \mapsto 0\}\\
+	alarm' = alarm\\
+	alarmLimit' = alarmLimit\\
+	%alarmMax' = alarmMax\\
+	%alarmVolume' = alarmVolume\\
+	%audioVolumeAdjustable' = audioVolumeAdjustable\\ 
+	alarmVolumeSelected' = alarmVolumeSelected\\
+	profile' = profile\\
+	%profileFiltering' = profileFiltering\\
+	profilesActive' = profilesActive\\  
+	  profileSelected' = profileSelected\\
+	drugCategory' = drugCategory\\ drugCategorySelected' = drugCategorySelected\\
+	drug' = drug\\ drugSelected' = drugSelected\\
+	%drugOverrideMode' = drugOverrideMode\\
+	rate' = rate\\
+	endRate' = endRate\\
+	doseRateSoftMin' = doseRateSoftMin\\
+	doseRateSoftMax' = doseRateSoftMax\\
+	doseRateHardMax' = doseRateHardMax\\
+	doseRateDefault' = doseRateDefault\\
+	%infusionRateMax' = infusionRateMax\\
+	%rateTitration' = rateTitration\\
+	volume' = volume\\
+	%volumeInfused' = volumeInfused\\
+	%concentration' = concentration\\
+	%concentrationMin' = concentrationMin\\
+	%concentrationMax' = concentrationMax\\
+	VTBI' = VTBI\\
+	VTBIBagSizeSelected \leq 3000 \land VTBIBagSizeSelected > 0\\
+	VTBIBagSizeSelected = bagsNum(VTBIBagSizeSelected)\\
+	VTBIBagSize' = VTBIBagSize\\
+	%VTBIClearRate' = VTBIClearRate\\
+	%primaryVTBIMax' = primaryVTBIMax\\ 
+	time' = time\\ State' = State\\
+	%values' = values\\
+	\pagebreak 
+	battStatus' = battStatus\\
+	%batteryPercent' = batteryPercent\\
+	%pumpingPressure' = pumpingPressure\\
+	%pressureDisplay' = pressureDisplay\\
+	%pressureMax' = pressureMax\\
+	bolus' = bolus\\
+	bolusVolume' = bolusVolume\\
+	%bolusCategory' = bolusCategory\\
+	%bolusRateMax' = bolusRateMax\\
+	%bolusVolumeMax' = bolusVolumeMax\\
+	%bolusDoseDefault' = bolusDoseDefault\\
+	%bolusRateDefault' = bolusRateDefault\\
+	infusing' = infusing\\
+	%weight' = weight\\
+	%weightDefault' = weightDefault\\
+	%weightSoftMin' = weightSoftMin\\
+	%weightSoftMax' = weightSoftMax\\
+	countdown > 0 \land countdown' = 5\\
+	%autoNightMode' = autoNightMode\\
+	%autoSave' = autoSave\\
+	%eventLog' = eventLog\\
+	%standbyMode' = standbyMode\\
+	%primeRate' = primeRate\\
+	%secondaryInfusion' = secondaryInfusion\\
+	powerSavingCount' = powerSavingCount\\ option' = option\\
+\end{schema}
+
+\begin{schema}{BottomOfVTBIBags}
+	\Delta AlarisInfusionPump\\
+	Settings\\
+	\where
+	alarm' = alarm\\
+	alarmLimit' = alarmLimit\\
+	%alarmMax' = alarmMax\\
+	%alarmVolume' = alarmVolume\\
+	%audioVolumeAdjustable' = audioVolumeAdjustable\\ 
+	alarmVolumeSelected' = alarmVolumeSelected\\
+	profile' = profile\\
+	%profileFiltering' = profileFiltering\\
+	profilesActive' = profilesActive\\  
+	profileSelected' = profileSelected\\
+	drugCategory' = drugCategory\\ drugCategorySelected' = drugCategorySelected\\
+	drug' = drug\\ drugSelected' = drugSelected\\
+	%drugOverrideMode' = drugOverrideMode\\
+	rate' = rate\\
+	endRate' = endRate\\
+	doseRateSoftMin' = doseRateSoftMin\\
+	doseRateSoftMax' = doseRateSoftMax\\
+	doseRateHardMax' = doseRateHardMax\\
+	\pagebreak 
+	doseRateDefault' = doseRateDefault\\
+	%infusionRateMax' = infusionRateMax\\
+	%rateTitration' = rateTitration\\
+	volume' = volume\\
+	%volumeInfused' = volumeInfused\\
+	%concentration' = concentration\\
+	%concentrationMin' = concentrationMin\\
+	%concentrationMax' = concentrationMax\\
+	VTBI' = VTBI\\
+	VTBIBagSizeSelected \leq 3000 \land VTBIBagSizeSelected \geq 0\\
+	VTBIBagSizeSelected' = 0\\
+	VTBIBagSize' = VTBIBagSize\\
+	%VTBIClearRate' = VTBIClearRate\\
+	%primaryVTBIMax' = primaryVTBIMax\\ 
+	time' = time\\ State' = State\\
+	%values' = values\\
+	battStatus' = battStatus\\
+	%batteryPercent' = batteryPercent\\
+	%pumpingPressure' = pumpingPressure\\
+	%pressureDisplay' = pressureDisplay\\
+	%pressureMax' = pressureMax\\
+	bolus' = bolus\\
+	bolusVolume' = bolusVolume\\
+	%bolusCategory' = bolusCategory\\
+	%bolusRateMax' = bolusRateMax\\
+	%bolusVolumeMax' = bolusVolumeMax\\
+	%bolusDoseDefault' = bolusDoseDefault\\
+	%bolusRateDefault' = bolusRateDefault\\
+	infusing' = infusing\\
+	%weight' = weight\\
+	%weightDefault' = weightDefault\\
+	%weightSoftMin' = weightSoftMin\\
+	%weightSoftMax' = weightSoftMax\\
+	countdown > 0 \land countdown' = 5\\
+	%autoNightMode' = autoNightMode\\
+	%autoSave' = autoSave\\
+	%eventLog' = eventLog\\
+	%standbyMode' = standbyMode\\
+	%primeRate' = primeRate\\
+	%secondaryInfusion' = secondaryInfusion\\
+	powerSavingCount' = powerSavingCount\\ option' = option\\
+\end{schema}
+
+\begin{schema}{TopOfProfile}
+	\Delta AlarisInfusionPump\\
+	 Settings\\
+	\where
+	alarm' = alarm\\
+	alarmLimit' = alarmLimit\\
+	%alarmMax' = alarmMax\\
+	%alarmVolume' = alarmVolume\\
+	%audioVolumeAdjustable' = audioVolumeAdjustable\\ 
+	alarmVolumeSelected' = alarmVolumeSelected\\
+	profile' = profile\\
+	%profileFiltering' = profileFiltering\\
+	profilesActive' = profilesActive\\ 
+	
+	profileSelected' = CriticalCare\\
+	drugCategory' = drugCategory\\ 
+	\pagebreak 
+	drugCategorySelected' = drugCategorySelected\\
+	drug' = drug\\ 
+	drugSelected' = drugSelected\\
+	%drugOverrideMode' = drugOverrideMode\\
+	rate' = rate\\
+	endRate' = endRate\\
+	doseRateSoftMin' = doseRateSoftMin\\
+	doseRateSoftMax' = doseRateSoftMax\\
+	doseRateHardMax' = doseRateHardMax\\
+	doseRateDefault' = doseRateDefault\\
+	%infusionRateMax' = infusionRateMax\\
+	%rateTitration' = rateTitration\\
+	volume' = volume\\
+	%volumeInfused' = volumeInfused\\
+	%concentration' = concentration\\
+	%concentrationMin' = concentrationMin\\
+	%concentrationMax' = concentrationMax\\
+	VTBI' = VTBI\\
+	VTBIBagSize' = VTBIBagSize\\ 
+	VTBIBagSizeSelected' = VTBIBagSizeSelected\\
+	%VTBIClearRate' = VTBIClearRate\\
+	%primaryVTBIMax' = primaryVTBIMax\\ 
+	time' = time\\ 
+	State' = State\\
+	%values' = values\\
+	battStatus' = battStatus\\
+	%batteryPercent' = batteryPercent\\
+	%pumpingPressure' = pumpingPressure\\
+	%pressureDisplay' = pressureDisplay\\
+	%pressureMax' = pressureMax\\
+	bolus' = bolus\\
+	bolusVolume' = bolusVolume\\
+	%bolusCategory' = bolusCategory\\
+	%bolusRateMax' = bolusRateMax\\
+	%bolusVolumeMax' = bolusVolumeMax\\
+	%bolusDoseDefault' = bolusDoseDefault\\
+	%bolusRateDefault' = bolusRateDefault\\
+	infusing' = infusing\\
+	%weight' = weight\\
+	%weightDefault' = weightDefault\\
+	%weightSoftMin' = weightSoftMin\\
+	%weightSoftMax' = weightSoftMax\\
+	countdown > 0 \land countdown' = 5\\
+	%autoNightMode' = autoNightMode\\
+	%autoSave' = autoSave\\
+	%eventLog' = eventLog\\
+	%standbyMode' = standbyMode\\
+	%primeRate' = primeRate\\
+	%secondaryInfusion' = secondaryInfusion\\
+	powerSavingCount' = powerSavingCount\\ 
+	option' = option\\
+\end{schema}
+
+\begin{schema}{DownProfileOne}
+	\Delta AlarisInfusionPump\\
+	
+	 Settings\\
+	 \pagebreak 
+	profiles1 : PROFILE \rel PROFILE
+	\where
+	profiles1 = \{(TrainingADULT,TrainingPEDIATRICS),(Surgical\\
+	Ward,TrainingADULT),(Pediatrics,SurgicalWard),(MedicalWard,\\
+	Pediatrics),(CriticalCare,MedicalWard)\}\\
+	alarm' = alarm\\
+	alarmLimit' = alarmLimit\\
+	%alarmMax' = alarmMax\\
+	%alarmVolume' = alarmVolume\\
+	%audioVolumeAdjustable' = audioVolumeAdjustable\\ 
+	alarmVolumeSelected' = alarmVolumeSelected\\
+	profile' = profile\\
+	%profileFiltering' = profileFiltering\\
+	profilesActive' = profilesActive\\  
+	(profileSelected \neq TrainingPEDIATRICS) \land (profileSelected' = \\
+	profiles1(profileSelected))\\
+	drugCategory' = drugCategory\\ drugCategorySelected' = drugCategorySelected\\
+	drug' = drug\\ drugSelected' = drugSelected\\
+	%drugOverrideMode' = drugOverrideMode\\
+	rate' = rate\\
+	endRate' = endRate\\
+	doseRateSoftMin' = doseRateSoftMin\\
+	doseRateSoftMax' = doseRateSoftMax\\
+	doseRateHardMax' = doseRateHardMax\\
+	doseRateDefault' = doseRateDefault\\
+	%infusionRateMax' = infusionRateMax\\
+	%rateTitration' = rateTitration\\
+	volume' = volume\\
+	%volumeInfused' = volumeInfused\\
+	%concentration' = concentration\\
+	%concentrationMin' = concentrationMin\\
+	%concentrationMax' = concentrationMax\\
+	VTBI' = VTBI\\
+	VTBIBagSize' = VTBIBagSize\\ VTBIBagSizeSelected' = VTBIBagSizeSelected\\
+	%VTBIClearRate' = VTBIClearRate\\
+	%primaryVTBIMax' = primaryVTBIMax\\ 
+	time' = time\\ 
+	\pagebreak
+	State' = State\\
+	%values' = values\\
+	battStatus' = battStatus\\
+	%batteryPercent' = batteryPercent\\
+	%pumpingPressure' = pumpingPressure\\
+	%pressureDisplay' = pressureDisplay\\
+	%pressureMax' = pressureMax\\
+	bolus' = bolus\\
+	bolusVolume' = bolusVolume\\
+	%bolusCategory' = bolusCategory\\
+	%bolusRateMax' = bolusRateMax\\
+	%bolusVolumeMax' = bolusVolumeMax\\
+	%bolusDoseDefault' = bolusDoseDefault\\
+	%bolusRateDefault' = bolusRateDefault\\
+	infusing' = infusing\\
+	%weight' = weight\\
+	%weightDefault' = weightDefault\\
+	%weightSoftMin' = weightSoftMin\\
+	%weightSoftMax' = weightSoftMax\\
+	countdown > 0 \land countdown' = 5\\
+	%autoNightMode' = autoNightMode\\
+	%autoSave' = autoSave\\
+	%eventLog' = eventLog\\
+	%standbyMode' = standbyMode\\
+	%primeRate' = primeRate\\
+	%secondaryInfusion' = secondaryInfusion\\
+	powerSavingCount' = powerSavingCount\\ option' = option\\
+\end{schema}
+
+\begin{schema}{UpProfileOne}
+	\Delta AlarisInfusionPump\\
+	 Settings\\
+	profiles1 : PROFILE \rel PROFILE
+	\where
+	profiles1 = \{(TrainingPEDIATRICS,TrainingADULT),(Training\\
+	ADULT,SurgicalWard),(SurgicalWard,Pediatrics),(Pediatrics,\\
+	MedicalWard),(MedicalWard,CriticalCare)\}\\
+	alarm' = alarm\\
+	alarmLimit' = alarmLimit\\
+	%alarmMax' = alarmMax\\
+	%alarmVolume' = alarmVolume\\
+	%audioVolumeAdjustable' = audioVolumeAdjustable\\ 
+	alarmVolumeSelected' = alarmVolumeSelected\\
+	profile' = profile\\
+	%profileFiltering' = profileFiltering\\
+	profilesActive' = profilesActive\\
+	
+	(profileSelected \neq CriticalCare) \land (profileSelected' = profiles1(profile\\
+	Selected))\\
+	drugCategory' = drugCategory\\ 
+	drugCategorySelected' = drugCategorySelected\\
+	drug' = drug\\ 
+	\pagebreak  
+	drugSelected' = drugSelected\\
+	%drugOverrideMode' = drugOverrideMode\\
+	rate' = rate\\
+	endRate' = endRate\\
+	doseRateSoftMin' = doseRateSoftMin\\
+	doseRateSoftMax' = doseRateSoftMax\\
+	doseRateHardMax' = doseRateHardMax\\
+	doseRateDefault' = doseRateDefault\\
+	%infusionRateMax' = infusionRateMax\\
+	%rateTitration' = rateTitration\\
+	volume' = volume\\
+	%volumeInfused' = volumeInfused\\
+	%concentration' = concentration\\
+	%concentrationMin' = concentrationMin\\
+	%concentrationMax' = concentrationMax\\
+	VTBI' = VTBI\\
+	VTBIBagSize' = VTBIBagSize\\ VTBIBagSizeSelected' = VTBIBagSizeSelected\\
+	%VTBIClearRate' = VTBIClearRate\\
+	%primaryVTBIMax' = primaryVTBIMax\\ 
+	time' = time\\ State' = State\\
+	%values' = values\\
+	battStatus' = battStatus\\
+	%batteryPercent' = batteryPercent\\
+	%pumpingPressure' = pumpingPressure\\
+	%pressureDisplay' = pressureDisplay\\
+	%pressureMax' = pressureMax\\
+	bolus' = bolus\\
+	bolusVolume' = bolusVolume\\
+	%bolusCategory' = bolusCategory\\
+	%bolusRateMax' = bolusRateMax\\
+	%bolusVolumeMax' = bolusVolumeMax\\
+	%bolusDoseDefault' = bolusDoseDefault\\
+	%bolusRateDefault' = bolusRateDefault\\
+	infusing' = infusing\\
+	%weight' = weight\\
+	%weightDefault' = weightDefault\\
+	%weightSoftMin' = weightSoftMin\\
+	%weightSoftMax' = weightSoftMax\\
+	countdown > 0 \land countdown' = 5\\
+	%autoNightMode' = autoNightMode\\
+	%autoSave' = autoSave\\
+	%eventLog' = eventLog\\
+	%standbyMode' = standbyMode\\
+	%primeRate' = primeRate\\
+	%secondaryInfusion' = secondaryInfusion\\
+	powerSavingCount' = powerSavingCount\\ option' = option\\
+\end{schema}
+
+\begin{schema}{BottomOfProfile}
+	\Delta AlarisInfusionPump\\
+	 Settings\\
+	\where
+	alarm' = alarm\\
+	alarmLimit' = alarmLimit\\
+	%alarmMax' = alarmMax\\
+	%alarmVolume' = alarmVolume\\
+	%audioVolumeAdjustable' = audioVolumeAdjustable\\ 
+	\pagebreak 
+	alarmVolumeSelected' = alarmVolumeSelected\\
+	profile' = profile\\
+	%profileFiltering' = profileFiltering\\
+	profilesActive' = profilesActive\\    
+	profileSelected' = TrainingPEDIATRICS\\
+	drugCategory' = drugCategory\\ drugCategorySelected' = drugCategorySelected\\
+	drug' = drug\\ drugSelected' = drugSelected\\
+	%drugOverrideMode' = drugOverrideMode\\
+	rate' = rate\\
+	endRate' = endRate\\
+	doseRateSoftMin' = doseRateSoftMin\\
+	doseRateSoftMax' = doseRateSoftMax\\
+	doseRateHardMax' = doseRateHardMax\\
+	doseRateDefault' = doseRateDefault\\
+	%infusionRateMax' = infusionRateMax\\
+	%rateTitration' = rateTitration\\
+	volume' = volume\\
+	%volumeInfused' = volumeInfused\\
+	%concentration' = concentration\\
+	%concentrationMin' = concentrationMin\\
+	%concentrationMax' = concentrationMax\\
+	VTBI' = VTBI\\
+	VTBIBagSize' = VTBIBagSize\\ VTBIBagSizeSelected' = VTBIBagSizeSelected\\
+	%VTBIClearRate' = VTBIClearRate\\
+	%primaryVTBIMax' = primaryVTBIMax\\ 
+	time' = time\\ State' = State\\
+	%values' = values\\
+	battStatus' = battStatus\\
+	%batteryPercent' = batteryPercent\\
+	%pumpingPressure' = pumpingPressure\\
+	%pressureDisplay' = pressureDisplay\\
+	%pressureMax' = pressureMax\\
+	bolus' = bolus\\
+	bolusVolume' = bolusVolume\\
+	%bolusCategory' = bolusCategory\\
+	%bolusRateMax' = bolusRateMax\\
+	%bolusVolumeMax' = bolusVolumeMax\\
+	%bolusDoseDefault' = bolusDoseDefault\\
+	%bolusRateDefault' = bolusRateDefault\\
+	infusing' = infusing\\
+	%weight' = weight\\
+	%weightDefault' = weightDefault\\
+	%weightSoftMin' = weightSoftMin\\
+	%weightSoftMax' = weightSoftMax\\
+	countdown > 0 \land countdown' = 5\\
+	%autoNightMode' = autoNightMode\\
+	%autoSave' = autoSave\\
+	%eventLog' = eventLog\\
+	%standbyMode' = standbyMode\\
+	%primeRate' = primeRate\\
+	%secondaryInfusion' = secondaryInfusion\\
+	powerSavingCount' = powerSavingCount\\ option' = option\\
+\end{schema}
+
+\begin{schema}{TopVolumes}
+	\Delta AlarisInfusionPump\\
+	 Settings\\
+	\where
+	alarm' = alarm\\
+	alarmLimit' = alarmLimit\\
+	%alarmMax' = alarmMax\\
+	%alarmVolume' = alarmVolume\\
+	audioVolumeAdjustable = True\\
+	%audioVolumeAdjustable' = audioVolumeAdjustable\\ 
+	alarmVolumeSelected' = High\\
+	profile' = profile\\
+	%profileFiltering' = profileFiltering\\
+	profilesActive' = profilesActive\\  
+	profileSelected' = profileSelected\\
+	drugCategory' = drugCategory\\ drugCategorySelected' = drugCategorySelected\\
+	drug' = drug\\ drugSelected' = drugSelected\\
+	%drugOverrideMode' = drugOverrideMode\\
+	rate' = rate\\
+	endRate' = endRate\\
+	doseRateSoftMin' = doseRateSoftMin\\
+	doseRateSoftMax' = doseRateSoftMax\\
+	doseRateHardMax' = doseRateHardMax\\
+	doseRateDefault' = doseRateDefault\\
+	%infusionRateMax' = infusionRateMax\\
+	%rateTitration' = rateTitration\\
+	volume' = volume\\
+	%volumeInfused' = volumeInfused\\
+	%concentration' = concentration\\
+	%concentrationMin' = concentrationMin\\
+	%concentrationMax' = concentrationMax\\
+	VTBI' = VTBI\\
+	VTBIBagSize' = VTBIBagSize\\ VTBIBagSizeSelected' = VTBIBagSizeSelected\\
+	%VTBIClearRate' = VTBIClearRate\\
+	%primaryVTBIMax' = primaryVTBIMax\\ 
+	time' = time\\ State' = State\\
+	%values' = values\\
+	\pagebreak 
+	battStatus' = battStatus\\
+	%batteryPercent' = batteryPercent\\
+	%pumpingPressure' = pumpingPressure\\
+	%pressureDisplay' = pressureDisplay\\
+	%pressureMax' = pressureMax\\
+	bolus' = bolus\\
+	bolusVolume' = bolusVolume\\
+	%bolusCategory' = bolusCategory\\
+	%bolusRateMax' = bolusRateMax\\
+	%bolusVolumeMax' = bolusVolumeMax\\
+	%bolusDoseDefault' = bolusDoseDefault\\
+	%bolusRateDefault' = bolusRateDefault\\
+	infusing' = infusing\\
+	%weight' = weight\\
+	%weightDefault' = weightDefault\\
+	%weightSoftMin' = weightSoftMin\\
+	%weightSoftMax' = weightSoftMax\\
+	countdown > 0 \land countdown' = 5\\
+	%autoNightMode' = autoNightMode\\
+	%autoSave' = autoSave\\
+	%eventLog' = eventLog\\
+	%standbyMode' = standbyMode\\
+	%primeRate' = primeRate\\
+	%secondaryInfusion' = secondaryInfusion\\
+	powerSavingCount' = powerSavingCount\\ option' = option\\
+\end{schema}
+
+\begin{schema}{UpVolumesOne}
+	\Delta AlarisInfusionPump\\
+	 Settings\\
+	volumes : ALARMVOLUME \rel ALARMVOLUME\\
+	\where
+	volumes = \{(Low,Medium),(Medium,High)\}\\
+	alarm' = alarm\\
+	alarmLimit' = alarmLimit\\
+	%alarmMax' = alarmMax\\
+	%alarmVolume' = alarmVolume\\
+	audioVolumeAdjustable = True\\
+	%audioVolumeAdjustable' = audioVolumeAdjustable\\ 
+	(alarmVolumeSelected \neq High) \land (alarmVolumeSelected' = volumes(\\
+	alarmVolumeSelected))\\
+	profile' = profile\\
+	%profileFiltering' = profileFiltering\\
+	profilesActive' = profilesActive\\  
+	  profileSelected' = profileSelected\\
+	drugCategory' = drugCategory\\ drugCategorySelected' = drugCategorySelected\\
+	drug' = drug\\ drugSelected' = drugSelected\\
+	%drugOverrideMode' = drugOverrideMode\\
+	rate' = rate\\
+	\pagebreak 
+	endRate' = endRate\\
+	doseRateSoftMin' = doseRateSoftMin\\
+	doseRateSoftMax' = doseRateSoftMax\\
+	doseRateHardMax' = doseRateHardMax\\
+	doseRateDefault' = doseRateDefault\\
+	%infusionRateMax' = infusionRateMax\\
+	%rateTitration' = rateTitration\\
+	volume' = volume\\
+	%volumeInfused' = volumeInfused\\
+	%concentration' = concentration\\
+	%concentrationMin' = concentrationMin\\
+	%concentrationMax' = concentrationMax\\
+	VTBI' = VTBI\\
+	VTBIBagSize' = VTBIBagSize\\ VTBIBagSizeSelected' = VTBIBagSizeSelected\\
+	%VTBIClearRate' = VTBIClearRate\\
+	%primaryVTBIMax' = primaryVTBIMax\\ 
+	time' = time\\ State' = State\\
+	%values' = values\\
+	battStatus' = battStatus\\
+	%batteryPercent' = batteryPercent\\
+	%pumpingPressure' = pumpingPressure\\
+	%pressureDisplay' = pressureDisplay\\
+	%pressureMax' = pressureMax\\
+	bolus' = bolus\\
+	bolusVolume' = bolusVolume\\
+	%bolusCategory' = bolusCategory\\
+	%bolusRateMax' = bolusRateMax\\
+	%bolusVolumeMax' = bolusVolumeMax\\
+	%bolusDoseDefault' = bolusDoseDefault\\
+	%bolusRateDefault' = bolusRateDefault\\
+	infusing' = infusing\\
+	%weight' = weight\\
+	%weightDefault' = weightDefault\\
+	%weightSoftMin' = weightSoftMin\\
+	%weightSoftMax' = weightSoftMax\\
+	countdown > 0 \land countdown' = 5\\
+	%autoNightMode' = autoNightMode\\
+	%autoSave' = autoSave\\
+	%eventLog' = eventLog\\
+	%standbyMode' = standbyMode\\
+	%primeRate' = primeRate\\
+	%secondaryInfusion' = secondaryInfusion\\
+	powerSavingCount' = powerSavingCount\\ option' = option\\
+\end{schema}
+
+\begin{schema}{DownVolumesOne}
+	\Delta AlarisInfusionPump\\
+	 Settings\\
+	volumes : ALARMVOLUME \rel ALARMVOLUME\\
+	\where
+	volumes = \{(High,Medium),(Medium,Low)\}\\
+	alarm' = alarm\\
+	alarmLimit' = alarmLimit\\
+	%alarmMax' = alarmMax\\
+	%alarmVolume' = alarmVolume\\
+	\pagebreak 
+	audioVolumeAdjustable = True\\
+	%audioVolumeAdjustable' = audioVolumeAdjustable\\ 
+	(alarmVolumeSelected \neq Low) \land (alarmVolumeSelected' = volumes(\\
+	alarmVolumeSelected))\\
+	profile' = profile\\
+	%profileFiltering' = profileFiltering\\
+	profilesActive' = profilesActive\\  
+	  profileSelected' = profileSelected\\
+	drugCategory' = drugCategory\\ drugCategorySelected' = drugCategorySelected\\
+	drug' = drug\\ drugSelected' = drugSelected\\
+	%drugOverrideMode' = drugOverrideMode\\
+	rate' = rate\\
+	endRate' = endRate\\
+	doseRateSoftMin' = doseRateSoftMin\\
+	doseRateSoftMax' = doseRateSoftMax\\
+	doseRateHardMax' = doseRateHardMax\\
+	doseRateDefault' = doseRateDefault\\
+	%infusionRateMax' = infusionRateMax\\
+	%rateTitration' = rateTitration\\
+	volume' = volume\\
+	%volumeInfused' = volumeInfused\\
+	%concentration' = concentration\\
+	%concentrationMin' = concentrationMin\\
+	%concentrationMax' = concentrationMax\\
+	VTBI' = VTBI\\
+	VTBIBagSize' = VTBIBagSize\\ VTBIBagSizeSelected' = VTBIBagSizeSelected\\
+	%VTBIClearRate' = VTBIClearRate\\
+	%primaryVTBIMax' = primaryVTBIMax\\ 
+	time' = time\\ State' = State\\
+	%values' = values\\
+	battStatus' = battStatus\\
+	%batteryPercent' = batteryPercent\\
+	%pumpingPressure' = pumpingPressure\\
+	%pressureDisplay' = pressureDisplay\\
+	%pressureMax' = pressureMax\\
+	bolus' = bolus\\
+	bolusVolume' = bolusVolume\\
+	%bolusCategory' = bolusCategory\\
+	%bolusRateMax' = bolusRateMax\\
+	%bolusVolumeMax' = bolusVolumeMax\\
+	%bolusDoseDefault' = bolusDoseDefault\\
+	%bolusRateDefault' = bolusRateDefault\\
+	infusing' = infusing\\
+	%weight' = weight\\
+	%weightDefault' = weightDefault\\
+	%weightSoftMin' = weightSoftMin\\
+	%weightSoftMax' = weightSoftMax\\
+	countdown > 0 \land countdown' = 5\\
+	%autoNightMode' = autoNightMode\\
+	%autoSave' = autoSave\\
+	%eventLog' = eventLog\\
+	%standbyMode' = standbyMode\\
+	%primeRate' = primeRate\\
+	%secondaryInfusion' = secondaryInfusion\\
+	\pagebreak 
+	powerSavingCount' = powerSavingCount\\ 
+	option' = option\\
+\end{schema}
+
+\begin{schema}{BottomVolumes}
+	\Delta AlarisInfusionPump\\
+	 Settings\\
+	\where
+	alarm' = alarm\\
+	alarmLimit' = alarmLimit\\
+	%alarmMax' = alarmMax\\
+	%alarmVolume' = alarmVolume\\
+	audioVolumeAdjustable = True\\
+	%audioVolumeAdjustable' = audioVolumeAdjustable\\ 
+	alarmVolumeSelected' = Low\\
+	profile' = profile\\
+	%profileFiltering' = profileFiltering\\
+	profilesActive' = profilesActive\\  
+	  profileSelected' = profileSelected\\
+	drugCategory' = drugCategory\\ drugCategorySelected' = drugCategorySelected\\
+	drug' = drug\\ drugSelected' = drugSelected\\
+	%drugOverrideMode' = drugOverrideMode\\
+	rate' = rate\\
+	endRate' = endRate\\
+	doseRateSoftMin' = doseRateSoftMin\\
+	doseRateSoftMax' = doseRateSoftMax\\
+	doseRateHardMax' = doseRateHardMax\\
+	doseRateDefault' = doseRateDefault\\
+	%infusionRateMax' = infusionRateMax\\
+	%rateTitration' = rateTitration\\
+	volume' = volume\\
+	%volumeInfused' = volumeInfused\\
+	%concentration' = concentration\\
+	%concentrationMin' = concentrationMin\\
+	%concentrationMax' = concentrationMax\\
+	VTBI' = VTBI\\
+	VTBIBagSize' = VTBIBagSize\\ 
+	\pagebreak 
+	VTBIBagSizeSelected' = VTBIBagSizeSelected\\
+	%VTBIClearRate' = VTBIClearRate\\
+	%primaryVTBIMax' = primaryVTBIMax\\ 
+	time' = time\\ State' = State\\
+	%values' = values\\
+	battStatus' = battStatus\\
+	%batteryPercent' = batteryPercent\\
+	%pumpingPressure' = pumpingPressure\\
+	%pressureDisplay' = pressureDisplay\\
+	%pressureMax' = pressureMax\\
+	bolus' = bolus\\
+	bolusVolume' = bolusVolume\\
+	%bolusCategory' = bolusCategory\\
+	%bolusRateMax' = bolusRateMax\\
+	%bolusVolumeMax' = bolusVolumeMax\\
+	%bolusDoseDefault' = bolusDoseDefault\\
+	%bolusRateDefault' = bolusRateDefault\\
+	infusing' = infusing\\
+	%weight' = weight\\
+	%weightDefault' = weightDefault\\
+	%weightSoftMin' = weightSoftMin\\
+	%weightSoftMax' = weightSoftMax\\
+	countdown > 0 \land countdown' = 5\\
+	%autoNightMode' = autoNightMode\\
+	%autoSave' = autoSave\\
+	%eventLog' = eventLog\\
+	%standbyMode' = standbyMode\\
+	%primeRate' = primeRate\\
+	%secondaryInfusion' = secondaryInfusion\\
+	powerSavingCount' = powerSavingCount\\ option' = option\\
+\end{schema}
+
+\begin{schema}{TopOfDrugs}
+	\Delta AlarisInfusionPump\\
+	 Settings\\
+	\where
+	alarm' = alarm\\
+	alarmLimit' = alarmLimit\\
+	%alarmMax' = alarmMax\\
+	%alarmVolume' = alarmVolume\\
+	%audioVolumeAdjustable' = audioVolumeAdjustable\\ 
+	alarmVolumeSelected' = alarmVolumeSelected\\
+	profile' = profile\\
+	%profileFiltering' = profileFiltering\\
+	profilesActive' = profilesActive\\  
+	  profileSelected' = profileSelected\\
+	drugCategory' = drugCategory\\ drugCategorySelected' = drugCategorySelected\\
+	drug' = drug\\ 
+	drugSelected' = Adrenaline\\
+	%drugOverrideMode' = drugOverrideMode\\
+	rate' = rate\\
+	endRate' = endRate\\
+	\pagebreak 
+	doseRateSoftMin' = doseRateSoftMin\\
+	doseRateSoftMax' = doseRateSoftMax\\
+	doseRateHardMax' = doseRateHardMax\\
+	doseRateDefault' = doseRateDefault\\
+	%infusionRateMax' = infusionRateMax\\
+	%rateTitration' = rateTitration\\
+	volume' = volume\\
+	%volumeInfused' = volumeInfused\\
+	%concentration' = concentration\\
+	%concentrationMin' = concentrationMin\\
+	%concentrationMax' = concentrationMax\\
+	VTBI' = VTBI\\
+	VTBIBagSize' = VTBIBagSize\\ VTBIBagSizeSelected' = VTBIBagSizeSelected\\
+	%VTBIClearRate' = VTBIClearRate\\
+	%primaryVTBIMax' = primaryVTBIMax\\ 
+	time' = time\\ State' = State\\
+	%values' = values\\
+	battStatus' = battStatus\\
+	%batteryPercent' = batteryPercent\\
+	%pumpingPressure' = pumpingPressure\\
+	%pressureDisplay' = pressureDisplay\\
+	%pressureMax' = pressureMax\\
+	bolus' = bolus\\
+	bolusVolume' = bolusVolume\\
+	%bolusCategory' = bolusCategory\\
+	%bolusRateMax' = bolusRateMax\\
+	%bolusVolumeMax' = bolusVolumeMax\\
+	%bolusDoseDefault' = bolusDoseDefault\\
+	%bolusRateDefault' = bolusRateDefault\\
+	infusing = No\\
+	infusing' = infusing\\
+	%weight' = weight\\
+	%weightDefault' = weightDefault\\
+	%weightSoftMin' = weightSoftMin\\
+	%weightSoftMax' = weightSoftMax\\
+	countdown > 0 \land countdown' = 5\\
+	%autoNightMode' = autoNightMode\\
+	%autoSave' = autoSave\\
+	%eventLog' = eventLog\\
+	%standbyMode' = standbyMode\\
+	%primeRate' = primeRate\\
+	%secondaryInfusion' = secondaryInfusion\\
+	powerSavingCount' = powerSavingCount\\ option' = option\\
+\end{schema}
+
+\begin{schema}{DownDrugsOne}
+	\Delta AlarisInfusionPump\\
+	 Settings\\
+	drugs : DRUG \rel DRUG\\
+	\where
+	drugs = \{(Adrenaline,AmiodaroneBolus),(AmiodaroneBolus,\\
+	AmiodaroneInf),(AmiodaroneInf,Dobutamine),(Dobutamine,\\
+	FLUIDSANDBLOODS),(FLUIDSANDBLOODS,Gentamicin),\\
+	\pagebreak
+	(Gentamicin,Morphine),(Morphine,Noradrenaline),(Noradrenaline,\\
+	Propofol)\}\\
+	alarm' = alarm\\
+	alarmLimit' = alarmLimit\\
+	%alarmMax' = alarmMax\\
+	%alarmVolume' = alarmVolume\\
+	%audioVolumeAdjustable' = audioVolumeAdjustable\\ 
+	alarmVolumeSelected' = alarmVolumeSelected\\
+	profile' = profile\\
+	%profileFiltering' = profileFiltering\\
+	profilesActive' = profilesActive\\  
+	  profileSelected' = profileSelected\\
+	drugCategory' = drugCategory\\ drugCategorySelected' = drugCategorySelected\\
+	drug' = drug\\ 
+	(drugSelected \neq Propofol) \land (drugSelected' = drugs(drugSelected))\\
+	%drugOverrideMode' = drugOverrideMode\\
+	rate' = rate\\
+	endRate' = endRate\\
+	doseRateSoftMin' = doseRateSoftMin\\
+	doseRateSoftMax' = doseRateSoftMax\\
+	doseRateHardMax' = doseRateHardMax\\
+	doseRateDefault' = doseRateDefault\\
+	%infusionRateMax' = infusionRateMax\\
+	%rateTitration' = rateTitration\\
+	volume' = volume\\
+	%volumeInfused' = volumeInfused\\
+	%concentration' = concentration\\
+	%concentrationMin' = concentrationMin\\
+	%concentrationMax' = concentrationMax\\
+	VTBI' = VTBI\\
+	VTBIBagSize' = VTBIBagSize\\ VTBIBagSizeSelected' = VTBIBagSizeSelected\\
+	%VTBIClearRate' = VTBIClearRate\\
+	%primaryVTBIMax' = primaryVTBIMax\\ 
+	time' = time\\ State' = State\\
+	%values' = values\\
+	battStatus' = battStatus\\
+	%batteryPercent' = batteryPercent\\
+	%pumpingPressure' = pumpingPressure\\
+	%pressureDisplay' = pressureDisplay\\
+	%pressureMax' = pressureMax\\
+	bolus' = bolus\\
+	bolusVolume' = bolusVolume\\
+	%bolusCategory' = bolusCategory\\
+	%bolusRateMax' = bolusRateMax\\
+	%bolusVolumeMax' = bolusVolumeMax\\
+	%bolusDoseDefault' = bolusDoseDefault\\
+	%bolusRateDefault' = bolusRateDefault\\
+	\pagebreak
+	infusing = No\\
+	infusing' = infusing\\
+	%weight' = weight\\
+	%weightDefault' = weightDefault\\
+	%weightSoftMin' = weightSoftMin\\
+	%weightSoftMax' = weightSoftMax\\
+	countdown > 0 \land countdown' = 5\\
+	%autoNightMode' = autoNightMode\\
+	%autoSave' = autoSave\\
+	%eventLog' = eventLog\\
+	%standbyMode' = standbyMode\\
+	%primeRate' = primeRate\\
+	%secondaryInfusion' = secondaryInfusion\\
+	powerSavingCount' = powerSavingCount\\ option' = option\\
+\end{schema}
+
+\begin{schema}{UpDrugsOne}
+	\Delta AlarisInfusionPump\\
+	 Settings\\
+	drugs : DRUG \rel DRUG\\
+	\where
+	drugs = \{(Propofol,Noradrenaline),(Noradrenaline,Morphine),\\
+	(Morphine,Gentamicin),(Gentamicin,FLUIDSANDBLOODS),\\
+	(FLUIDSANDBLOODS,Dobutamine),(Dobutamine,Amiodarone\\
+	Inf),(AmiodaroneInf,AmiodaroneBolus),(AmiodaroneBolus,\\
+	Adrenaline)\}\\
+	alarm' = alarm\\
+	alarmLimit' = alarmLimit\\
+	%alarmMax' = alarmMax\\
+	%alarmVolume' = alarmVolume\\
+	%audioVolumeAdjustable' = audioVolumeAdjustable\\ 
+	alarmVolumeSelected' = alarmVolumeSelected\\
+	profile' = profile\\
+	%profileFiltering' = profileFiltering\\
+	profilesActive' = profilesActive\\  
+	  profileSelected' = profileSelected\\
+	drugCategory' = drugCategory\\ drugCategorySelected' = drugCategorySelected\\
+	drug' = drug\\ 
+	 
+	(drugSelected \neq Adrenaline) \land (drugSelected' = drugs(drugSelected))\\
+	%drugOverrideMode' = drugOverrideMode\\
+	rate' = rate\\
+	\pagebreak
+	endRate' = endRate\\
+	doseRateSoftMin' = doseRateSoftMin\\
+	doseRateSoftMax' = doseRateSoftMax\\
+	doseRateHardMax' = doseRateHardMax\\
+	doseRateDefault' = doseRateDefault\\
+	%infusionRateMax' = infusionRateMax\\
+	%rateTitration' = rateTitration\\ 
+	volume' = volume\\
+	%volumeInfused' = volumeInfused\\
+	%concentration' = concentration\\
+	%concentrationMin' = concentrationMin\\
+	%concentrationMax' = concentrationMax\\
+	VTBI' = VTBI\\
+	VTBIBagSize' = VTBIBagSize\\ VTBIBagSizeSelected' = VTBIBagSizeSelected\\
+	%VTBIClearRate' = VTBIClearRate\\
+	%primaryVTBIMax' = primaryVTBIMax\\ 
+	time' = time\\ State' = State\\
+	%values' = values\\
+	battStatus' = battStatus\\
+	%batteryPercent' = batteryPercent\\
+	%pumpingPressure' = pumpingPressure\\
+	%pressureDisplay' = pressureDisplay\\
+	%pressureMax' = pressureMax\\
+	bolus' = bolus\\
+	bolusVolume' = bolusVolume\\
+	%bolusCategory' = bolusCategory\\
+	%bolusRateMax' = bolusRateMax\\
+	%bolusVolumeMax' = bolusVolumeMax\\
+	%bolusDoseDefault' = bolusDoseDefault\\
+	%bolusRateDefault' = bolusRateDefault\\
+	infusing = No\\
+	infusing' = infusing\\
+	%weight' = weight\\
+	%weightDefault' = weightDefault\\
+	%weightSoftMin' = weightSoftMin\\
+	%weightSoftMax' = weightSoftMax\\
+	countdown > 0 \land countdown' = 5\\
+	%autoNightMode' = autoNightMode\\
+	%autoSave' = autoSave\\
+	%eventLog' = eventLog\\
+	%standbyMode' = standbyMode\\
+	%primeRate' = primeRate\\
+	%secondaryInfusion' = secondaryInfusion\\
+	powerSavingCount' = powerSavingCount\\ option' = option\\
+\end{schema}
+
+\begin{schema}{BottomOfDrugs}
+	\Delta AlarisInfusionPump\\
+	 Settings\\
+	\where
+	alarm' = alarm\\
+	alarmLimit' = alarmLimit\\
+	%alarmMax' = alarmMax\\
+	%alarmVolume' = alarmVolume\\
+	%audioVolumeAdjustable' = audioVolumeAdjustable\\ 
+	alarmVolumeSelected' = alarmVolumeSelected\\
+	\pagebreak
+	profile' = profile\\
+	%profileFiltering' = profileFiltering\\
+	profilesActive' = profilesActive\\  
+	  profileSelected' = profileSelected\\
+	drugCategory' = drugCategory\\ drugCategorySelected' = drugCategorySelected\\
+	drug' = drug\\ 
+	drugSelected' = Propofol\\
+	%drugOverrideMode' = drugOverrideMode\\
+	rate' = rate\\
+	endRate' = endRate\\
+	doseRateSoftMin' = doseRateSoftMin\\
+	doseRateSoftMax' = doseRateSoftMax\\
+	doseRateHardMax' = doseRateHardMax\\
+	doseRateDefault' = doseRateDefault\\
+	%infusionRateMax' = infusionRateMax\\
+	%rateTitration' = rateTitration\\
+	volume' = volume\\
+	%volumeInfused' = volumeInfused\\
+	%concentration' = concentration\\
+	%concentrationMin' = concentrationMin\\
+	%concentrationMax' = concentrationMax\\
+	VTBI' = VTBI\\
+	VTBIBagSize' = VTBIBagSize\\ VTBIBagSizeSelected' = VTBIBagSizeSelected\\
+	%VTBIClearRate' = VTBIClearRate\\
+	%primaryVTBIMax' = primaryVTBIMax\\ 
+	time' = time\\ State' = State\\
+	%values' = values\\
+	battStatus' = battStatus\\
+	%batteryPercent' = batteryPercent\\
+	%pumpingPressure' = pumpingPressure\\
+	%pressureDisplay' = pressureDisplay\\
+	%pressureMax' = pressureMax\\
+	bolus' = bolus\\
+	bolusVolume' = bolusVolume\\
+	%bolusCategory' = bolusCategory\\
+	%bolusRateMax' = bolusRateMax\\
+	%bolusVolumeMax' = bolusVolumeMax\\
+	%bolusDoseDefault' = bolusDoseDefault\\
+	%bolusRateDefault' = bolusRateDefault\\
+	infusing = No\\
+	infusing' = infusing\\
+	%weight' = weight\\
+	%weightDefault' = weightDefault\\
+	%weightSoftMin' = weightSoftMin\\
+	%weightSoftMax' = weightSoftMax\\
+	countdown > 0 \land countdown' = 5\\
+	%autoNightMode' = autoNightMode\\
+	%autoSave' = autoSave\\
+	%eventLog' = eventLog\\
+	%standbyMode' = standbyMode\\
+	%primeRate' = primeRate\\
+	%secondaryInfusion' = secondaryInfusion\\
+	powerSavingCount' = powerSavingCount\\ option' = option\\
+\end{schema}
+
+\begin{schema}{TopCategory}
+	\Delta AlarisInfusionPump\\
+	 Settings\\
+	\where
+	alarm' = alarm\\
+	alarmLimit' = alarmLimit\\
+	%alarmMax' = alarmMax\\
+	%alarmVolume' = alarmVolume\\
+	%audioVolumeAdjustable' = audioVolumeAdjustable\\ 
+	alarmVolumeSelected' = alarmVolumeSelected\\
+	profile' = profile\\
+	%profileFiltering' = profileFiltering\\
+	profilesActive' = profilesActive\\  
+	profileSelected' = profileSelected\\
+	drugCategory' = drugCategory\\ 
+	drugCategorySelected' = mlh\\
+	drug' = drug\\ 
+	drugSelected' = Adrenaline\\
+	%drugOverrideMode' = drugOverrideMode\\
+	rate' = rate\\
+	endRate' = endRate\\
+	doseRateSoftMin' = doseRateSoftMin\\
+	doseRateSoftMax' = doseRateSoftMax\\
+	doseRateHardMax' = doseRateHardMax\\
+	doseRateDefault' = doseRateDefault\\
+	%infusionRateMax' = infusionRateMax\\
+	%rateTitration' = rateTitration\\
+	volume' = volume\\
+	%volumeInfused' = volumeInfused\\
+	%concentration' = concentration\\
+	%concentrationMin' = concentrationMin\\
+	%concentrationMax' = concentrationMax\\
+	VTBI' = VTBI\\
+	VTBIBagSize' = VTBIBagSize\\ VTBIBagSizeSelected' = VTBIBagSizeSelected\\
+	%VTBIClearRate' = VTBIClearRate\\
+	%primaryVTBIMax' = primaryVTBIMax\\ 
+	time' = time\\ State' = State\\
+	%values' = values\\
+	battStatus' = battStatus\\
+	%batteryPercent' = batteryPercent\\
+	%pumpingPressure' = pumpingPressure\\
+	%pressureDisplay' = pressureDisplay\\
+	%pressureMax' = pressureMax\\
+	\pagebreak
+	bolus' = bolus\\
+	bolusVolume' = bolusVolume\\
+	%bolusCategory' = bolusCategory\\
+	%bolusRateMax' = bolusRateMax\\
+	%bolusVolumeMax' = bolusVolumeMax\\
+	%bolusDoseDefault' = bolusDoseDefault\\
+	%bolusRateDefault' = bolusRateDefault\\
+	infusing' = infusing\\
+	infusing = No\\
+	%weight' = weight\\
+	%weightDefault' = weightDefault\\
+	%weightSoftMin' = weightSoftMin\\
+	%weightSoftMax' = weightSoftMax\\
+	countdown > 0 \land countdown' = 5\\
+	%autoNightMode' = autoNightMode\\
+	%autoSave' = autoSave\\
+	%eventLog' = eventLog\\
+	%standbyMode' = standbyMode\\
+	%primeRate' = primeRate\\
+	%secondaryInfusion' = secondaryInfusion\\
+	powerSavingCount' = powerSavingCount\\ option' = option\\
+\end{schema}
+
+\begin{schema}{DownCategoryOne}
+	\Delta AlarisInfusionPump\\
+	 Settings\\
+	categories : DRUGCATEGORY \rel DRUGCATEGORY\\
+	drugSelection : DRUGCATEGORY \rel DRUG\\
+	\where
+	categories = \{(mlh,ABCDE),(ABCDE,FGHIJ),(FGHIJ,\\
+	KLMNO),(KLMNO,PQRST),(PQRST,UVWXYZ)\}\\
+	drugSelection = \{(mlh,Adrenaline),(ABCDE,Adrenaline),(FGHIJ,\\
+	FLUIDSANDBLOODS),(KLMNO,Morphine),(PQRST,Propofol),\\
+	(UVWXYZ,Propofol)\}\\
+	alarm' = alarm\\
+	alarmLimit' = alarmLimit\\
+	
+	%alarmMax' = alarmMax\\
+	%alarmVolume' = alarmVolume\\
+	%audioVolumeAdjustable' = audioVolumeAdjustable\\ 
+	alarmVolumeSelected' = alarmVolumeSelected\\
+	profile' = profile\\
+	%profileFiltering' = profileFiltering\\
+	profilesActive' = profilesActive\\  
+	profileSelected' = profileSelected\\
+	drugCategory' = drugCategory\\ 
+	(drugCategorySelected \neq UVWXYZ) \land (drugCategorySelected' \\
+	\pagebreak
+	= categories(drugCategorySelected))\\
+	drug' = drug\\ 
+	drugSelected' = drugSelection(categories(drugCategorySelected))\\
+	%drugOverrideMode' = drugOverrideMode\\
+	rate' = rate\\
+	endRate' = endRate\\
+	doseRateSoftMin' = doseRateSoftMin\\
+	doseRateSoftMax' = doseRateSoftMax\\
+	doseRateHardMax' = doseRateHardMax\\
+	doseRateDefault' = doseRateDefault\\
+	%infusionRateMax' = infusionRateMax\\
+	%rateTitration' = rateTitration\\
+	volume' = volume\\
+	%volumeInfused' = volumeInfused\\
+	%concentration' = concentration\\
+	%concentrationMin' = concentrationMin\\
+	%concentrationMax' = concentrationMax\\
+	VTBI' = VTBI\\
+	VTBIBagSize' = VTBIBagSize\\ VTBIBagSizeSelected' = VTBIBagSizeSelected\\
+	%VTBIClearRate' = VTBIClearRate\\
+	%primaryVTBIMax' = primaryVTBIMax\\ 
+	time' = time\\ State' = State\\
+	%values' = values\\
+	battStatus' = battStatus\\
+	%batteryPercent' = batteryPercent\\
+	%pumpingPressure' = pumpingPressure\\
+	%pressureDisplay' = pressureDisplay\\
+	%pressureMax' = pressureMax\\
+	bolus' = bolus\\
+	bolusVolume' = bolusVolume\\
+	%bolusCategory' = bolusCategory\\
+	%bolusRateMax' = bolusRateMax\\
+	%bolusVolumeMax' = bolusVolumeMax\\
+	%bolusDoseDefault' = bolusDoseDefault\\
+	%bolusRateDefault' = bolusRateDefault\\
+	infusing' = infusing\\
+	infusing = No\\
+	%weight' = weight\\
+	%weightDefault' = weightDefault\\
+	%weightSoftMin' = weightSoftMin\\
+	%weightSoftMax' = weightSoftMax\\
+	countdown > 0 \land countdown' = 5\\
+	%autoNightMode' = autoNightMode\\
+	%autoSave' = autoSave\\
+	%eventLog' = eventLog\\
+	%standbyMode' = standbyMode\\
+	%primeRate' = primeRate\\
+	%secondaryInfusion' = secondaryInfusion\\
+	powerSavingCount' = powerSavingCount\\ option' = option\\
+\end{schema}
+
+\begin{schema}{UpCategoryOne}
+	\Delta AlarisInfusionPump\\
+	\pagebreak
+	 Settings\\
+	categories : DRUGCATEGORY \rel DRUGCATEGORY\\
+	drugSelection : DRUGCATEGORY \rel DRUG\\
+	\where
+	categories = \{(UVWXYZ,PQRST),(PQRST,KLMNO),(KLMNO,\\
+	FGHIJ),(FGHIJ,ABCDE),(ABCDE,mlh)\}\\
+	drugSelection = \{(mlh,Adrenaline),(ABCDE,Adrenaline),(FGHIJ,\\
+	FLUIDSANDBLOODS),(KLMNO,Morphine),(PQRST,Propofol),\\
+	(UVWXYZ,Propofol)\}\\
+	alarm' = alarm\\
+	alarmLimit' = alarmLimit\\
+	%alarmMax' = alarmMax\\
+	%alarmVolume' = alarmVolume\\
+	%audioVolumeAdjustable' = audioVolumeAdjustable\\ 
+	alarmVolumeSelected' = alarmVolumeSelected\\
+	profile' = profile\\
+	%profileFiltering' = profileFiltering\\
+	profilesActive' = profilesActive\\  
+	  
+	profileSelected' = profileSelected\\
+	drugCategory' = drugCategory\\ 
+	(drugCategorySelected \neq mlh) \land (drugCategorySelected' =\\
+	categories(drugCategorySelected))\\
+	drug' = drug\\ 
+	drugSelected' = drugSelection(categories(drugCategorySelected))\\
+	%drugOverrideMode' = drugOverrideMode\\
+	rate' = rate\\
+	endRate' = endRate\\
+	doseRateSoftMin' = doseRateSoftMin\\
+	doseRateSoftMax' = doseRateSoftMax\\
+	doseRateHardMax' = doseRateHardMax\\
+	doseRateDefault' = doseRateDefault\\
+	%infusionRateMax' = infusionRateMax\\
+	%rateTitration' = rateTitration\\
+	volume' = volume\\
+	%volumeInfused' = volumeInfused\\
+	%concentration' = concentration\\
+	%concentrationMin' = concentrationMin\\
+	%concentrationMax' = concentrationMax\\
+	VTBI' = VTBI\\
+	\pagebreak
+	VTBIBagSize' = VTBIBagSize\\ VTBIBagSizeSelected' = VTBIBagSizeSelected\\
+	%VTBIClearRate' = VTBIClearRate\\
+	%primaryVTBIMax' = primaryVTBIMax\\ 
+	time' = time\\ State' = State\\
+	%values' = values\\
+	battStatus' = battStatus\\
+	%batteryPercent' = batteryPercent\\
+	%pumpingPressure' = pumpingPressure\\
+	%pressureDisplay' = pressureDisplay\\
+	%pressureMax' = pressureMax\\
+	bolus' = bolus\\
+	bolusVolume' = bolusVolume\\
+	%bolusCategory' = bolusCategory\\
+	%bolusRateMax' = bolusRateMax\\
+	%bolusVolumeMax' = bolusVolumeMax\\
+	%bolusDoseDefault' = bolusDoseDefault\\
+	%bolusRateDefault' = bolusRateDefault\\
+	infusing' = infusing\\
+	infusing = No\\
+	%weight' = weight\\
+	%weightDefault' = weightDefault\\
+	%weightSoftMin' = weightSoftMin\\
+	%weightSoftMax' = weightSoftMax\\
+	countdown > 0 \land countdown' = 5\\
+	%autoNightMode' = autoNightMode\\
+	%autoSave' = autoSave\\
+	%eventLog' = eventLog\\
+	%standbyMode' = standbyMode\\
+	%primeRate' = primeRate\\
+	%secondaryInfusion' = secondaryInfusion\\
+	powerSavingCount' = powerSavingCount\\ option' = option\\
+\end{schema}
+
+\begin{schema}{BottomCategory}
+	\Delta AlarisInfusionPump\\
+	 Settings\\
+	\where
+	alarm' = alarm\\
+	alarmLimit' = alarmLimit\\
+	%alarmMax' = alarmMax\\
+	%alarmVolume' = alarmVolume\\
+	%audioVolumeAdjustable' = audioVolumeAdjustable\\ 
+	alarmVolumeSelected' = alarmVolumeSelected\\
+	profile' = profile\\
+	%profileFiltering' = profileFiltering\\
+	profilesActive' = profilesActive\\  
+	
+	profileSelected' = profileSelected\\
+	drugCategory' = drugCategory\\ 
+	drugCategorySelected' = UVWXYZ\\
+	drug' = drug\\ 
+	drugSelected' = Propofol\\
+	%drugOverrideMode' = drugOverrideMode\\
+	 \pagebreak
+	rate' = rate\\
+	endRate' = endRate\\
+	doseRateSoftMin' = doseRateSoftMin\\
+	doseRateSoftMax' = doseRateSoftMax\\
+	doseRateHardMax' = doseRateHardMax\\
+	doseRateDefault' = doseRateDefault\\
+	%infusionRateMax' = infusionRateMax\\
+	%rateTitration' = rateTitration\\
+	volume' = volume\\
+	%volumeInfused' = volumeInfused\\
+	%concentration' = concentration\\
+	%concentrationMin' = concentrationMin\\
+	%concentrationMax' = concentrationMax\\
+	VTBI' = VTBI\\
+	VTBIBagSize' = VTBIBagSize\\ VTBIBagSizeSelected' = VTBIBagSizeSelected\\
+	%VTBIClearRate' = VTBIClearRate\\
+	%primaryVTBIMax' = primaryVTBIMax\\ 
+	time' = time\\ State' = State\\
+	%values' = values\\
+	battStatus' = battStatus\\
+	%batteryPercent' = batteryPercent\\
+	%pumpingPressure' = pumpingPressure\\
+	%pressureDisplay' = pressureDisplay\\
+	%pressureMax' = pressureMax\\
+	bolus' = bolus\\
+	bolusVolume' = bolusVolume\\
+	%bolusCategory' = bolusCategory\\
+	%bolusRateMax' = bolusRateMax\\
+	%bolusVolumeMax' = bolusVolumeMax\\
+	%bolusDoseDefault' = bolusDoseDefault\\
+	%bolusRateDefault' = bolusRateDefault\\
+	infusing' = infusing\\
+	infusing = No\\
+	%weight' = weight\\
+	%weightDefault' = weightDefault\\
+	%weightSoftMin' = weightSoftMin\\
+	%weightSoftMax' = weightSoftMax\\
+	countdown > 0 \land countdown' = 5\\
+	%autoNightMode' = autoNightMode\\
+	%autoSave' = autoSave\\
+	%eventLog' = eventLog\\
+	%standbyMode' = standbyMode\\
+	%primeRate' = primeRate\\
+	%secondaryInfusion' = secondaryInfusion\\
+	powerSavingCount' = powerSavingCount\\ option' = option\\
+\end{schema}
+
+\begin{schema}{TopOfOptions}
+	\Delta AlarisInfusionPump\\
+	 Settings\\
+	\where
+	alarm' = alarm\\
+	alarmLimit' = alarmLimit\\
+	%alarmMax' = alarmMax\\
+	%alarmVolume' = alarmVolume\\
+	%audioVolumeAdjustable' = audioVolumeAdjustable\\ 
+	\pagebreak
+	alarmVolumeSelected' = alarmVolumeSelected\\
+	profile' = profile\\
+	%profileFiltering' = profileFiltering\\
+	profilesActive' = profilesActive\\  
+	profileSelected' = profileSelected\\
+	drugCategory' = drugCategory\\ 
+	drugCategorySelected' = drugCategorySelected\\
+	drug' = drug\\ 
+	drugSelected' = drugSelected\\
+	%drugOverrideMode' = drugOverrideMode\\
+	rate' = rate\\
+	endRate' = endRate\\
+	doseRateSoftMin' = doseRateSoftMin\\
+	doseRateSoftMax' = doseRateSoftMax\\
+	doseRateHardMax' = doseRateHardMax\\
+	doseRateDefault' = doseRateDefault\\
+	%infusionRateMax' = infusionRateMax\\
+	%rateTitration' = rateTitration\\
+	volume' = volume\\
+	%volumeInfused' = volumeInfused\\
+	%concentration' = concentration\\
+	%concentrationMin' = concentrationMin\\
+	%concentrationMax' = concentrationMax\\
+	VTBI' = VTBI\\
+	VTBIBagSize' = VTBIBagSize\\ VTBIBagSizeSelected' = VTBIBagSizeSelected\\
+	%VTBIClearRate' = VTBIClearRate\\
+	%primaryVTBIMax' = primaryVTBIMax\\ 
+	time' = time\\ State' = State\\
+	%values' = values\\
+	battStatus' = battStatus\\
+	%batteryPercent' = batteryPercent\\
+	%pumpingPressure' = pumpingPressure\\
+	%pressureDisplay' = pressureDisplay\\
+	%pressureMax' = pressureMax\\
+	bolus' = bolus\\
+	bolusVolume' = bolusVolume\\
+	%bolusCategory' = bolusCategory\\
+	%bolusRateMax' = bolusRateMax\\
+	%bolusVolumeMax' = bolusVolumeMax\\
+	%bolusDoseDefault' = bolusDoseDefault\\
+	%bolusRateDefault' = bolusRateDefault\\
+	infusing' = infusing\\
+	%weight' = weight\\
+	%weightDefault' = weightDefault\\
+	%weightSoftMin' = weightSoftMin\\
+	%weightSoftMax' = weightSoftMax\\
+	countdown > 0 \land countdown' = 5\\
+	%autoNightMode' = autoNightMode\\
+	%autoSave' = autoSave\\
+	%eventLog' = eventLog\\
+	%standbyMode' = standbyMode\\
+	%primeRate' = primeRate\\
+	%secondaryInfusion' = secondaryInfusion\\
+	powerSavingCount' = powerSavingCount\\ 
+	option' = DosingSummary\\
+\end{schema}
+
+\begin{schema}{UpOptionsOne}
+	\Delta AlarisInfusionPump\\
+	 Settings\\
+	optionsDownH : OPTIONS \rel OPTIONS\\
+	optionsDownI : OPTIONS \rel OPTIONS\\
+	\where
+	optionsDownH = \{(DosingSummary,InfusionSetup),(InfusionSetup,\\
+	SetVTBIOverTime),(SetVTBIOverTime,AdjustAlarmVolume),\\
+	(AdjustAlarmVolume,EventLog),(EventLog,PumpDetails),(Pump\\
+	Details,ProfileFilter),(ProfileFilter,StandBy)\}\\
+	optionsDownI = \{(DosingSummary,AdjustAlarmVolume),(Adjust\\
+	AlarmVolume,EventLog),(EventLog,PumpDetails),(PumpDetails,\\
+	ProfileFilter)\}\\
+	((infusing = No) \land (option \neq StandBy) \land (option' = optionsDownH\\
+	(option))) \lor ((infusing = Yes) \land (option \neq ProfileFilter) \land (option' \\
+	= optionsDownI(option)))\\
+	alarm' = alarm\\
+	alarmLimit' = alarmLimit\\
+	%alarmMax' = alarmMax\\
+	%alarmVolume' = alarmVolume\\
+	%audioVolumeAdjustable' = audioVolumeAdjustable\\ 
+	alarmVolumeSelected' = alarmVolumeSelected\\
+	profile' = profile\\
+	%profileFiltering' = profileFiltering\\
+	profilesActive' = profilesActive\\  
+	  
+	profileSelected' = profileSelected\\
+	drugCategory' = drugCategory\\ 
+	drugCategorySelected' = drugCategorySelected\\
+	drug' = drug\\ 
+	drugSelected' = drugSelected\\
+	%drugOverrideMode' = drugOverrideMode\\
+	rate' = rate\\
+	\pagebreak
+	endRate' = endRate\\
+	doseRateSoftMin' = doseRateSoftMin\\
+	doseRateSoftMax' = doseRateSoftMax\\
+	doseRateHardMax' = doseRateHardMax\\
+	doseRateDefault' = doseRateDefault\\
+	%infusionRateMax' = infusionRateMax\\
+	%rateTitration' = rateTitration\\
+	volume' = volume\\
+	%volumeInfused' = volumeInfused\\
+	%concentration' = concentration\\
+	%concentrationMin' = concentrationMin\\
+	%concentrationMax' = concentrationMax\\
+	VTBI' = VTBI\\
+	VTBIBagSize' = VTBIBagSize\\ VTBIBagSizeSelected' = VTBIBagSizeSelected\\
+	%VTBIClearRate' = VTBIClearRate\\
+	%primaryVTBIMax' = primaryVTBIMax\\ 
+	time' = time\\ State' = State\\
+	%values' = values\\
+	battStatus' = battStatus\\
+	%batteryPercent' = batteryPercent\\
+	%pumpingPressure' = pumpingPressure\\
+	%pressureDisplay' = pressureDisplay\\
+	%pressureMax' = pressureMax\\
+	bolus' = bolus\\
+	bolusVolume' = bolusVolume\\
+	%bolusCategory' = bolusCategory\\
+	%bolusRateMax' = bolusRateMax\\
+	%bolusVolumeMax' = bolusVolumeMax\\
+	%bolusDoseDefault' = bolusDoseDefault\\
+	%bolusRateDefault' = bolusRateDefault\\
+	infusing' = infusing\\
+	%weight' = weight\\
+	%weightDefault' = weightDefault\\
+	%weightSoftMin' = weightSoftMin\\
+	%weightSoftMax' = weightSoftMax\\
+	countdown > 0 \land countdown' = 5\\
+	%autoNightMode' = autoNightMode\\
+	%autoSave' = autoSave\\
+	%eventLog' = eventLog\\
+	%standbyMode' = standbyMode\\
+	%primeRate' = primeRate\\
+	%secondaryInfusion' = secondaryInfusion\\
+	powerSavingCount' = powerSavingCount\\ 
+\end{schema}
+
+\begin{schema}{DownOptionsOne}
+	\Delta AlarisInfusionPump\\
+	 Settings\\
+	optionsUpH : OPTIONS \rel OPTIONS\\
+	optionsUpI : OPTIONS \rel OPTIONS\\
+	\where
+	optionsUpH = \{(StandBy,ProfileFilter),(ProfileFilter,Pump\\
+	Details),(PumpDetails,EventLog),(EventLog,AdjustAlarmVolume),\\
+	(AdjustAlarmVolume,SetVTBIOverTime),(SetVTBIOverTime,\\
+	\pagebreak
+	InfusionSetup),(InfusionSetup,DosingSummary)\}\\
+	optionsUpI = \{(ProfileFilter,PumpDetails),(PumpDetails,Event\\
+	Log),(EventLog,AdjustAlarmVolume),(AdjustAlarmVolume,Dosing\\
+	Summary)\}\\
+	((infusing = No) \land (option \neq DosingSummary) \land (option' = options\\
+	UpH(option))) \lor ((infusing = Yes) \land (option \neq DosingSummary) \land \\
+	(option' = optionsUpI(option)))\\
+	alarm' = alarm\\
+	alarmLimit' = alarmLimit\\
+	%alarmMax' = alarmMax\\
+	%alarmVolume' = alarmVolume\\
+	%audioVolumeAdjustable' = audioVolumeAdjustable\\ 
+	alarmVolumeSelected' = alarmVolumeSelected\\
+	profile' = profile\\
+	%profileFiltering' = profileFiltering\\
+	profilesActive' = profilesActive\\  
+	  
+	profileSelected' = profileSelected\\
+	drugCategory' = drugCategory\\ 
+	drugCategorySelected' = drugCategorySelected\\
+	drug' = drug\\ 
+	drugSelected' = drugSelected\\
+	%drugOverrideMode' = drugOverrideMode\\
+	rate' = rate\\
+	endRate' = endRate\\
+	doseRateSoftMin' = doseRateSoftMin\\
+	doseRateSoftMax' = doseRateSoftMax\\
+	doseRateHardMax' = doseRateHardMax\\
+	doseRateDefault' = doseRateDefault\\
+	%infusionRateMax' = infusionRateMax\\
+	%rateTitration' = rateTitration\\
+	volume' = volume\\
+	%volumeInfused' = volumeInfused\\
+	%concentration' = concentration\\
+	%concentrationMin' = concentrationMin\\
+	%concentrationMax' = concentrationMax\\
+	VTBI' = VTBI\\
+	VTBIBagSize' = VTBIBagSize\\ VTBIBagSizeSelected' = VTBIBagSizeSelected\\
+	%VTBIClearRate' = VTBIClearRate\\
+	%primaryVTBIMax' = primaryVTBIMax\\ 
+	\pagebreak
+	time' = time\\ 
+	State' = State\\
+	%values' = values\\
+	battStatus' = battStatus\\
+	%batteryPercent' = batteryPercent\\
+	%pumpingPressure' = pumpingPressure\\
+	%pressureDisplay' = pressureDisplay\\
+	%pressureMax' = pressureMax\\
+	bolus' = bolus\\
+	bolusVolume' = bolusVolume\\
+	%bolusCategory' = bolusCategory\\
+	%bolusRateMax' = bolusRateMax\\
+	%bolusVolumeMax' = bolusVolumeMax\\
+	%bolusDoseDefault' = bolusDoseDefault\\
+	%bolusRateDefault' = bolusRateDefault\\
+	infusing' = infusing\\
+	%weight' = weight\\
+	%weightDefault' = weightDefault\\
+	%weightSoftMin' = weightSoftMin\\
+	%weightSoftMax' = weightSoftMax\\
+	countdown > 0 \land countdown' = 5\\
+	%autoNightMode' = autoNightMode\\
+	%autoSave' = autoSave\\
+	%eventLog' = eventLog\\
+	%standbyMode' = standbyMode\\
+	%primeRate' = primeRate\\
+	%secondaryInfusion' = secondaryInfusion\\
+	powerSavingCount' = powerSavingCount\\ 
+\end{schema}
+
+\begin{schema}{BottomOfOptions}
+	\Delta AlarisInfusionPump\\
+	 Settings\\
+	\where
+	alarm' = alarm\\
+	alarmLimit' = alarmLimit\\
+	%alarmMax' = alarmMax\\
+	%alarmVolume' = alarmVolume\\
+	%audioVolumeAdjustable' = audioVolumeAdjustable\\ 
+	alarmVolumeSelected' = alarmVolumeSelected\\
+	profile' = profile\\
+	%profileFiltering' = profileFiltering\\
+	profilesActive' = profilesActive\\  
+	  
+	profileSelected' = profileSelected\\
+	drugCategory' = drugCategory\\ 
+	drugCategorySelected' = drugCategorySelected\\
+	drug' = drug\\ 
+	drugSelected' = drugSelected\\
+	%drugOverrideMode' = drugOverrideMode\\
+	rate' = rate\\
+	endRate' = endRate\\
+	doseRateSoftMin' = doseRateSoftMin\\
+	doseRateSoftMax' = doseRateSoftMax\\
+	\pagebreak
+	doseRateHardMax' = doseRateHardMax\\
+	doseRateDefault' = doseRateDefault\\
+	%infusionRateMax' = infusionRateMax\\
+	%rateTitration' = rateTitration\\
+	volume' = volume\\
+	%volumeInfused' = volumeInfused\\
+	%concentration' = concentration\\
+	%concentrationMin' = concentrationMin\\
+	%concentrationMax' = concentrationMax\\
+	VTBI' = VTBI\\
+	VTBIBagSize' = VTBIBagSize\\ VTBIBagSizeSelected' = VTBIBagSizeSelected\\
+	%VTBIClearRate' = VTBIClearRate\\
+	%primaryVTBIMax' = primaryVTBIMax\\ 
+	time' = time\\ State' = State\\
+	%values' = values\\
+	battStatus' = battStatus\\
+	%batteryPercent' = batteryPercent\\
+	%pumpingPressure' = pumpingPressure\\
+	%pressureDisplay' = pressureDisplay\\
+	%pressureMax' = pressureMax\\
+	bolus' = bolus\\
+	bolusVolume' = bolusVolume\\
+	%bolusCategory' = bolusCategory\\
+	%bolusRateMax' = bolusRateMax\\
+	%bolusVolumeMax' = bolusVolumeMax\\
+	%bolusDoseDefault' = bolusDoseDefault\\
+	%bolusRateDefault' = bolusRateDefault\\
+	infusing' = infusing\\
+	%weight' = weight\\
+	%weightDefault' = weightDefault\\
+	%weightSoftMin' = weightSoftMin\\
+	%weightSoftMax' = weightSoftMax\\
+	countdown > 0 \land countdown' = 5\\
+	%autoNightMode' = autoNightMode\\
+	%autoSave' = autoSave\\
+	%eventLog' = eventLog\\
+	%standbyMode' = standbyMode\\
+	%primeRate' = primeRate\\
+	%secondaryInfusion' = secondaryInfusion\\
+	powerSavingCount' = powerSavingCount\\ 
+	((infusing = Yes) \land (option' = ProfileFilter)) \lor ((infusing = No)\\
+	 \land (option' = StandBy))\\
+\end{schema}
+
+%Time indicates rate, time display is time elapsed - see phone photo
+%e.g. rate = 60 VTBI = 3 rate * VTBI = NEW RATE so 60 * 3 = 180 ml/h
+\begin{schema}{IncreaseTime}
+	\Delta AlarisInfusionPump\\
+	 Settings\\
+	\where
+	alarm' = alarm\\
+	alarmLimit' = alarmLimit\\
+	%alarmMax' = alarmMax\\
+	%alarmVolume' = alarmVolume\\
+	%audioVolumeAdjustable' = audioVolumeAdjustable\\ 
+	alarmVolumeSelected' = alarmVolumeSelected\\
+	profile' = profile\\
+	%profileFiltering' = profileFiltering\\
+	profileSelected' = profileSelected\\
+	drugCategory' = drugCategory\\ 
+	\pagebreak
+	drugCategorySelected' = drugCategorySelected\\
+	drug' = drug\\ 
+	drugSelected' = drugSelected\\
+	%drugOverrideMode' = drugOverrideMode\\
+	endRate' = endRate\\
+	doseRateSoftMin' = doseRateSoftMin\\
+	doseRateSoftMax' = doseRateSoftMax\\
+	doseRateHardMax' = doseRateHardMax\\
+	doseRateDefault' = doseRateDefault\\
+	%infusionRateMax' = infusionRateMax\\
+	%rateTitration' = rateTitration\\
+	volume' = volume\\
+	%volumeInfused' = volumeInfused\\
+	%concentration' = concentration\\
+	%concentrationMin' = concentrationMin\\
+	%concentrationMax' = concentrationMax\\
+	VTBI' = VTBI\\
+	rate' = time' * rate\\
+	VTBIBagSize' = VTBIBagSize\\ 
+	VTBIBagSizeSelected' = VTBIBagSizeSelected\\
+	%VTBIClearRate' = VTBIClearRate\\
+	%primaryVTBIMax' = primaryVTBIMax\\ 
+	time < primaryVTBIMax\\
+	time' = time + values(State)\\
+	battStatus' = battStatus\\
+	%batteryPercent' = batteryPercent\\
+	%pumpingPressure' = pumpingPressure\\
+	%pressureDisplay' = pressureDisplay\\
+	%pressureMax' = pressureMax\\
+	bolus' = bolus\\
+	bolusVolume' = bolusVolume\\
+	%bolusCategory' = bolusCategory\\
+	%bolusRateMax' = bolusRateMax\\
+	%bolusVolumeMax' = bolusVolumeMax\\
+	%bolusDoseDefault' = bolusDoseDefault\\
+	%bolusRateDefault' = bolusRateDefault\\
+	infusing = No\\
+	infusing' = infusing\\
+	%weight' = weight\\
+	%weightDefault' = weightDefault\\
+	%weightSoftMin' = weightSoftMin\\
+	%weightSoftMax' = weightSoftMax\\
+	countdown > 0 \land countdown' = 5\\
+	%autoNightMode' = autoNightMode\\
+	%autoSave' = autoSave\\
+	%eventLog' = eventLog\\
+	%standbyMode' = standbyMode\\
+	%primeRate' = primeRate\\
+	%secondaryInfusion' = secondaryInfusion\\
+	powerSavingCount' = powerSavingCount\\ 
+	option' = option\\
+State' = State\\
+	%values' = values\\
+profilesActive' = profilesActive\\  
+	 
+\end{schema}
+
+\begin{schema}{DecreaseTime}
+	\Delta AlarisInfusionPump\\
+	 Settings\\
+	\where
+	alarm' = alarm\\
+	alarmLimit' = alarmLimit\\
+	%alarmMax' = alarmMax\\
+	%alarmVolume' = alarmVolume\\
+	%audioVolumeAdjustable' = audioVolumeAdjustable\\ 
+	alarmVolumeSelected' = alarmVolumeSelected\\
+	profile' = profile\\
+	%profileFiltering' = profileFiltering\\
+	profileSelected' = profileSelected\\
+	drugCategory' = drugCategory\\ 
+	drugCategorySelected' = drugCategorySelected\\
+	drug' = drug\\ 
+	drugSelected' = drugSelected\\
+	%drugOverrideMode' = drugOverrideMode\\
+	endRate' = endRate\\
+	doseRateSoftMin' = doseRateSoftMin\\
+	doseRateSoftMax' = doseRateSoftMax\\
+	doseRateHardMax' = doseRateHardMax\\
+	doseRateDefault' = doseRateDefault\\
+	%infusionRateMax' = infusionRateMax\\
+	%rateTitration' = rateTitration\\
+	volume' = volume\\
+	%volumeInfused' = volumeInfused\\
+	%concentration' = concentration\\
+	%concentrationMin' = concentrationMin\\
+	%concentrationMax' = concentrationMax\\
+	VTBI' = VTBI\\
+	rate' = rate * time'\\
+	VTBIBagSize' = VTBIBagSize\\ 
+	VTBIBagSizeSelected' = VTBIBagSizeSelected\\
+	%VTBIClearRate' = VTBIClearRate\\
+	%primaryVTBIMax' = primaryVTBIMax\\ 
+	time \geq 0\\
+	time' = time - values(State)\\
+	battStatus' = battStatus\\
+	%batteryPercent' = batteryPercent\\
+	%pumpingPressure' = pumpingPressure\\
+	%pressureDisplay' = pressureDisplay\\
+	%pressureMax' = pressureMax\\
+	bolus' = bolus\\
+	\pagebreak
+	bolusVolume' = bolusVolume\\
+	%bolusCategory' = bolusCategory\\
+	%bolusRateMax' = bolusRateMax\\
+	%bolusVolumeMax' = bolusVolumeMax\\
+	%bolusDoseDefault' = bolusDoseDefault\\
+	%bolusRateDefault' = bolusRateDefault\\
+	infusing' = infusing\\
+	infusing = No\\
+	%weight' = weight\\
+	%weightDefault' = weightDefault\\
+	%weightSoftMin' = weightSoftMin\\
+	%weightSoftMax' = weightSoftMax\\
+	countdown > 0 \land countdown' = 5\\
+	%autoNightMode' = autoNightMode\\
+	%autoSave' = autoSave\\
+	%eventLog' = eventLog\\
+	%standbyMode' = standbyMode\\
+	%primeRate' = primeRate\\
+	%secondaryInfusion' = secondaryInfusion\\
+	powerSavingCount' = powerSavingCount\\ 
+	option' = option\\
+State' = State\\
+	%values' = values\\
+profilesActive' = profilesActive
+\end{schema}
+
+\begin{schema}{IncreaseTimeDouble}
+	\Delta AlarisInfusionPump\\
+	 Settings\\
+	\where
+	alarm' = alarm\\
+	alarmLimit' = alarmLimit\\
+	%alarmMax' = alarmMax\\
+	%alarmVolume' = alarmVolume\\
+	%audioVolumeAdjustable' = audioVolumeAdjustable\\ 
+	alarmVolumeSelected' = alarmVolumeSelected\\
+	profile' = profile\\
+	%profileFiltering' = profileFiltering\\
+	profileSelected' = profileSelected\\
+	drugCategory' = drugCategory\\ 
+	drugCategorySelected' = drugCategorySelected\\
+	drug' = drug\\ 
+	drugSelected' = drugSelected\\
+	%drugOverrideMode' = drugOverrideMode\\
+	endRate' = endRate\\
+	doseRateSoftMin' = doseRateSoftMin\\
+	doseRateSoftMax' = doseRateSoftMax\\
+	doseRateHardMax' = doseRateHardMax\\
+	doseRateDefault' = doseRateDefault\\
+	\pagebreak
+	%infusionRateMax' = infusionRateMax\\
+	%rateTitration' = rateTitration\\
+	volume' = volume\\
+	%volumeInfused' = volumeInfused\\
+	%concentration' = concentration\\
+	%concentrationMin' = concentrationMin\\
+	%concentrationMax' = concentrationMax\\
+	VTBI' = VTBI\\
+	rate' = time' * rate\\
+	VTBIBagSize' = VTBIBagSize\\ 
+	VTBIBagSizeSelected' = VTBIBagSizeSelected\\
+	%VTBIClearRate' = VTBIClearRate\\
+	%primaryVTBIMax' = primaryVTBIMax\\ 
+	time < primaryVTBIMax\\
+	State + 1 \leq 4\\
+	time' = time + values(State + 1)\\
+	battStatus' = battStatus\\
+	%batteryPercent' = batteryPercent\\
+	%pumpingPressure' = pumpingPressure\\
+	%pressureDisplay' = pressureDisplay\\
+	%pressureMax' = pressureMax\\
+	bolus' = bolus\\
+	bolusVolume' = bolusVolume\\
+	%bolusCategory' = bolusCategory\\
+	%bolusRateMax' = bolusRateMax\\
+	%bolusVolumeMax' = bolusVolumeMax\\
+	%bolusDoseDefault' = bolusDoseDefault\\
+	%bolusRateDefault' = bolusRateDefault\\
+	infusing' = infusing\\
+	infusing = No\\
+	%weight' = weight\\
+	%weightDefault' = weightDefault\\
+	%weightSoftMin' = weightSoftMin\\
+	%weightSoftMax' = weightSoftMax\\
+	countdown > 0 \land countdown' = 5\\
+	%autoNightMode' = autoNightMode\\
+	%autoSave' = autoSave\\
+	%eventLog' = eventLog\\
+	%standbyMode' = standbyMode\\
+	%primeRate' = primeRate\\
+	%secondaryInfusion' = secondaryInfusion\\
+	powerSavingCount' = powerSavingCount\\ 
+	option' = option\\
+State' = State\\
+	%values' = values\\
+profilesActive' = profilesActive
+\end{schema}
+
+\begin{schema}{DecreaseTimeDouble}
+	\Delta AlarisInfusionPump\\
+	 Settings\\
+	\where
+	alarm' = alarm\\
+	alarmLimit' = alarmLimit\\
+	%alarmMax' = alarmMax\\
+	%alarmVolume' = alarmVolume\\
+	%audioVolumeAdjustable' = audioVolumeAdjustable\\ 
+	alarmVolumeSelected' = alarmVolumeSelected\\
+	profile' = profile\\
+	%profileFiltering' = profileFiltering\\
+	\pagebreak
+	profileSelected' = profileSelected\\
+	drugCategory' = drugCategory\\ 
+	drugCategorySelected' = drugCategorySelected\\
+	drug' = drug\\ 
+	drugSelected' = drugSelected\\
+	%drugOverrideMode' = drugOverrideMode\\
+	endRate' = endRate\\
+	doseRateSoftMin' = doseRateSoftMin\\
+	doseRateSoftMax' = doseRateSoftMax\\
+	doseRateHardMax' = doseRateHardMax\\
+	doseRateDefault' = doseRateDefault\\
+	%infusionRateMax' = infusionRateMax\\
+	%rateTitration' = rateTitration\\
+	volume' = volume\\
+	%volumeInfused' = volumeInfused\\
+	%concentration' = concentration\\
+	%concentrationMin' = concentrationMin\\
+	%concentrationMax' = concentrationMax\\
+	VTBI' = VTBI\\
+	rate' = rate * time'\\
+	VTBIBagSize' = VTBIBagSize\\ 
+	VTBIBagSizeSelected' = VTBIBagSizeSelected\\
+	%VTBIClearRate' = VTBIClearRate\\
+	%primaryVTBIMax' = primaryVTBIMax\\ 
+	time \geq 0\\
+	State + 1 \leq 4\\
+	time' = time - values(State + 1)\\
+	battStatus' = battStatus\\
+	%batteryPercent' = batteryPercent\\
+	%pumpingPressure' = pumpingPressure\\
+	%pressureDisplay' = pressureDisplay\\
+	%pressureMax' = pressureMax\\
+	bolus' = bolus\\
+	bolusVolume' = bolusVolume\\
+	%bolusCategory' = bolusCategory\\
+	%bolusRateMax' = bolusRateMax\\
+	%bolusVolumeMax' = bolusVolumeMax\\
+	%bolusDoseDefault' = bolusDoseDefault\\
+	%bolusRateDefault' = bolusRateDefault\\
+	infusing' = infusing\\
+	infusing = No\\
+	%weight' = weight\\
+	%weightDefault' = weightDefault\\
+	%weightSoftMin' = weightSoftMin\\
+	%weightSoftMax' = weightSoftMax\\
+	countdown > 0 \land countdown' = 5\\
+	%autoNightMode' = autoNightMode\\
+	%autoSave' = autoSave\\
+	%eventLog' = eventLog\\
+	%standbyMode' = standbyMode\\
+	%primeRate' = primeRate\\
+	%secondaryInfusion' = secondaryInfusion\\
+	powerSavingCount' = powerSavingCount\\ 
+	option' = option\\
+State' = State\\
+	%values' = values\\
+profilesActive' = profilesActive
+\end{schema}
+
+\begin{schema}{ClearSetup}
+	\Delta AlarisInfusionPump\\
+	\Delta Settings\\
+	\where
+	alarm' = Stop\\
+	alarmLimit' = 5\\
+	alarmMax' = 8\\
+	alarmVolume' = Medium\\
+	audioVolumeAdjustable' = True\\
+	alarmVolumeSelected' = alarmVolume'\\
+	profile' = CriticalCare\\
+	profileFiltering' = True\\
+	profilesActive' = profilesActive\\  
+	profileSelected' = profile'\\
+	drugCategory' = mlh\\
+	drugCategorySelected' = drugCategory'\\
+	drug' = Adrenaline\\
+	drugSelected' = drug'\\
+	drugOverrideMode' = Smart\\
+	rate' = 0\\
+	endRate' = CONTINUE\\
+	doseRateSoftMin' = 0\\
+	doseRateSoftMax' = 0\\
+	doseRateHardMax' = 0\\
+	doseRateDefault' = 0\\
+	infusionRateMax' = 1200\\
+	rateTitration' = True\\
+	\pagebreak
+	volume' = 0\\
+	volumeInfused' = 0\\
+	concentration' = 0\\
+	concentrationMin' = 0\\
+	concentrationMax' = 0\\
+	VTBI' = 0\\
+	VTBIBagSize' = 0\\
+	VTBIBagSizeSelected' = 500\\
+	VTBIClearRate' = True\\
+	primaryVTBIMax' = 9999\\
+	time' = 0\\
+	battStatus' = Charge\\
+	batteryPercent' = 11\\
+	pumpingPressure' = 0\\
+	pressureDisplay' = True\\
+	pressureMax' = 8\\
+	bolus' = 0\\
+	bolusVolume' = 0\\
+	bolusCategory' = HandsOnOnly\\
+	bolusRateMax' = 1200\\
+	bolusVolumeMax' = 5\\
+	bolusDoseDefault' = 0\\
+	bolusRateDefault' = 0\\
+	infusing = No\\
+	infusing' = infusing\\
+	weight' = weightDefault'\\
+	weightDefault' = 1\\
+	\pagebreak
+	weightSoftMin' = 1\\
+	weightSoftMax' = 150\\
+	countdown' = 5\\
+	autoNightMode' = True\\
+	autoSave' = True\\
+	eventLog' = True\\
+	standbyMode' = True\\
+	primeRate' = 0\\
+	secondaryInfusion' = False\\
+	powerSavingCount' = 10\\
+	option' = DosingSummary\\
+	State' = 1\\
+	values' = \{(1,1),(2,10),(3,100),(4,1000)\}\\
+profilesActive' = profilesActive	 
+\end{schema}
+
+\begin{schema}{SetProfile}
+	\Delta AlarisInfusionPump\\
+	 Settings\\
+	\where
+	alarm' = alarm\\
+	alarmLimit' = alarmLimit\\
+	%alarmMax' = alarmMax\\
+	%alarmVolume' = alarmVolume\\
+	%audioVolumeAdjustable' = audioVolumeAdjustable\\ 
+	alarmVolumeSelected' = alarmVolumeSelected\\
+	profileSelected \in profilesActive\\
+	profile' = profileSelected\\
+	%profileFiltering' = profileFiltering\\
+	profileSelected' = profileSelected\\
+	drugCategory' = drugCategory\\ 
+	drugCategorySelected' = drugCategorySelected\\
+	\pagebreak
+	drug' = drug\\ 
+	drugSelected' = drugSelected\\
+	%drugOverrideMode' = drugOverrideMode\\
+	endRate' = endRate\\
+	doseRateSoftMin' = doseRateSoftMin\\
+	doseRateSoftMax' = doseRateSoftMax\\
+	doseRateHardMax' = doseRateHardMax\\
+	doseRateDefault' = doseRateDefault\\
+	%infusionRateMax' = infusionRateMax\\
+	%rateTitration' = rateTitration\\
+	volume' = volume\\
+	%volumeInfused' = volumeInfused\\
+	%concentration' = concentration\\
+	%concentrationMin' = concentrationMin\\
+	%concentrationMax' = concentrationMax\\
+	VTBI' = VTBI\\
+	rate' = rate\\
+	VTBIBagSize' = VTBIBagSize\\ 
+	VTBIBagSizeSelected' = VTBIBagSizeSelected\\
+	%VTBIClearRate' = VTBIClearRate\\
+	%primaryVTBIMax' = primaryVTBIMax\\ 
+	time' = time\\
+	battStatus' = battStatus\\
+	%batteryPercent' = batteryPercent\\
+	%pumpingPressure' = pumpingPressure\\
+	%pressureDisplay' = pressureDisplay\\
+	%pressureMax' = pressureMax\\
+	bolus' = bolus\\
+	bolusVolume' = bolusVolume\\
+	%bolusCategory' = bolusCategory\\
+	%bolusRateMax' = bolusRateMax\\
+	%bolusVolumeMax' = bolusVolumeMax\\
+	%bolusDoseDefault' = bolusDoseDefault\\
+	%bolusRateDefault' = bolusRateDefault\\
+	infusing' = infusing\\
+	infusing = No\\
+	%weight' = weight\\
+	%weightDefault' = weightDefault\\
+	%weightSoftMin' = weightSoftMin\\
+	%weightSoftMax' = weightSoftMax\\
+	countdown > 0 \land countdown' = 5\\
+	%autoNightMode' = autoNightMode\\
+	%autoSave' = autoSave\\
+	%eventLog' = eventLog\\
+	%standbyMode' = standbyMode\\
+	%primeRate' = primeRate\\
+	%secondaryInfusion' = secondaryInfusion\\
+	powerSavingCount' = powerSavingCount\\ 
+	option' = option\\
+	State' = State\\
+	%values' = values\\
+	profilesActive' = profilesActive\\  
+	 
+\end{schema}
+
+\begin{schema}{SetDrugCategory}
+\pagebreak
+	\Delta AlarisInfusionPump\\
+	 Settings\\
+	\where
+	alarm' = alarm\\
+	alarmLimit' = alarmLimit\\
+	%alarmMax' = alarmMax\\
+	%alarmVolume' = alarmVolume\\
+	%audioVolumeAdjustable' = audioVolumeAdjustable\\ 
+	alarmVolumeSelected' = alarmVolumeSelected\\
+	profile' = profile\\
+	%profileFiltering' = profileFiltering\\
+	profileSelected' = profileSelected\\
+	drugCategory' = drugCategorySelected\\ 
+	drugCategorySelected' = drugCategorySelected\\
+	drug' = drug\\ 
+	drugSelected' = drugSelected\\
+	%drugOverrideMode' = drugOverrideMode\\
+	endRate' = endRate\\
+	doseRateSoftMin' = doseRateSoftMin\\
+	doseRateSoftMax' = doseRateSoftMax\\
+	doseRateHardMax' = doseRateHardMax\\
+	doseRateDefault' = doseRateDefault\\
+	%infusionRateMax' = infusionRateMax\\
+	%rateTitration' = rateTitration\\
+	volume' = volume\\
+	%volumeInfused' = volumeInfused\\
+	%concentration' = concentration\\
+	%concentrationMin' = concentrationMin\\
+	%concentrationMax' = concentrationMax\\
+	VTBI' = VTBI\\
+	rate' = rate\\
+	VTBIBagSize' = VTBIBagSize\\ 
+	VTBIBagSizeSelected' = VTBIBagSizeSelected\\
+	%VTBIClearRate' = VTBIClearRate\\
+	%primaryVTBIMax' = primaryVTBIMax\\ 
+	time' = time\\
+	battStatus' = battStatus\\
+	%batteryPercent' = batteryPercent\\
+	%pumpingPressure' = pumpingPressure\\
+	%pressureDisplay' = pressureDisplay\\
+	%pressureMax' = pressureMax\\
+	bolus' = bolus\\
+	bolusVolume' = bolusVolume\\
+	%bolusCategory' = bolusCategory\\
+	%bolusRateMax' = bolusRateMax\\
+	%bolusVolumeMax' = bolusVolumeMax\\
+	%bolusDoseDefault' = bolusDoseDefault\\
+	%bolusRateDefault' = bolusRateDefault\\
+	infusing' = infusing\\
+	infusing = No\\
+	%weight' = weight\\
+	%weightDefault' = weightDefault\\
+	%weightSoftMin' = weightSoftMin\\
+	%weightSoftMax' = weightSoftMax\\
+	\pagebreak
+	countdown > 0 \land countdown' = 5\\
+	%autoNightMode' = autoNightMode\\
+	%autoSave' = autoSave\\
+	%eventLog' = eventLog\\
+	%standbyMode' = standbyMode\\
+	%primeRate' = primeRate\\
+	%secondaryInfusion' = secondaryInfusion\\
+	powerSavingCount' = powerSavingCount\\ 
+	option' = option\\
+State' = State\\
+	%values' = values\\
+profilesActive' = profilesActive\\  
+	 
+\end{schema}
+
+\begin{schema}{SetDrug}
+	\Delta AlarisInfusionPump\\
+	 Settings\\
+	drugSoftMin : DRUG \rel \nat\\
+	drugSoftMax : DRUG \rel \nat\\
+	drugHardMax : DRUG \rel \nat\\
+	drugRateDefault : DRUG \rel \nat
+	\where
+	drugSoftMin = \{(Adrenaline,0),(AmiodaroneBolus,2),(Amiodarone\\
+	Inf,3),(Dobutamine,1),(FLUIDSANDBLOODS,5),(Gentamicin,4),\\
+	(Morphine,2),(Noradrenaline,6),(Propofol,1)\}\\
+	drugSoftMax = \{(Adrenaline,100),(AmiodaroneBolus,90),\\
+	(AmiodaroneInf,80),(Dobutamine,61),(FLUIDSANDBLOODS,70),\\
+	(Gentamicin,80),(Morphine,100),(Noradrenaline,70),(Propofol,50)\}\\
+	drugHardMax = \{(Adrenaline,120),(AmiodaroneBolus,100),\\
+	(AmiodaroneInf,95),(Dobutamine,100),(FLUIDSANDBLOODS,\\
+	100),(Gentamicin,150),(Morphine,110),(Noradrenaline,84),\\
+	(Propofol,93)\}\\
+	drugRateDefault = \{(Adrenaline,10),(AmiodaroneBolus,20),\\
+	(AmiodaroneInf,30),(Dobutamine, 60),(FLUIDSANDBLOODS,40),\\
+	\pagebreak
+	(Gentamicin,50),(Morphine,60),(Noradrenaline,70),(Propofol,80)\}\\
+	alarm' = alarm\\
+	alarmLimit' = alarmLimit\\
+	%alarmMax' = alarmMax\\
+	%alarmVolume' = alarmVolume\\
+	%audioVolumeAdjustable' = audioVolumeAdjustable\\ 
+	alarmVolumeSelected' = alarmVolumeSelected\\
+	profile' = profile\\
+	%profileFiltering' = profileFiltering\\
+	profileSelected' = profileSelected\\
+	drugCategory' = drugCategory\\ 
+	drugCategorySelected' = drugCategorySelected\\
+	drug' = drugSelected\\ 
+	drugSelected' = drugSelected\\
+	%drugOverrideMode' = drugOverrideMode\\
+	endRate' = endRate\\
+	doseRateSoftMin' = drugSoftMin(drugSelected)\\
+	doseRateSoftMax' = drugSoftMax(drugSelected)\\
+	doseRateHardMax' = drugHardMax(drugSelected)\\
+	doseRateDefault' = drugRateDefault(drugSelected)\\
+	%infusionRateMax' = infusionRateMax\\
+	%rateTitration' = rateTitration\\
+	volume' = volume\\
+	%volumeInfused' = volumeInfused\\
+	%concentration' = concentration\\
+	%concentrationMin' = concentrationMin\\
+	%concentrationMax' = concentrationMax\\
+	VTBI' = VTBI\\
+	rate' = rate\\
+	VTBIBagSize' = VTBIBagSize\\ 
+	VTBIBagSizeSelected' = VTBIBagSizeSelected\\
+	%VTBIClearRate' = VTBIClearRate\\
+	%primaryVTBIMax' = primaryVTBIMax\\ 
+	time' = time\\
+	battStatus' = battStatus\\
+	%batteryPercent' = batteryPercent\\
+	%pumpingPressure' = pumpingPressure\\
+	%pressureDisplay' = pressureDisplay\\
+	%pressureMax' = pressureMax\\
+	bolus' = bolus\\
+	bolusVolume' = bolusVolume\\
+	%bolusCategory' = bolusCategory\\
+	%bolusRateMax' = bolusRateMax\\
+	%bolusVolumeMax' = bolusVolumeMax\\
+	%bolusDoseDefault' = bolusDoseDefault\\
+	%bolusRateDefault' = bolusRateDefault\\
+	infusing' = infusing\\
+	infusing = No\\
+	%weight' = weight\\
+	%weightDefault' = weightDefault\\
+	%weightSoftMin' = weightSoftMin\\
+	%weightSoftMax' = weightSoftMax\\
+	countdown > 0 \land countdown' = 5\\
+	%autoNightMode' = autoNightMode\\
+	%autoSave' = autoSave\\
+	%eventLog' = eventLog\\
+	%standbyMode' = standbyMode\\
+	%primeRate' = primeRate\\
+	%secondaryInfusion' = secondaryInfusion\\
+	\pagebreak
+	powerSavingCount' = powerSavingCount\\ 
+	option' = option\\
+State' = State\\
+	%values' = values\\
+profilesActive' = profilesActive
+\end{schema}
+
+\begin{schema}{SetRate}
+	\Delta AlarisInfusionPump\\
+	 Settings\\
+	drugRate : DRUG \rel \nat\\
+	\where
+	drugRate = \{(Adrenaline,10),(AmiodaroneBolus,20),(Amiodarone\\
+	Inf,40),(Dobutamine,60),(FLUIDSANDBLOODS,80),(Gentamicin,\\
+	100),(Morphine,120),(Noradrenaline,140),(Propofol,160)\}\\
+	alarm' = alarm\\
+	alarmLimit' = alarmLimit\\
+	%alarmMax' = alarmMax\\
+	%alarmVolume' = alarmVolume\\
+	%audioVolumeAdjustable' = audioVolumeAdjustable\\ 
+	alarmVolumeSelected' = alarmVolumeSelected\\
+	profile' = profile\\
+	%profileFiltering' = profileFiltering\\
+	profileSelected' = profileSelected\\
+	drugCategory' = drugCategory\\ 
+	drugCategorySelected' = drugCategorySelected\\
+	drug' = drug\\ 
+	drugSelected' = drugSelected\\
+	%drugOverrideMode' = drugOverrideMode\\
+	endRate' = endRate\\
+	doseRateSoftMin' = doseRateSoftMin\\
+	doseRateSoftMax' = doseRateSoftMax\\
+	doseRateHardMax' = doseRateHardMax\\
+	doseRateDefault' = doseRateDefault\\
+	%infusionRateMax' = infusionRateMax\\
+	%rateTitration' = rateTitration\\
+	\pagebreak
+	volume' = volume\\
+	%volumeInfused' = volumeInfused\\
+	%concentration' = concentration\\
+	%concentrationMin' = concentrationMin\\
+	%concentrationMax' = concentrationMax\\
+	VTBI' = VTBI\\
+	rate \geq 0 \land rate \leq doseRateHardMax\\
+	rate' = drugRate(drug)\\
+	VTBIBagSize' = VTBIBagSize\\ 
+	VTBIBagSizeSelected' = VTBIBagSizeSelected\\
+	%VTBIClearRate' = VTBIClearRate\\
+	%primaryVTBIMax' = primaryVTBIMax\\ 
+	time' = time\\
+	battStatus' = battStatus\\
+	%batteryPercent' = batteryPercent\\
+	%pumpingPressure' = pumpingPressure\\
+	%pressureDisplay' = pressureDisplay\\
+	%pressureMax' = pressureMax\\
+	bolus' = bolus\\
+	bolusVolume' = bolusVolume\\
+	%bolusCategory' = bolusCategory\\
+	%bolusRateMax' = bolusRateMax\\
+	%bolusVolumeMax' = bolusVolumeMax\\
+	%bolusDoseDefault' = bolusDoseDefault\\
+	%bolusRateDefault' = bolusRateDefault\\
+	infusing' = infusing\\
+	%weight' = weight\\
+	%weightDefault' = weightDefault\\
+	%weightSoftMin' = weightSoftMin\\
+	%weightSoftMax' = weightSoftMax\\
+	countdown > 0 \land countdown' = 5\\
+	%autoNightMode' = autoNightMode\\
+	%autoSave' = autoSave\\
+	%eventLog' = eventLog\\
+	%standbyMode' = standbyMode\\
+	%primeRate' = primeRate\\
+	%secondaryInfusion' = secondaryInfusion\\
+	powerSavingCount' = powerSavingCount\\ 
+	option' = option\\
+State' = State\\
+	%values' = values\\
+	profilesActive' = profilesActive
+\end{schema}
+
+\begin{schema}{SetVTBI}
+	\Delta AlarisInfusionPump\\
+	 Settings\\
+	\where
+	alarm' = alarm\\
+	alarmLimit' = alarmLimit\\
+	%alarmMax' = alarmMax\\
+	%alarmVolume' = alarmVolume\\
+	%audioVolumeAdjustable' = audioVolumeAdjustable\\ 
+	alarmVolumeSelected' = alarmVolumeSelected\\
+	profile' = profile\\
+	%profileFiltering' = profileFiltering\\
+	profileSelected' = profileSelected\\
+	drugCategory' = drugCategory\\ 
+	\pagebreak
+	drugCategorySelected' = drugCategorySelected\\
+	drug' = drug\\ 
+	drugSelected' = drugSelected\\
+	%drugOverrideMode' = drugOverrideMode\\
+	endRate' = endRate\\
+	doseRateSoftMin' = doseRateSoftMin\\
+	doseRateSoftMax' = doseRateSoftMax\\
+	doseRateHardMax' = doseRateHardMax\\
+	doseRateDefault' = doseRateDefault\\
+	%infusionRateMax' = infusionRateMax\\
+	%rateTitration' = rateTitration\\
+	volume' = volume\\
+	%volumeInfused' = volumeInfused\\
+	%concentration' = concentration\\
+	%concentrationMin' = concentrationMin\\
+	%concentrationMax' = concentrationMax\\
+	VTBI \geq 0 \land VTBI \leq primaryVTBIMax\\
+	(VTBIBagSize > 0 \land VTBI' = VTBIBagSize) \lor (VTBIBagSize \leq 0 \\
+	\land VTBI' = VTBI)\\
+	rate' = rate\\
+	VTBIBagSize' = VTBIBagSize\\ 
+	VTBIBagSizeSelected' = VTBIBagSizeSelected\\
+	%VTBIClearRate' = VTBIClearRate\\
+	%primaryVTBIMax' = primaryVTBIMax\\ 
+	time' = time\\
+	battStatus' = battStatus\\
+	%batteryPercent' = batteryPercent\\
+	%pumpingPressure' = pumpingPressure\\
+	%pressureDisplay' = pressureDisplay\\
+	%pressureMax' = pressureMax\\
+	bolus' = bolus\\
+	bolusVolume' = bolusVolume\\
+	%bolusCategory' = bolusCategory\\
+	%bolusRateMax' = bolusRateMax\\
+	%bolusVolumeMax' = bolusVolumeMax\\
+	%bolusDoseDefault' = bolusDoseDefault\\
+	%bolusRateDefault' = bolusRateDefault\\
+	infusing' = infusing\\
+	%weight' = weight\\
+	%weightDefault' = weightDefault\\
+	%weightSoftMin' = weightSoftMin\\
+	%weightSoftMax' = weightSoftMax\\
+	countdown > 0 \land countdown' = 5\\
+	%autoNightMode' = autoNightMode\\
+	%autoSave' = autoSave\\
+	%eventLog' = eventLog\\
+	%standbyMode' = standbyMode\\
+	%primeRate' = primeRate\\
+	%secondaryInfusion' = secondaryInfusion\\
+	powerSavingCount' = powerSavingCount\\ 
+	option' = option\\
+	State' = State\\
+	%values' = values\\
+	profilesActive' = profilesActive
+\end{schema}
+
+\begin{schema}{SetVTBIBags}
+	\Delta AlarisInfusionPump\\
+	 Settings\\
+	\where
+	alarm' = alarm\\
+	alarmLimit' = alarmLimit\\
+	%alarmMax' = alarmMax\\
+	%alarmVolume' = alarmVolume\\
+	%audioVolumeAdjustable' = audioVolumeAdjustable\\ 
+	alarmVolumeSelected' = alarmVolumeSelected\\
+	profile' = profile\\
+	%profileFiltering' = profileFiltering\\
+	profileSelected' = profileSelected\\
+	drugCategory' = drugCategory\\ 
+	drugCategorySelected' = drugCategorySelected\\
+	drug' = drug\\ 
+	drugSelected' = drugSelected\\
+	%drugOverrideMode' = drugOverrideMode\\
+	endRate' = endRate\\
+	doseRateSoftMin' = doseRateSoftMin\\
+	doseRateSoftMax' = doseRateSoftMax\\
+	doseRateHardMax' = doseRateHardMax\\
+	doseRateDefault' = doseRateDefault\\
+	%infusionRateMax' = infusionRateMax\\
+	%rateTitration' = rateTitration\\
+	volume' = volume\\
+	%volumeInfused' = volumeInfused\\
+	%concentration' = concentration\\
+	%concentrationMin' = concentrationMin\\
+	%concentrationMax' = concentrationMax\\
+	VTBI' = VTBI\\
+	rate' = rate\\
+	VTBIBagSize' = VTBIBagSizeSelected\\ 
+	VTBIBagSizeSelected' = VTBIBagSizeSelected\\
+	%VTBIClearRate' = VTBIClearRate\\
+	%primaryVTBIMax' = primaryVTBIMax\\ 
+	time' = time\\
+	battStatus' = battStatus\\
+	%batteryPercent' = batteryPercent\\
+	%pumpingPressure' = pumpingPressure\\
+	%pressureDisplay' = pressureDisplay\\
+	%pressureMax' = pressureMax\\
+	bolus' = bolus\\
+	bolusVolume' = bolusVolume\\
+	%bolusCategory' = bolusCategory\\
+	%bolusRateMax' = bolusRateMax\\
+	%bolusVolumeMax' = bolusVolumeMax\\
+	%bolusDoseDefault' = bolusDoseDefault\\
+	%bolusRateDefault' = bolusRateDefault\\
+	\pagebreak
+	infusing' = infusing\\
+	%weight' = weight\\
+	%weightDefault' = weightDefault\\
+	%weightSoftMin' = weightSoftMin\\
+	%weightSoftMax' = weightSoftMax\\
+	countdown > 0 \land countdown' = 5\\
+	%autoNightMode' = autoNightMode\\
+	%autoSave' = autoSave\\
+	%eventLog' = eventLog\\
+	%standbyMode' = standbyMode\\
+	%primeRate' = primeRate\\
+	%secondaryInfusion' = secondaryInfusion\\
+	powerSavingCount' = powerSavingCount\\ 
+	option' = option\\
+	State' = State\\
+	%values' = values\\
+	profilesActive' = profilesActive
+\end{schema}
+
+\begin{schema}{ChangeReset}
+	\Delta AlarisInfusionPump\\
+	 Settings\\
+	\where
+	alarm' = alarm\\
+	alarmLimit' = alarmLimit\\
+	%alarmMax' = alarmMax\\
+	%alarmVolume' = alarmVolume\\
+	%audioVolumeAdjustable' = audioVolumeAdjustable\\ 
+	alarmVolumeSelected' = alarmVolumeSelected\\
+	profile' = profile\\
+	%profileFiltering' = profileFiltering\\
+	profileSelected' = profileSelected\\
+	drugCategory' = drugCategory\\ 
+	drugCategorySelected' = drugCategorySelected\\
+	drug' = drug\\ 
+	drugSelected' = drugSelected\\
+	%drugOverrideMode' = drugOverrideMode\\
+	endRate' = endRate\\
+	doseRateSoftMin' = doseRateSoftMin\\
+	doseRateSoftMax' = doseRateSoftMax\\
+	doseRateHardMax' = doseRateHardMax\\
+	doseRateDefault' = doseRateDefault\\
+	%infusionRateMax' = infusionRateMax\\
+	%rateTitration' = rateTitration\\
+	volume' = volume\\
+	%volumeInfused' = volumeInfused\\
+	%concentration' = concentration\\
+	%concentrationMin' = concentrationMin\\
+	%concentrationMax' = concentrationMax\\
+	VTBI' = VTBI\\
+	\pagebreak
+	rate' = rate\\
+	VTBIBagSize' = VTBIBagSize\\ 
+	VTBIBagSizeSelected' = VTBIBagSizeSelected\\
+	%VTBIClearRate' = VTBIClearRate\\
+	%primaryVTBIMax' = primaryVTBIMax\\ 
+	time' = time\\
+	battStatus' = battStatus\\
+	%batteryPercent' = batteryPercent\\
+	%pumpingPressure' = pumpingPressure\\
+	%pressureDisplay' = pressureDisplay\\
+	%pressureMax' = pressureMax\\
+	bolus' = bolus\\
+	bolusVolume' = bolusVolume\\
+	%bolusCategory' = bolusCategory\\
+	%bolusRateMax' = bolusRateMax\\
+	%bolusVolumeMax' = bolusVolumeMax\\
+	%bolusDoseDefault' = bolusDoseDefault\\
+	%bolusRateDefault' = bolusRateDefault\\
+	infusing' = infusing\\
+	%weight' = weight\\
+	%weightDefault' = weightDefault\\
+	%weightSoftMin' = weightSoftMin\\
+	%weightSoftMax' = weightSoftMax\\
+	countdown > 0 \land countdown' = 5\\
+	%autoNightMode' = autoNightMode\\
+	%autoSave' = autoSave\\
+	%eventLog' = eventLog\\
+	%standbyMode' = standbyMode\\
+	%primeRate' = primeRate\\
+	%secondaryInfusion' = secondaryInfusion\\
+	powerSavingCount' = powerSavingCount\\ 
+	option' = option\\
+	State' = 1\\
+	%values' = values\\
+	profilesActive' = profilesActive
+\end{schema}
+
+\begin{schema}{RemoveProfile}
+	\Delta AlarisInfusionPump\\
+	 Settings\\
+	\where
+	alarm' = alarm\\
+	alarmLimit' = alarmLimit\\
+	%alarmMax' = alarmMax\\
+	%alarmVolume' = alarmVolume\\
+	%audioVolumeAdjustable' = audioVolumeAdjustable\\ 
+	alarmVolumeSelected' = alarmVolumeSelected\\
+	profile' = profile\\
+	%profileFiltering' = profileFiltering\\
+	%profilesActive' = profilesActive  \filter (\ran profilesActive \setminus \{profileSelected\})\\
+	profilesActive' = profilesActive \setminus \{profileSelected\}\\
+	profilesActive' \neq \emptyset\\
+	%profileSelected' = head~ profilesActive'\\
+	profileSelected' = profileSelected\\
+	drugCategory' = drugCategory\\ 
+	drugCategorySelected' = drugCategorySelected\\
+	\pagebreak
+	drug' = drug\\ 
+	drugSelected' = drugSelected\\
+	%drugOverrideMode' = drugOverrideMode\\
+	endRate' = endRate\\
+	doseRateSoftMin' = doseRateSoftMin\\
+	doseRateSoftMax' = doseRateSoftMax\\
+	doseRateHardMax' = doseRateHardMax\\
+	doseRateDefault' = doseRateDefault\\
+	%infusionRateMax' = infusionRateMax\\
+	%rateTitration' = rateTitration\\
+	volume' = volume\\
+	%volumeInfused' = volumeInfused\\
+	%concentration' = concentration\\
+	%concentrationMin' = concentrationMin\\
+	%concentrationMax' = concentrationMax\\
+	VTBI' = VTBI\\
+	rate' = rate\\
+	VTBIBagSize' = VTBIBagSize\\ 
+	VTBIBagSizeSelected' = VTBIBagSizeSelected\\
+	%VTBIClearRate' = VTBIClearRate\\
+	%primaryVTBIMax' = primaryVTBIMax\\ 
+	time' = time\\
+	battStatus' = battStatus\\
+	%batteryPercent' = batteryPercent\\
+	%pumpingPressure' = pumpingPressure\\
+	%pressureDisplay' = pressureDisplay\\
+	%pressureMax' = pressureMax\\
+	bolus' = bolus\\
+	bolusVolume' = bolusVolume\\
+	%bolusCategory' = bolusCategory\\
+	%bolusRateMax' = bolusRateMax\\
+	%bolusVolumeMax' = bolusVolumeMax\\
+	%bolusDoseDefault' = bolusDoseDefault\\
+	%bolusRateDefault' = bolusRateDefault\\
+	infusing' = infusing\\
+	%weight' = weight\\
+	%weightDefault' = weightDefault\\
+	%weightSoftMin' = weightSoftMin\\
+	%weightSoftMax' = weightSoftMax\\
+	countdown > 0 \land countdown' = 5\\
+	%autoNightMode' = autoNightMode\\
+	%autoSave' = autoSave\\
+	%eventLog' = eventLog\\
+	%standbyMode' = standbyMode\\
+	%primeRate' = primeRate\\
+	%secondaryInfusion' = secondaryInfusion\\
+	powerSavingCount' = powerSavingCount\\ 
+	option' = option\\
+	State' = State\\
+	%values' = values\\
+\end{schema}
+
+\begin{schema}{AddProfile}
+	\Delta AlarisInfusionPump\\
+	 Settings\\
+	\where
+	alarm' = alarm\\
+	\pagebreak
+	alarmLimit' = alarmLimit\\
+	%alarmMax' = alarmMax\\
+	%alarmVolume' = alarmVolume\\
+	%audioVolumeAdjustable' = audioVolumeAdjustable\\ 
+	alarmVolumeSelected' = alarmVolumeSelected\\
+	profile' = profile\\
+	%profileFiltering' = profileFiltering\\
+	%\lnot(\langle profileSelected\rangle \inseq profilesActive)\\
+	%profilesActive' = profilesActive \cat \langle profileSelected \rangle\\
+	profilesActive' = profilesActive \cup \{profileSelected\}\\
+	profileSelected' = profileSelected\\
+	drugCategory' = drugCategory\\ 
+	drugCategorySelected' = drugCategorySelected\\
+	drug' = drug\\ 
+	drugSelected' = drugSelected\\
+	%drugOverrideMode' = drugOverrideMode\\
+	endRate' = endRate\\
+	doseRateSoftMin' = doseRateSoftMin\\
+	doseRateSoftMax' = doseRateSoftMax\\
+	doseRateHardMax' = doseRateHardMax\\
+	doseRateDefault' = doseRateDefault\\
+	%infusionRateMax' = infusionRateMax\\
+	%rateTitration' = rateTitration\\
+	volume' = volume\\
+	%volumeInfused' = volumeInfused\\
+	%concentration' = concentration\\
+	%concentrationMin' = concentrationMin\\
+	%concentrationMax' = concentrationMax\\
+	VTBI' = VTBI\\
+	rate' = rate\\
+	VTBIBagSize' = VTBIBagSize\\ 
+	VTBIBagSizeSelected' = VTBIBagSizeSelected\\
+	%VTBIClearRate' = VTBIClearRate\\
+	%primaryVTBIMax' = primaryVTBIMax\\ 
+	time' = time\\
+	battStatus' = battStatus\\
+	%batteryPercent' = batteryPercent\\
+	%pumpingPressure' = pumpingPressure\\
+	%pressureDisplay' = pressureDisplay\\
+	%pressureMax' = pressureMax\\
+	bolus' = bolus\\
+	bolusVolume' = bolusVolume\\
+	%bolusCategory' = bolusCategory\\
+	%bolusRateMax' = bolusRateMax\\
+	%bolusVolumeMax' = bolusVolumeMax\\
+	%bolusDoseDefault' = bolusDoseDefault\\
+	%bolusRateDefault' = bolusRateDefault\\
+	infusing' = infusing\\
+	%weight' = weight\\
+	%weightDefault' = weightDefault\\
+	%weightSoftMin' = weightSoftMin\\
+	%weightSoftMax' = weightSoftMax\\
+	countdown > 0 \land countdown' = 5\\
+	%autoNightMode' = autoNightMode\\
+	%autoSave' = autoSave\\
+	%eventLog' = eventLog\\
+	%standbyMode' = standbyMode\\
+	%primeRate' = primeRate\\
+	%secondaryInfusion' = secondaryInfusion\\
+	powerSavingCount' = powerSavingCount\\ 
+	option' = option\\
+	State' = State\\
+	%values' = values\\
+\end{schema}
+
+\begin{schema}{TopEndRate}
+	\Delta AlarisInfusionPump\\
+	 Settings\\
+	\where
+	alarm' = alarm\\
+	alarmLimit' = alarmLimit\\
+	%alarmMax' = alarmMax\\
+	%alarmVolume' = alarmVolume\\
+	%audioVolumeAdjustable' = audioVolumeAdjustable\\ 
+	alarmVolumeSelected' = alarmVolumeSelected\\
+	profile' = profile\\
+	%profileFiltering' = profileFiltering\\
+	profilesActive' = profilesActive\\
+	profileSelected' = profileSelected\\
+	drugCategory' = drugCategory\\ 
+	drugCategorySelected' = drugCategorySelected\\
+	drug' = drug\\ 
+	drugSelected' = drugSelected\\
+	%drugOverrideMode' = drugOverrideMode\\
+	endRate' = STOP\\
+	doseRateSoftMin' = doseRateSoftMin\\
+	doseRateSoftMax' = doseRateSoftMax\\
+	doseRateHardMax' = doseRateHardMax\\
+	doseRateDefault' = doseRateDefault\\
+	%infusionRateMax' = infusionRateMax\\
+	%rateTitration' = rateTitration\\
+	volume' = volume\\
+	%volumeInfused' = volumeInfused\\
+	%concentration' = concentration\\
+	%concentrationMin' = concentrationMin\\
+	%concentrationMax' = concentrationMax\\
+	VTBI' = VTBI\\
+	rate' = rate\\
+	VTBIBagSize' = VTBIBagSize\\ 
+	VTBIBagSizeSelected' = VTBIBagSizeSelected\\
+	%VTBIClearRate' = VTBIClearRate\\
+	%primaryVTBIMax' = primaryVTBIMax\\ 
+	time' = time\\
+	battStatus' = battStatus\\
+	%batteryPercent' = batteryPercent\\
+	%pumpingPressure' = pumpingPressure\\
+	%pressureDisplay' = pressureDisplay\\
+	%pressureMax' = pressureMax\\
+	bolus' = bolus\\
+	\pagebreak
+	bolusVolume' = bolusVolume\\
+	%bolusCategory' = bolusCategory\\
+	%bolusRateMax' = bolusRateMax\\
+	%bolusVolumeMax' = bolusVolumeMax\\
+	%bolusDoseDefault' = bolusDoseDefault\\
+	%bolusRateDefault' = bolusRateDefault\\
+	infusing' = infusing\\
+	%weight' = weight\\
+	%weightDefault' = weightDefault\\
+	%weightSoftMin' = weightSoftMin\\
+	%weightSoftMax' = weightSoftMax\\
+	countdown > 0 \land countdown' = 5\\
+	%autoNightMode' = autoNightMode\\
+	%autoSave' = autoSave\\
+	%eventLog' = eventLog\\
+	%standbyMode' = standbyMode\\
+	%primeRate' = primeRate\\
+	%secondaryInfusion' = secondaryInfusion\\
+	powerSavingCount' = powerSavingCount\\ 
+	option' = option\\
+	State' = State\\
+	%values' = values\\
+\end{schema}
+
+\begin{schema}{BottomEndRate}
+	\Delta AlarisInfusionPump\\
+	 Settings\\
+	\where
+	alarm' = alarm\\
+	alarmLimit' = alarmLimit\\
+	%alarmMax' = alarmMax\\
+	%alarmVolume' = alarmVolume\\
+	%audioVolumeAdjustable' = audioVolumeAdjustable\\ 
+	alarmVolumeSelected' = alarmVolumeSelected\\
+	profile' = profile\\
+	%profileFiltering' = profileFiltering\\
+	profilesActive' = profilesActive\\
+	profileSelected' = profileSelected\\
+	drugCategory' = drugCategory\\ 
+	drugCategorySelected' = drugCategorySelected\\
+	drug' = drug\\ 
+	drugSelected' = drugSelected\\
+	%drugOverrideMode' = drugOverrideMode\\
+	endRate' = CONTINUE\\
+	doseRateSoftMin' = doseRateSoftMin\\
+	doseRateSoftMax' = doseRateSoftMax\\
+	doseRateHardMax' = doseRateHardMax\\
+	doseRateDefault' = doseRateDefault\\
+	%infusionRateMax' = infusionRateMax\\
+	%rateTitration' = rateTitration\\
+	volume' = volume\\
+	\pagebreak
+	%volumeInfused' = volumeInfused\\
+	%concentration' = concentration\\
+	%concentrationMin' = concentrationMin\\
+	%concentrationMax' = concentrationMax\\
+	VTBI' = VTBI\\
+	rate' = rate\\
+	VTBIBagSize' = VTBIBagSize\\ 
+	VTBIBagSizeSelected' = VTBIBagSizeSelected\\
+	%VTBIClearRate' = VTBIClearRate\\
+	%primaryVTBIMax' = primaryVTBIMax\\ 
+	time' = time\\
+	battStatus' = battStatus\\
+	%batteryPercent' = batteryPercent\\
+	%pumpingPressure' = pumpingPressure\\
+	%pressureDisplay' = pressureDisplay\\
+	%pressureMax' = pressureMax\\
+	bolus' = bolus\\
+	bolusVolume' = bolusVolume\\
+	%bolusCategory' = bolusCategory\\
+	%bolusRateMax' = bolusRateMax\\
+	%bolusVolumeMax' = bolusVolumeMax\\
+	%bolusDoseDefault' = bolusDoseDefault\\
+	%bolusRateDefault' = bolusRateDefault\\
+	infusing' = infusing\\
+	%weight' = weight\\
+	%weightDefault' = weightDefault\\
+	%weightSoftMin' = weightSoftMin\\
+	%weightSoftMax' = weightSoftMax\\
+	countdown > 0 \land countdown' = 5\\
+	%autoNightMode' = autoNightMode\\
+	%autoSave' = autoSave\\
+	%eventLog' = eventLog\\
+	%standbyMode' = standbyMode\\
+	%primeRate' = primeRate\\
+	%secondaryInfusion' = secondaryInfusion\\
+	powerSavingCount' = powerSavingCount\\ 
+	option' = option\\
+	State' = State\\
+	%values' = values\\
+\end{schema}
+
+\begin{schema}{UpEndRateOne}
+	\Delta AlarisInfusionPump\\
+	 Settings\\
+	endrates : ENDRATE \rel ENDRATE\\
+	\where
+	endrates = \{(CONTINUE,KVO),(KVO,STOP)\}\\
+	alarm' = alarm\\
+	alarmLimit' = alarmLimit\\
+	%alarmMax' = alarmMax\\
+	%alarmVolume' = alarmVolume\\
+	%audioVolumeAdjustable' = audioVolumeAdjustable\\ 
+	alarmVolumeSelected' = alarmVolumeSelected\\
+	profile' = profile\\
+	%profileFiltering' = profileFiltering\\
+	profilesActive' = profilesActive\\
+	profileSelected' = profileSelected\\
+	drugCategory' = drugCategory\\ 
+	\pagebreak
+	drugCategorySelected' = drugCategorySelected\\
+	drug' = drug\\ 
+	drugSelected' = drugSelected\\
+	%drugOverrideMode' = drugOverrideMode\\
+	endRate \neq STOP\\
+	endRate' = endrates(endRate)\\
+	doseRateSoftMin' = doseRateSoftMin\\
+	doseRateSoftMax' = doseRateSoftMax\\
+	doseRateHardMax' = doseRateHardMax\\
+	doseRateDefault' = doseRateDefault\\
+	%infusionRateMax' = infusionRateMax\\
+	%rateTitration' = rateTitration\\
+	volume' = volume\\
+	%volumeInfused' = volumeInfused\\
+	%concentration' = concentration\\
+	%concentrationMin' = concentrationMin\\
+	%concentrationMax' = concentrationMax\\
+	VTBI' = VTBI\\
+	rate' = rate\\
+	VTBIBagSize' = VTBIBagSize\\ 
+	VTBIBagSizeSelected' = VTBIBagSizeSelected\\
+	%VTBIClearRate' = VTBIClearRate\\
+	%primaryVTBIMax' = primaryVTBIMax\\ 
+	time' = time\\
+	battStatus' = battStatus\\
+	%batteryPercent' = batteryPercent\\
+	%pumpingPressure' = pumpingPressure\\
+	%pressureDisplay' = pressureDisplay\\
+	%pressureMax' = pressureMax\\
+	bolus' = bolus\\
+	bolusVolume' = bolusVolume\\
+	%bolusCategory' = bolusCategory\\
+	%bolusRateMax' = bolusRateMax\\
+	%bolusVolumeMax' = bolusVolumeMax\\
+	%bolusDoseDefault' = bolusDoseDefault\\
+	%bolusRateDefault' = bolusRateDefault\\
+	infusing' = infusing\\
+	%weight' = weight\\
+	%weightDefault' = weightDefault\\
+	%weightSoftMin' = weightSoftMin\\
+	%weightSoftMax' = weightSoftMax\\
+	countdown > 0 \land countdown' = 5\\
+	%autoNightMode' = autoNightMode\\
+	%autoSave' = autoSave\\
+	%eventLog' = eventLog\\
+	%standbyMode' = standbyMode\\
+	%primeRate' = primeRate\\
+	%secondaryInfusion' = secondaryInfusion\\
+	powerSavingCount' = powerSavingCount\\ 
+	option' = option\\
+	State' = State\\
+	%values' = values\\
+\end{schema}
+
+%STOP | KVO | CONTINUE
+\begin{schema}{DownEndRateOne}
+	\Delta AlarisInfusionPump\\
+	\pagebreak
+	 Settings\\
+	endrates : ENDRATE \rel ENDRATE\\
+	\where
+	endrates = \{(STOP,KVO),(KVO,CONTINUE)\}\\
+	alarm' = alarm\\
+	alarmLimit' = alarmLimit\\
+	%alarmMax' = alarmMax\\
+	%alarmVolume' = alarmVolume\\
+	%audioVolumeAdjustable' = audioVolumeAdjustable\\ 
+	alarmVolumeSelected' = alarmVolumeSelected\\
+	profile' = profile\\
+	%profileFiltering' = profileFiltering\\
+	profilesActive' = profilesActive\\
+	profileSelected' = profileSelected\\
+	drugCategory' = drugCategory\\ 
+	drugCategorySelected' = drugCategorySelected\\
+	drug' = drug\\ 
+	drugSelected' = drugSelected\\
+	%drugOverrideMode' = drugOverrideMode\\
+	endRate \neq CONTINUE\\
+	endRate' = endrates(endRate)\\
+	doseRateSoftMin' = doseRateSoftMin\\
+	doseRateSoftMax' = doseRateSoftMax\\
+	doseRateHardMax' = doseRateHardMax\\
+	doseRateDefault' = doseRateDefault\\
+	%infusionRateMax' = infusionRateMax\\
+	%rateTitration' = rateTitration\\
+	volume' = volume\\
+	%volumeInfused' = volumeInfused\\
+	%concentration' = concentration\\
+	%concentrationMin' = concentrationMin\\
+	%concentrationMax' = concentrationMax\\
+	VTBI' = VTBI\\
+	rate' = rate\\
+	VTBIBagSize' = VTBIBagSize\\ 
+	VTBIBagSizeSelected' = VTBIBagSizeSelected\\
+	%VTBIClearRate' = VTBIClearRate\\
+	%primaryVTBIMax' = primaryVTBIMax\\ 
+	time' = time\\
+	battStatus' = battStatus\\
+	%batteryPercent' = batteryPercent\\
+	%pumpingPressure' = pumpingPressure\\
+	%pressureDisplay' = pressureDisplay\\
+	%pressureMax' = pressureMax\\
+	bolus' = bolus\\
+	\pagebreak
+	bolusVolume' = bolusVolume\\
+	%bolusCategory' = bolusCategory\\
+	%bolusRateMax' = bolusRateMax\\
+	%bolusVolumeMax' = bolusVolumeMax\\
+	%bolusDoseDefault' = bolusDoseDefault\\
+	%bolusRateDefault' = bolusRateDefault\\
+	infusing' = infusing\\
+	%weight' = weight\\
+	%weightDefault' = weightDefault\\
+	%weightSoftMin' = weightSoftMin\\
+	%weightSoftMax' = weightSoftMax\\
+	countdown > 0 \land countdown' = 5\\
+	%autoNightMode' = autoNightMode\\
+	%autoSave' = autoSave\\
+	%eventLog' = eventLog\\
+	%standbyMode' = standbyMode\\
+	%primeRate' = primeRate\\
+	%secondaryInfusion' = secondaryInfusion\\
+	powerSavingCount' = powerSavingCount\\ 
+	option' = option\\
+	State' = State\\
+	%values' = values\\
+\end{schema}
